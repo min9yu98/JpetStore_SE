@@ -17,7 +17,7 @@
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
 
-<jsp:useBean id="actionBean"
+<jsp:useBean id="catalog"
              class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
 
 <div id="Catalog">
@@ -25,11 +25,9 @@
         <tr>
             <th>Product ID</th>
             <th>Product Name</th>
-            <th>Description</th>
-            <th>&nbsp;</th>
+            <th></th>
         </tr>
         <c:forEach var="products" items="${actionBean.productList}">
-
             <tr>
                 <td>
                         ${products.productId}
@@ -37,10 +35,6 @@
                 <td>
                         ${products.name}
                 </td>
-                <td>
-                        ${products.description}
-                </td>
-                <td> </td>
             </tr>
         </c:forEach>
     </table>
