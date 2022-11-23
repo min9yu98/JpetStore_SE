@@ -128,4 +128,4 @@
 
 </div>
 
-<div id="Content"></div><stripes:messages />
+<div id="Content"> <stripes:messages />
