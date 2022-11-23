@@ -42,7 +42,10 @@
 		</tr>
 	</c:forEach>
 </table>
-
+<stripes:link class="buttin" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean" event="categoryAPI">
+	<striped:param name="categoryId" value="${actionBean.category.name}"/>
+	view API
+</stripes:link>
 </div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
