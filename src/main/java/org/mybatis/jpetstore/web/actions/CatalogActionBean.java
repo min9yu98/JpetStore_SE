@@ -183,7 +183,8 @@ public class CatalogActionBean extends AbstractActionBean {
    * @return
    * */
   public ForwardResolution viewProductByAdmin() {
-    itemList = catalogService.getAllItemList();
+    productList = catalogService.getAllProductList();
+
     return new ForwardResolution(VIEW_PRODUCT_ADMIN);
   }
 
