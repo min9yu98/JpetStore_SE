@@ -80,6 +80,10 @@ public class CatalogService {
     return itemMapper.getItemListByProduct(productId);
   }
 
+  public List<Item> getAllItemList() {
+    return itemMapper.getAllItemList();
+  }
+
   public Item getItem(String itemId) {
     return itemMapper.getItem(itemId);
   }
