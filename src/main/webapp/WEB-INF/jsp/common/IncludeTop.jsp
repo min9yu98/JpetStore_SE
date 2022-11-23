@@ -88,7 +88,14 @@
 	      </stripes:link>
 	</c:if>
 </c:if> <img align="middle" src="../images/separator.gif" /> <a
-	href="../help.html">?</a></div>
+	href="../help.html">?</a><c:if test="${sessionScope.accountBean.account.admin}">
+	<img align="middle" src="../images/separator.gif" />
+	<stripes:link
+			beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+			event="viewProductByAdmin">
+		Admin Dashboard
+	</stripes:link>
+</c:if></div>
 </div>
 
 <div id="Search">
