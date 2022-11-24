@@ -32,7 +32,7 @@
                 <td>
                     <stripes:link
                             beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                            event="viewItemByAdmin">
+                            event="viewItemListByAdmin">
                         <stripes:param name="productId" value="${products.productId}" />
                         ${products.productId}
                     </stripes:link>
@@ -43,7 +43,7 @@
                 <td>
                     <stripes:link class="Button"
                             beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                            event="viewItemByAdmin">
+                            event="viewItemListByAdmin">
                         <stripes:param name="productId" value="${products.productId}" />
                         EDIT ITEM
                     </stripes:link>

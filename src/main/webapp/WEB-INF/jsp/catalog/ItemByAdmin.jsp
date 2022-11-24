@@ -58,15 +58,15 @@
                     <stripes:link class="Button"
                                   beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
                                   event="addItemToCart">
-                        <stripes:param name="workingItemId" value="${item.itemId}" />
+                        <stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
                         UPDATE
                     </stripes:link>
                 </td>
                 <td>
                     <stripes:link class="Button"
-                                  beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
+                                  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                                   event="deleteItem">
-                        <stripes:param name="workingItemId" value="${item.itemId}" />
+                        <stripes:param name="itemId" value="${actionBean.item.itemId}" />
                         DELETE
                     </stripes:link>
                 </td>
@@ -80,7 +80,7 @@
     <stripes:link class="Button"
                   beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
                   event="deleteItem">
-        <stripes:param name="workingItemId" value="${item.itemId}" />
+        <stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
         ADD
     </stripes:link>
 

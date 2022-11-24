@@ -27,6 +27,8 @@ import org.mybatis.jpetstore.domain.Item;
  */
 public interface ItemMapper {
 
+  void deleteItem(String itemId);
+
   void updateInventoryQuantity(Map<String, Object> param);
 
   int getInventoryQuantity(String itemId);

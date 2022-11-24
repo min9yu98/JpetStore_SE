@@ -202,7 +202,7 @@ public class CatalogActionBean extends AbstractActionBean {
    *
    * @return the forward resolution
    */
-  public ForwardResolution viewItemByAdmin() {
+  public ForwardResolution viewItemListByAdmin() {
     if (productId != null) {
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
@@ -248,12 +248,12 @@ public class CatalogActionBean extends AbstractActionBean {
    * @return
    * */
   public ForwardResolution deleteItem() {
-    if (itemId != null) {
+    if (productId != null) {
       catalogService.deleteItem(itemId);
-      item = catalogService.getItem(itemId);
-      product = item.getProduct();
+      itemList = catalogService.getItemListByProduct(productId);
+      product = catalogService.getProduct(productId);
     }
-    return new ForwardResolution(VIEW_ITEM);
+    return new ForwardResolution(VIEW_ITEM_ADMIN);
   }
 
   /**

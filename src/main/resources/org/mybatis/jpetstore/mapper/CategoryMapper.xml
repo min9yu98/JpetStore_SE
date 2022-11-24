@@ -40,10 +40,4 @@
     FROM CATEGORY
   </select>
 
-  <update id="deleteItem">
-    UPDATE ITEM
-    SET status = 'N'
-    WHERE itemid = #{itemId};
-  </update>
-
 </mapper>

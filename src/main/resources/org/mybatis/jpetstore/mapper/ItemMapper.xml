@@ -41,7 +41,8 @@
       ATTR5 AS attribute5
     FROM ITEM I, PRODUCT P
     WHERE P.PRODUCTID = I.PRODUCTID
-    AND I.PRODUCTID = #{value}
+      AND I.STATUS = 'P'
+      AND I.PRODUCTID = #{itemId}
   </select>
 
   <select id="getItem" resultType="Item">
@@ -79,4 +80,9 @@
     WHERE ITEMID = #{itemId}
   </update>
 
+  <update id="deleteItem">
+    UPDATE ITEM
+        SET STATUS = 'N'
+    WHERE ITEMID = #{itemId};
+  </update>
 </mapper>
