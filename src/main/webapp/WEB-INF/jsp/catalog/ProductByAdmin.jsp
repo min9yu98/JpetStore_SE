@@ -17,18 +17,33 @@
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
 
-<div id="Catalog"><stripes:form
-	beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
-	focus="">
+<jsp:useBean id="catalog"
+             class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
 
-	<p>Please enter your username and password.</p>
-	<p>Username:<stripes:text name="username" value="admin"/> <br />
-	Password:<stripes:password name="password" value="admin" /></p>
-	<stripes:submit name="signon" value="Login" />
+<div id="Catalog">
+    <table>
+        <tr>
+            <th>Product ID</th>
+            <th>Product Name</th>
+            <th></th>
+        </tr>
+        <c:forEach var="products" items="${actionBean.productList}">
+            <tr>
+                <td>
+                        ${products.productId}
+                </td>
+                <td>
+                        ${products.name}
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
 
-</stripes:form> Need a user name and password? <stripes:link
-	beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
-	event="newAccountForm">Register Now!</stripes:link></div>
+</div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
+
+
+
+
 

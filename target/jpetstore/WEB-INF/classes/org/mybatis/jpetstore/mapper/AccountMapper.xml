@@ -51,6 +51,7 @@
 
   <select id="getAccountByUsernameAndPassword" resultType="Account">
     SELECT
+      ACCOUNT.ADMIN,
       SIGNON.USERNAME,
       ACCOUNT.EMAIL,
       ACCOUNT.FIRSTNAME,
