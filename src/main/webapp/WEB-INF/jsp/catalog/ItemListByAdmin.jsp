@@ -41,24 +41,24 @@
             <th>&nbsp;</th>
             <th> </th>
         </tr>
-        <c:forEach var="item" items="${actionBean.itemList}">
+        <c:forEach var="itemList" items="${actionBean.itemList}">
             <tr>
                 <td><stripes:link
                         beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                         event="viewItem">
-                    <stripes:param name="itemId" value="${item.itemId}" />
-                    ${item.itemId}
+                    <stripes:param name="itemId" value="${itemList.itemId}" />
+                    ${itemList.itemId}
                 </stripes:link></td>
-                <td>${item.product.productId}</td>
-                <td>${item.attribute1} ${item.attribute2} ${item.attribute3}
-                        ${item.attribute4} ${item.attribute5} ${actionBean.product.name}</td>
-                <td><fmt:formatNumber value="${item.listPrice}"
+                <td>${itemList.product.productId}</td>
+                <td>${itemList.attribute1} ${itemList.attribute2} ${itemList.attribute3}
+                        ${itemList.attribute4} ${itemList.attribute5} ${actionBean.product.name}</td>
+                <td><fmt:formatNumber value="${itemList.listPrice}"
                                       pattern="$#,##0.00" /></td>
                 <td>
                     <stripes:link class="Button"
                                   beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
                                   event="addItemToCart">
-                        <stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
+                        <stripes:param name="workingItemId" value="${itemList.itemId}" />
                         UPDATE
                     </stripes:link>
                 </td>
@@ -66,7 +66,7 @@
                     <stripes:link class="Button"
                                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                                   event="deleteItem">
-                        <stripes:param name="itemId" value="${actionBean.item.itemId}" />
+                        <stripes:param name="itemId" value="${itemList.itemId}" />
                         DELETE
                     </stripes:link>
                 </td>

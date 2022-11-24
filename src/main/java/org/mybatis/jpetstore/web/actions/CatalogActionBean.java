@@ -44,8 +44,8 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT = "/WEB-INF/jsp/catalog/Product.jsp";
   private static final String VIEW_ITEM = "/WEB-INF/jsp/catalog/Item.jsp";
   private static final String SEARCH_PRODUCTS = "/WEB-INF/jsp/catalog/SearchProducts.jsp";
-  private static final String VIEW_PRODUCT_ADMIN = "/WEB-INF/jsp/catalog/ProductByAdmin.jsp";
-  private static final String VIEW_ITEM_ADMIN = "/WEB-INF/jsp/catalog/ItemByAdmin.jsp";
+  private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
+  private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -183,7 +183,7 @@ public class CatalogActionBean extends AbstractActionBean {
    * */
   public ForwardResolution viewProductByAdmin() {
     productList = catalogService.getAllProductList();
-    return new ForwardResolution(VIEW_PRODUCT_ADMIN);
+    return new ForwardResolution(VIEW_PRODUCT_LIST_ADMIN);
   }
 
   /**
@@ -207,7 +207,7 @@ public class CatalogActionBean extends AbstractActionBean {
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
     }
-    return new ForwardResolution(VIEW_ITEM_ADMIN);
+    return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
   }
 
   /**
@@ -253,7 +253,7 @@ public class CatalogActionBean extends AbstractActionBean {
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
     }
-    return new ForwardResolution(VIEW_ITEM_ADMIN);
+    return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
   }
 
   /**

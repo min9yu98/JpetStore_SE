@@ -65,6 +65,7 @@
     from ITEM I, INVENTORY V, PRODUCT P
     where P.PRODUCTID = I.PRODUCTID
       and I.ITEMID = V.ITEMID
+      and I.STATUS = 'P'
       and I.ITEMID = #{value}
   </select>
 
