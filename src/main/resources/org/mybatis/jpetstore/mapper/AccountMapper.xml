@@ -26,6 +26,7 @@
   <select id="getAccountByUsername" resultType="Account">
     SELECT
           SIGNON.USERNAME,
+          ACCOUNT.admin,
           ACCOUNT.EMAIL,
           ACCOUNT.FIRSTNAME,
           ACCOUNT.LASTNAME,
@@ -52,6 +53,7 @@
   <select id="getAccountByUsernameAndPassword" resultType="Account">
     SELECT
       SIGNON.USERNAME,
+      ACCOUNT.admin,
       ACCOUNT.EMAIL,
       ACCOUNT.FIRSTNAME,
       ACCOUNT.LASTNAME,
