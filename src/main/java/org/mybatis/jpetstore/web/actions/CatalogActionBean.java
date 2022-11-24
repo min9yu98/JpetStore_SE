@@ -251,8 +251,8 @@ public class CatalogActionBean extends AbstractActionBean {
       catalogService.deleteItem(itemId);
       item = catalogService.getItem(itemId);
       product = item.getProduct();
-      return new ForwardResolution(VIEW_ITEM);
     }
+    return new ForwardResolution(VIEW_ITEM);
   }
 
   /**
