@@ -30,4 +30,5 @@ public interface CategoryMapper {
 
   Category getCategory(String categoryId);
 
+  void deleteItem(String itemId);
 }
