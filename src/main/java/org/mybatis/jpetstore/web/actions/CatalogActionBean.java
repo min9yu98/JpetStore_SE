@@ -242,6 +242,18 @@ public class CatalogActionBean extends AbstractActionBean {
     };
   }
 
+  /**
+   * Item 삭제시 item list로 이동
+   * @return
+   * */
+  public ForwardResolution deleteItem() {
+    if (itemId != null) {
+      catalogService.deleteItem(itemId);
+      item = catalogService.getItem(itemId);
+      product = item.getProduct();
+      return new ForwardResolution(VIEW_ITEM);
+    }
+  }
 
   /**
    * Clear.
