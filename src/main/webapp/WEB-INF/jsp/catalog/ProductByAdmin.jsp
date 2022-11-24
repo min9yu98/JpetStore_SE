@@ -32,7 +32,7 @@
                 <td>
                     <stripes:link
                             beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                            event="viewProductEdit">
+                            event="viewItemByAdmin">
                         <stripes:param name="productId" value="${products.productId}" />
                         ${products.productId}
                     </stripes:link>
