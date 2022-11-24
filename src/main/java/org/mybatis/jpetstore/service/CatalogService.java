@@ -95,4 +95,9 @@ public class CatalogService {
   public List<Product> getAllProductList() {
     return productMapper.getProductList();
   }
+
+  public void deleteItem(String itemId) {
+    return;
+    categoryMapper.deleteItem(itemId);
+  }
 }
