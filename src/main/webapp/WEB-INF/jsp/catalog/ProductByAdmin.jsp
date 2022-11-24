@@ -25,7 +25,7 @@
         <tr>
             <th>Product ID</th>
             <th>Product Name</th>
-            <th></th>
+            <th> </th>
         </tr>
         <c:forEach var="products" items="${actionBean.productList}">
             <tr>
@@ -39,6 +39,14 @@
                 </td>
                 <td>
                         ${products.name}
+                </td>
+                <td>
+                    <stripes:link class="Button"
+                            beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+                            event="viewItemByAdmin">
+                        <stripes:param name="productId" value="${products.productId}" />
+                        EDIT ITEM
+                    </stripes:link>
                 </td>
             </tr>
         </c:forEach>
