@@ -18,10 +18,7 @@ package org.mybatis.jpetstore.web.actions;
 import java.util.List;
 
 import com.google.gson.Gson;
-import net.sourceforge.stripes.action.DefaultHandler;
-import net.sourceforge.stripes.action.ForwardResolution;
-import net.sourceforge.stripes.action.Resolution;
-import net.sourceforge.stripes.action.SessionScope;
+import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
 import org.mybatis.jpetstore.domain.Category;
@@ -47,6 +44,8 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT = "/WEB-INF/jsp/catalog/Product.jsp";
   private static final String VIEW_ITEM = "/WEB-INF/jsp/catalog/Item.jsp";
   private static final String SEARCH_PRODUCTS = "/WEB-INF/jsp/catalog/SearchProducts.jsp";
+  private static final String VIEW_PRODUCT_ADMIN = "/WEB-INF/jsp/catalog/ProductByAdmin.jsp";
+  private static final String VIEW_ITEM_ADMIN = "/WEB-INF/jsp/catalog/ItemByAdmin.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -177,6 +176,17 @@ public class CatalogActionBean extends AbstractActionBean {
   }
 
   /**
+   * view All Product(admin)
+   *
+   * @return
+   *
+   * */
+  public ForwardResolution viewProductByAdmin() {
+    productList = catalogService.getAllProductList();
+    return new ForwardResolution(VIEW_PRODUCT_ADMIN);
+  }
+
+  /**
    * View item.
    *
    * @return the forward resolution
@@ -185,6 +195,19 @@ public class CatalogActionBean extends AbstractActionBean {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
     return new ForwardResolution(VIEW_ITEM);
+  }
+
+  /**
+   * itemList(admin)
+   *
+   * @return the forward resolution
+   */
+  public ForwardResolution viewItemByAdmin() {
+    if (productId != null) {
+      itemList = catalogService.getItemListByProduct(productId);
+      product = catalogService.getProduct(productId);
+    }
+    return new ForwardResolution(VIEW_ITEM_ADMIN);
   }
 
   /**
@@ -220,6 +243,18 @@ public class CatalogActionBean extends AbstractActionBean {
     };
   }
 
+  /**
+   * Item 삭제시 item list로 이동
+   * @return
+   * */
+  public ForwardResolution deleteItem() {
+    if (itemId != null) {
+      catalogService.deleteItem(itemId);
+      item = catalogService.getItem(itemId);
+      product = item.getProduct();
+    }
+    return new ForwardResolution(VIEW_ITEM);
+  }
 
   /**
    * Clear.

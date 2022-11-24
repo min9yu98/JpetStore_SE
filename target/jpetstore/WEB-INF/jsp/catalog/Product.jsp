@@ -53,12 +53,14 @@
 			${item.attribute4} ${item.attribute5} ${actionBean.product.name}</td>
 			<td><fmt:formatNumber value="${item.listPrice}"
 				pattern="$#,##0.00" /></td>
-			<td><stripes:link class="Button"
-				beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
-				event="addItemToCart">
-				<stripes:param name="workingItemId" value="${item.itemId}" />
-        	Add to Cart
-        </stripes:link></td>
+			<td>
+				<stripes:link class="Button"
+							  beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
+							  event="addItemToCart">
+					<stripes:param name="workingItemId" value="${item.itemId}" />
+					Add to Cart
+				</stripes:link>
+			</td>
 		</tr>
 	</c:forEach>
 	<tr>
