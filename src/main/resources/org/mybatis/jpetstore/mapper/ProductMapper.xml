@@ -53,4 +53,12 @@
     WHERE lower(name) like #{value}
   </select>
 
+  <select id="getProductList" resultType="Product">
+    SELECT
+      PRODUCTID,
+      NAME,
+      DESCN as description,
+      CATEGORY as categoryId
+    FROM PRODUCT
+  </select>
 </mapper>
