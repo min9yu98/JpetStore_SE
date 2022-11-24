@@ -17,7 +17,6 @@ package org.mybatis.jpetstore.mapper;
 
 import java.util.List;
 
-import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
 
 /**
@@ -33,5 +32,4 @@ public interface ProductMapper {
 
   List<Product> searchProductList(String keywords);
 
-  List<Product> getProductList();
 }

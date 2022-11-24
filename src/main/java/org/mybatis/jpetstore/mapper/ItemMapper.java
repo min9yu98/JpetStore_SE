@@ -33,7 +33,6 @@ public interface ItemMapper {
 
   List<Item> getItemListByProduct(String productId);
 
-  List<Item> getAllItemList();
   Item getItem(String itemId);
 
 }
