@@ -57,7 +57,7 @@
                 <td>
                     <stripes:link class="Button"
                                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                                  event="updateItemForm">
+                                  event="updateItemFormByAdmin">
                         <stripes:param name="itemId" value="${itemList.itemId}" />
                         UPDATE
                     </stripes:link>
@@ -65,7 +65,7 @@
                 <td>
                     <stripes:link class="Button"
                                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                                  event="deleteItem">
+                                  event="deleteItemByAdmin">
                         <stripes:param name="itemId" value="${itemList.itemId}" />
                         <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
                         DELETE
@@ -80,8 +80,8 @@
     </table>
     <stripes:link class="Button"
                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                  event="newItemForm">
-        <stripes:param name="ItemId" value="${actionBean.product.productId}" />
+                  event="newItemFormByAdmin">
+        <stripes:param name="productId" value="${actionBean.product.productId}" />
         ADD
     </stripes:link>
         </div>
