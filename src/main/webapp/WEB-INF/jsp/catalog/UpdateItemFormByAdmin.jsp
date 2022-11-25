@@ -40,7 +40,7 @@
         </tr>
     </table>
     <stripes:param name="item.itemId" value= "${actionBean.itemId}" />
-    <stripes:submit name="updateItem" value="Submit" /></stripes:form>
+    <stripes:submit name="updateItemByAdmin" value="Submit" /></stripes:form>
 </div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>

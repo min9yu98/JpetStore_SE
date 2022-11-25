@@ -107,8 +107,8 @@ public class CatalogService {
     itemMapper.insertInventoryByAdmin(item);
   }
 
-  public void updateItem(Item item) {
-    itemMapper.updateItem(item);
-    itemMapper.updateInventory(item);
+  public void updateItemByAdmin(Item item) {
+    itemMapper.updateItemByAdmin(item);
+    itemMapper.updateInventoryByAdmin(item);
   }
 }

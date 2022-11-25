@@ -88,19 +88,19 @@
     WHERE ITEMID = #{itemId};
   </update>
 
-  <insert id="insertItem" parameterType="Item">
+  <insert id="insertItemByAdmin" parameterType="Item">
     INSERT INTO ITEM(ITEMID, PRODUCTID, LISTPRICE, SUPPLIER, STATUS, ATTR1) values (#{itemId}, #{productId}, #{listPrice}, 1, 'P', #{attribute1});
   </insert>
   
-  <insert id="insertInventory" parameterType="Item">
+  <insert id="insertInventoryByAdmin" parameterType="Item">
     INSERT INTO INVENTORY(ITEMID, QTY) VALUES (#{itemId}, #{quantity});
   </insert>
 
-  <update id="updateItem" parameterType="Item">
+  <update id="updateItemByAdmin" parameterType="Item">
     update ITEM SET attr1 = #{attribute1}, listprice=#{listPrice} where itemid=#{itemId};
   </update>
 
-  <update id="updateInventory" parameterType="Item">
+  <update id="updateInventoryByAdmin" parameterType="Item">
     update INVENTORY SET qty = #{quantity} where itemid=#{itemId};
   </update>
 </mapper>
