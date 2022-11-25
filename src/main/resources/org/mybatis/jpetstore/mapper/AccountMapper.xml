@@ -131,4 +131,10 @@
     VALUES (#{password}, #{username})
   </insert>
 
+  <select id="isAdmin" parameterType="HashMap" resultType="boolean">
+    SELECT IF(ADMIN = 1, 1, 0)
+    FROM ACCOUNT
+    WHERE userid = #{username}
+  </select>
+
 </mapper>

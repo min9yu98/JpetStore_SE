@@ -53,7 +53,7 @@
     WHERE lower(name) like #{value}
   </select>
 
-  <select id="getProductList" resultType="Product">
+  <select id="getProductListByAdmin" resultType="Product">
     SELECT
       PRODUCTID,
       NAME,

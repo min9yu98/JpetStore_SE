@@ -43,7 +43,8 @@
 </head>
 
 <body>
-
+<jsp:useBean id="account"
+			 class="org.mybatis.jpetstore.web.actions.AccountActionBean"/>
 <div id="Header">
 
 <div id="Logo">
@@ -93,7 +94,8 @@
 	<c:if test="${sessionScope.accountBean.account.admin}">
 		<stripes:link
 				beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				event="viewProductByAdmin">
+				event="viewProductListByAdmin">
+			<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
 			Admin Dashboard
 		</stripes:link>
 	</c:if>

@@ -72,4 +72,7 @@ public class AccountService {
         .ifPresent(password -> accountMapper.updateSignon(account));
   }
 
+  public boolean isAdmin(String username) {
+    return accountMapper.isAdmin(username);
+  }
 }
