@@ -31,9 +31,7 @@
 <c:choose>
     <c:when test="${sessionScope.accountBean.account.admin}">
         <div id="Catalog">
-
             <h2 style="text-align: center">${actionBean.product.name}</h2>
-
     <table>
         <tr>
             <th>Item ID</th>
@@ -86,15 +84,12 @@
         <stripes:param name="ItemId" value="${actionBean.product.productId}" />
         ADD
     </stripes:link>
-
         </div>
     </c:when>
    <c:otherwise>
        <%@ include file="../common/AccessRestriction.jsp"%>
    </c:otherwise>
 </c:choose>
-
-
 <%@ include file="../common/IncludeBottom.jsp"%>
 
 

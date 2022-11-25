@@ -275,9 +275,9 @@ public class CatalogActionBean extends AbstractActionBean {
    * Item 삭제시 item list로 이동
    * @return
    * */
-  public ForwardResolution deleteItem() {
+  public ForwardResolution deleteItemByAdmin() {
     if (productId != null && accountService.isAdmin(username)) {
-      catalogService.deleteItem(itemId);
+      catalogService.deleteItemByAdmin(itemId);
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
       return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);

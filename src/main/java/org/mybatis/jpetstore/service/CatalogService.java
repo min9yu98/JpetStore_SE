@@ -97,7 +97,7 @@ public class CatalogService {
     return productMapper.getProductListByAdmin();
   }
 
-  public void deleteItem(String itemId) {
+  public void deleteItemByAdmin(String itemId) {
     itemMapper.deleteItem(itemId);
   }
 

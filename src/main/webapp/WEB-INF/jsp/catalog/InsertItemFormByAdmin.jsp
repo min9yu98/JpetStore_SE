@@ -19,30 +19,35 @@
 <jsp:useBean id="catalog"
              class="org.mybatis.jpetstore.web.actions.CatalogActionBean" />
 <stripes:errors/>
-<div id="Catalog"><stripes:form
-        beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+<c:choose>
+    <c:when test="${sessionScope.accountBean.account.admin}">
+      <div id="Catalog"><stripes:form
+              beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+        <h2 style="text-align: center">${actionBean.product.name}</h2>
+        <table>
+          <tr>
+            <th>Product ID</th>
+            <th>ITEM ID</th>
+            <th>Description</th>
+            <th>List Price</th>
+            <th>Quantity</th>
+          </tr>
+          <tr>
+            <td>${actionBean.product.productId}</td>
+            <td><stripes:text name="item.itemId" /></td>
+            <td><stripes:text name="item.attribute1" /></td>
+            <td><stripes:text name="item.listPrice" /></td>
+            <td><stripes:text name="item.quantity" /></td>
+          </tr>
+        </table>
+        <stripes:param name="item.productId" value= "${actionBean.product.productId}" />
+        <stripes:submit name="insertItemByAdmin" value="Submit" /></stripes:form>
+      </div>
+    </c:when>
+  <c:otherwise>
+    <%@ include file="../common/AccessRestriction.jsp" %>
+  </c:otherwise>
+</c:choose>
 
-
-  <h2 style="text-align: center">${actionBean.product.name}</h2>
-
-  <table>
-    <tr>
-      <th>Product ID</th>
-      <th>ITEM ID</th>
-      <th>Description</th>
-      <th>List Price</th>
-      <th>Quantity</th>
-    </tr>
-    <tr>
-      <td>${actionBean.product.productId}</td>
-      <td><stripes:text name="item.itemId" /></td>
-      <td><stripes:text name="item.attribute1" /></td>
-      <td><stripes:text name="item.listPrice" /></td>
-      <td><stripes:text name="item.quantity" /></td>
-    </tr>
-  </table>
-  <stripes:param name="item.productId" value= "${actionBean.product.productId}" />
-  <stripes:submit name="insertItemByAdmin" value="Submit" /></stripes:form>
-</div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
