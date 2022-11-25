@@ -102,9 +102,9 @@ public class CatalogService {
   }
 
   @Transactional
-  public void insertItem(Item item) {
-    itemMapper.insertItem(item);
-    itemMapper.insertInventory(item);
+  public void insertItemByAdmin(Item item) {
+    itemMapper.insertItemByAdmin(item);
+    itemMapper.insertInventoryByAdmin(item);
   }
 
   public void updateItem(Item item) {

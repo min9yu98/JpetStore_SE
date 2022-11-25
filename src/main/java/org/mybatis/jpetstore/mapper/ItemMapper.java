@@ -27,7 +27,6 @@ import org.mybatis.jpetstore.domain.Item;
  * @author Eduardo Macarron
  */
 public interface ItemMapper {
-
   void deleteItem(String itemId);
 
   void updateInventoryQuantity(Map<String, Object> param);
@@ -40,13 +39,12 @@ public interface ItemMapper {
 
   List<Item> getAllItemList();
 
+  // Admin 쿼리
+  void insertItemByAdmin(Item item);
 
+  void insertInventoryByAdmin(Item item);
 
-  void insertInventory(Item item);
+  void updateItemByAdmin(Item item);
 
-  void insertItem(Item item);
-
-  void updateItem(Item item);
-
-  void updateInventory(Item item);
+  void updateInventoryByAdmin(Item item);
 }

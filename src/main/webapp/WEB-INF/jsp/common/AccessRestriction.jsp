@@ -15,10 +15,9 @@
        limitations under the License.
 
 --%>
-<%@ include file="IncludeTop.jsp"%>
-
 <div>
-  warnig!!!
+  <script title="WARNING">
+    alert("ACCESS DENIED");
+    location.href="http://localhost:8080/jpetstore_war/actions/Catalog.action";
+  </script>
 </div>
-
-<%@ include file="IncludeBottom.jsp"%>

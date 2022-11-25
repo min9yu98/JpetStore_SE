@@ -28,9 +28,11 @@
     Return to ${actionBean.product.categoryId}
 </stripes:link></div>
 <br>
-<div id="Catalog">
+<c:choose>
+    <c:when test="${sessionScope.accountBean.account.admin}">
+        <div id="Catalog">
 
-    <h2 style="text-align: center">${actionBean.product.name}</h2>
+            <h2 style="text-align: center">${actionBean.product.name}</h2>
 
     <table>
         <tr>
@@ -85,7 +87,13 @@
         ADD
     </stripes:link>
 
-</div>
+        </div>
+    </c:when>
+   <c:otherwise>
+       <%@ include file="../common/AccessRestriction.jsp"%>
+   </c:otherwise>
+</c:choose>
+
 
 <%@ include file="../common/IncludeBottom.jsp"%>
 
