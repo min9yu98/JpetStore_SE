@@ -92,7 +92,8 @@ target/
 # idea
 .idea/
 
-# Manifest
+# Application Properties
+src/main/resources/application.properties
 
 
 # End of https://www.toptal.com/developers/gitignore/api/java,macos,windows
