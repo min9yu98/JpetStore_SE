@@ -67,6 +67,7 @@
                                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                                   event="deleteItem">
                         <stripes:param name="itemId" value="${itemList.itemId}" />
+                        <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
                         DELETE
                     </stripes:link>
                 </td>

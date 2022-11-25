@@ -21,9 +21,11 @@ import com.google.gson.Gson;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
+import org.mybatis.jpetstore.domain.Account;
 import org.mybatis.jpetstore.domain.Category;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
+import org.mybatis.jpetstore.service.AccountService;
 import org.mybatis.jpetstore.service.CatalogService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -46,9 +48,12 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String SEARCH_PRODUCTS = "/WEB-INF/jsp/catalog/SearchProducts.jsp";
   private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
   private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
+  public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
+  @SpringBean
+  private transient AccountService accountService;
 
   private String keyword;
 
@@ -63,7 +68,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private String itemId;
   private Item item;
   private List<Item> itemList;
-
+  private String username;
   public String getKeyword() {
     return keyword;
   }
@@ -94,6 +99,14 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public void setItemId(String itemId) {
     this.itemId = itemId;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public Category getCategory() {
@@ -181,9 +194,13 @@ public class CatalogActionBean extends AbstractActionBean {
    * @return
    *
    * */
-  public ForwardResolution viewProductByAdmin() {
-    productList = catalogService.getAllProductList();
-    return new ForwardResolution(VIEW_PRODUCT_LIST_ADMIN);
+  public ForwardResolution viewProductListByAdmin() {
+    if (accountService.isAdmin(username)) {
+      productList = catalogService.getAllProductListByAdmin();
+      return new ForwardResolution(VIEW_PRODUCT_LIST_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
   }
 
   /**
@@ -203,11 +220,13 @@ public class CatalogActionBean extends AbstractActionBean {
    * @return the forward resolution
    */
   public ForwardResolution viewItemListByAdmin() {
-    if (productId != null) {
+    if (productId != null && accountService.isAdmin(username)) {
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
+      return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
     }
-    return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
   }
 
   /**
@@ -248,12 +267,14 @@ public class CatalogActionBean extends AbstractActionBean {
    * @return
    * */
   public ForwardResolution deleteItem() {
-    if (productId != null) {
+    if (productId != null && accountService.isAdmin(username)) {
       catalogService.deleteItem(itemId);
       itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
+      return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
     }
-    return new ForwardResolution(VIEW_ITEM_LIST_ADMIN);
   }
 
   /**

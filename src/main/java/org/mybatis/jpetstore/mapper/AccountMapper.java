@@ -40,4 +40,5 @@ public interface AccountMapper {
 
   void updateSignon(Account account);
 
+  boolean isAdmin(String username);
 }

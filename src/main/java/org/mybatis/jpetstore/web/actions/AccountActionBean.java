@@ -59,6 +59,7 @@ public class AccountActionBean extends AbstractActionBean {
   private Account account = new Account();
   private List<Product> myList;
   private boolean authenticated;
+  private boolean admin;
 
   static {
     LANGUAGE_LIST = Collections.unmodifiableList(Arrays.asList("english", "japanese"));
@@ -167,11 +168,18 @@ public class AccountActionBean extends AbstractActionBean {
       return new ForwardResolution(SIGNON);
     } else {
       account.setPassword(null);
-      myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
-      authenticated = true;
-      HttpSession s = context.getRequest().getSession();
-      // this bean is already registered as /actions/Account.action
-      s.setAttribute("accountBean", this);
+      if (isAdmin()) {
+        authenticated = true;
+        admin = true;
+        HttpSession s = context.getRequest().getSession();
+        s.setAttribute("accountBean", this);
+      } else {
+        authenticated = true;
+        admin = false;
+        HttpSession s = context.getRequest().getSession();
+        s.setAttribute("accountBean", this);
+        myList = catalogService.getProductListByCategory(account.getFavouriteCategoryId());
+      }
       return new RedirectResolution(CatalogActionBean.class);
     }
   }
@@ -194,6 +202,10 @@ public class AccountActionBean extends AbstractActionBean {
    */
   public boolean isAuthenticated() {
     return authenticated && account != null && account.getUsername() != null;
+  }
+
+  public boolean isAdmin() {
+    return admin && account != null && account.getUsername() != null;
   }
 
   /**
