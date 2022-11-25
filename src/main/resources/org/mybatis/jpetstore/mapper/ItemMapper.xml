@@ -26,6 +26,7 @@
   <select id="getItemListByProduct" resultType="Item">
     SELECT
       I.ITEMID,
+      I.PRODUCTID,
       LISTPRICE,
       UNITCOST,
       SUPPLIER AS supplierId,
@@ -86,4 +87,12 @@
         SET STATUS = 'N'
     WHERE ITEMID = #{itemId};
   </update>
+
+  <insert id="insertItem" parameterType="Item">
+    INSERT INTO ITEM(ITEMID, PRODUCTID, LISTPRICE, SUPPLIER, STATUS, ATTR1) values (#{itemId}, #{productId}, #{listPrice}, 1, 'P', #{attribute1});
+  </insert>
+  
+  <insert id="insertInventory" parameterType="Item">
+    INSERT INTO INVENTORY(ITEMID, QTY) VALUES (#{itemId}, #{quantity});
+  </insert>
 </mapper>

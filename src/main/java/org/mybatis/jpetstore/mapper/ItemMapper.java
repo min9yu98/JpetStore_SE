@@ -15,6 +15,7 @@
  */
 package org.mybatis.jpetstore.mapper;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -38,4 +39,10 @@ public interface ItemMapper {
   Item getItem(String itemId);
 
   List<Item> getAllItemList();
+
+
+
+  void insertInventory(Item item);
+
+  void insertItem(Item item);
 }
