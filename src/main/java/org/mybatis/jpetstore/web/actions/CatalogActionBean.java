@@ -51,6 +51,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String NEW_ITEM = "/WEB-INF/jsp/catalog/NewItemForm.jsp";
 
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
+  private static final String UPDATE_ITEM = "/WEB-INF/jsp/catalog/UpdateItemForm.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -165,6 +166,10 @@ public class CatalogActionBean extends AbstractActionBean {
   }
 
   public Resolution newItemForm() {return new ForwardResolution(NEW_ITEM);}
+
+  public Resolution updateItemForm() {
+    return new ForwardResolution(UPDATE_ITEM);
+  }
 
   /**
    * View category.
@@ -283,6 +288,11 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution newItem() {
     catalogService.insertItem(item);
+    return new RedirectResolution(CatalogActionBean.class, "viewItemListByAdmin");
+  }
+
+  public Resolution updateItem() {
+    catalogService.updateItem(item);
     return new RedirectResolution(CatalogActionBean.class, "viewItemListByAdmin");
   }
 

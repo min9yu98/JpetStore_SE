@@ -95,4 +95,12 @@
   <insert id="insertInventory" parameterType="Item">
     INSERT INTO INVENTORY(ITEMID, QTY) VALUES (#{itemId}, #{quantity});
   </insert>
+
+  <update id="updateItem" parameterType="Item">
+    update ITEM SET attr1 = #{attribute1}, listprice=#{listPrice} where itemid=#{itemId};
+  </update>
+
+  <update id="updateInventory" parameterType="Item">
+    update INVENTORY SET qty = #{quantity} where itemid=#{itemId};
+  </update>
 </mapper>

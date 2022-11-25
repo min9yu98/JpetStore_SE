@@ -56,9 +56,9 @@
                                       pattern="$#,##0.00" /></td>
                 <td>
                     <stripes:link class="Button"
-                                  beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
-                                  event="addItemToCart">
-                        <stripes:param name="workingItemId" value="${itemList.itemId}" />
+                                  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+                                  event="updateItemForm">
+                        <stripes:param name="itemId" value="${itemList.itemId}" />
                         UPDATE
                     </stripes:link>
                 </td>
