@@ -39,11 +39,13 @@
       ATTR2 AS attribute2,
       ATTR3 AS attribute3,
       ATTR4 AS attribute4,
-      ATTR5 AS attribute5
-    FROM ITEM I, PRODUCT P
+      ATTR5 AS attribute5,
+      IV.qty AS quantity
+    FROM ITEM I, PRODUCT P, INVENTORY IV
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.STATUS = 'P'
       AND I.PRODUCTID = #{itemId}
+      AND I.itemid = IV.itemid
   </select>
 
   <select id="getItem" resultType="Item">

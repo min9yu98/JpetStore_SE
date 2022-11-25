@@ -149,4 +149,10 @@ public class Item implements Serializable {
   public void setProductId(String productId) {
     this.productId = productId;
   }
+
+  public void initUpdateByAdmin(Item item) {
+    attribute1 = item.getAttribute1();
+    listPrice = item.getListPrice();
+    quantity = item.getQuantity();
+  }
 }

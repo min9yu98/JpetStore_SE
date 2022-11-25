@@ -15,6 +15,7 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -30,6 +31,7 @@ import org.mybatis.jpetstore.service.CatalogService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * The Class CatalogActionBean.
@@ -72,6 +74,34 @@ public class CatalogActionBean extends AbstractActionBean {
   private Item item;
   private List<Item> itemList;
   private String username;
+  private BigDecimal listPrice;
+  private String attribute1;
+  private int quantity;
+
+  public BigDecimal getListPrice() {
+    return listPrice;
+  }
+
+  public void setListPrice(BigDecimal listPrice) {
+    this.listPrice = listPrice;
+  }
+
+  public String getAttribute1() {
+    return attribute1;
+  }
+
+  public void setAttribute1(String attribute1) {
+    this.attribute1 = attribute1;
+  }
+
+  public int getQuantity() {
+    return quantity;
+  }
+
+  public void setQuantity(int quantity) {
+    this.quantity = quantity;
+  }
+
   public String getKeyword() {
     return keyword;
   }
@@ -168,7 +198,14 @@ public class CatalogActionBean extends AbstractActionBean {
   public Resolution newItemFormByAdmin() {return new ForwardResolution(NEW_ITEM_ADMIN);}
 
   public Resolution updateItemFormByAdmin() {
-    return new ForwardResolution(UPDATE_ITEM_ADMIN);
+    HttpSession session = context.getRequest().getSession();
+    CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");
+    if (catalogActionBean == null) {
+      return new RedirectResolution(ACCESS_RESTRICTION);
+    } else {
+      item.initUpdateByAdmin(catalogActionBean.getItem());
+      return new ForwardResolution(UPDATE_ITEM_ADMIN);
+    }
   }
 
   /**
