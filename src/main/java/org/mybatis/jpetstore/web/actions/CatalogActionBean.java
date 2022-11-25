@@ -48,7 +48,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String SEARCH_PRODUCTS = "/WEB-INF/jsp/catalog/SearchProducts.jsp";
   private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
   private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
-  private static final String NEW_ITEM = "/WEB-INF/jsp/catalog/NewItemForm.jsp";
+  private static final String NEW_ITEM = "/WEB-INF/jsp/catalog/InsertItemFormByAdmin.jsp";
 
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
 
@@ -281,8 +281,8 @@ public class CatalogActionBean extends AbstractActionBean {
     }
   }
 
-  public Resolution newItem() {
-    catalogService.insertItem(item);
+  public Resolution insertItemByAdmin() {
+    catalogService.insertItemByAdmin(item);
     return new RedirectResolution(CatalogActionBean.class, "viewItemListByAdmin");
   }
 

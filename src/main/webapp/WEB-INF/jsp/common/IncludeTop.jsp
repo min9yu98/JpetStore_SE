@@ -15,7 +15,7 @@
        limitations under the License.
 
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <%@ taglib prefix="stripes"
 	uri="http://stripes.sourceforge.net/stripes.tld"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -29,7 +29,7 @@
 <head>
 <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css"
 	media="screen" />
-
+<script src="sweetalert2.all.min.js"></script>
 <meta name="generator"
 	content="HTML Tidy for Linux/x86 (vers 1st November 2002), see www.w3.org" />
 <title>JPetStore Demo</title>

@@ -14,39 +14,45 @@
 
 <jsp:useBean id="catalog"
              class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
+<c:choose>
+    <c:when test="${sessionScope.accountBean.account.admin}">
+        <div id="Catalog">
+            <table>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th> </th>
+                </tr>
+                <c:forEach var="products" items="${actionBean.productList}">
+                    <tr>
+                        <td>
+                            <stripes:link
+                                    beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+                                    event="viewItemListByAdmin">
+                                <stripes:param name="productId" value="${products.productId}" />
+                                ${products.productId}
+                            </stripes:link>
+                        </td>
+                        <td>
+                                ${products.name}
+                        </td>
+                        <td>
+                            <stripes:link class="Button"
+                                          beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+                                          event="viewItemListByAdmin">
+                                <stripes:param name="productId" value="${products.productId}" />
+                                EDIT ITEM
+                            </stripes:link>
+                        </td>
+                    </tr>
+                </c:forEach>
+            </table>
+        </div>
+    </c:when>
+    <c:otherwise>
+        <%@ include file="../common/AccessRestriction.jsp"%>
+    </c:otherwise>
+</c:choose>
 
-<div id="Catalog">
-    <table>
-        <tr>
-            <th>Product ID</th>
-            <th>Product Name</th>
-            <th> </th>
-        </tr>
-        <c:forEach var="products" items="${actionBean.productList}">
-            <tr>
-                <td>
-                    <stripes:link
-                            beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                            event="viewItemListByAdmin">
-                        <stripes:param name="productId" value="${products.productId}" />
-                        ${products.productId}
-                    </stripes:link>
-                </td>
-                <td>
-                        ${products.name}
-                </td>
-                <td>
-                    <stripes:link class="Button"
-                                  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                                  event="viewItemListByAdmin">
-                        <stripes:param name="productId" value="${products.productId}" />
-                        EDIT ITEM
-                    </stripes:link>
-                </td>
-            </tr>
-        </c:forEach>
-    </table>
-
-</div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>

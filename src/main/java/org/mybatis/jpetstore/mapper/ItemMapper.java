@@ -40,9 +40,7 @@ public interface ItemMapper {
 
   List<Item> getAllItemList();
 
+  void insertItemByAdmin(Item item);
 
-
-  void insertInventory(Item item);
-
-  void insertItem(Item item);
+  void insertInventoryByAdmin(Item item);
 }
