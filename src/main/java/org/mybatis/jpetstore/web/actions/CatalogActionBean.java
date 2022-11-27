@@ -51,7 +51,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
   private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
   private static final String NEW_ITEM_ADMIN = "/WEB-INF/jsp/catalog/InsertItemFormByAdmin.jsp";
-
+  private static final String VIEW_USER_TABLE="/WEB-INF/jsp/catalog/UserTable.jsp";
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
 
@@ -233,7 +233,6 @@ public class CatalogActionBean extends AbstractActionBean {
     }
     return new ForwardResolution(VIEW_PRODUCT);
   }
-
   /**
    * view All Product(admin)
    *
@@ -248,7 +247,10 @@ public class CatalogActionBean extends AbstractActionBean {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
   }
-
+  public ForwardResolution viewUserTable()
+  {
+    return new ForwardResolution(VIEW_USER_TABLE);
+  }
   /**
    * View item.
    *
