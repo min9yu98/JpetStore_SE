@@ -22,7 +22,6 @@
 	focus="">
 
 	<h3>User Information</h3>
-
 	<table>
 		<tr>
 			<td>User ID:</td>
@@ -40,16 +39,18 @@
 	<%@ include file="IncludeAccountFields.jsp"%>
 
 	<stripes:submit name="editAccount" value="Save Account Information" />
-
+<h3>Others</h3>
 </stripes:form> <stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.OrderActionBean"
-	event="listOrders">My Orders</stripes:link></div>
+	event="listOrders">My Orders</stripes:link>
+	<br>
+	<stripes:link class="button"
+				  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+				  event="viewUserTable">
+		<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+		User dashboard
+	</stripes:link></div>
 
-<stripes:link class="button"
-		beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-		event="viewUserTable">
-	<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-	User dashboard
-</stripes:link>
+
 
 <%@ include file="../common/IncludeBottom.jsp"%>
