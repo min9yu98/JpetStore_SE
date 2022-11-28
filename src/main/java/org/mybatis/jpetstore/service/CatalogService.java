@@ -98,7 +98,7 @@ public class CatalogService {
   }
 
   public void deleteItemByAdmin(String itemId) {
-    itemMapper.deleteItem(itemId);
+    itemMapper.deleteItemByAdmin(itemId);
   }
 
   @Transactional
