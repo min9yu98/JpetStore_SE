@@ -198,14 +198,19 @@ public class CatalogActionBean extends AbstractActionBean {
   public Resolution newItemFormByAdmin() {return new ForwardResolution(NEW_ITEM_ADMIN);}
 
   public Resolution updateItemFormByAdmin() {
+    item = catalogService.getItem(getItemId());
+
     HttpSession session = context.getRequest().getSession();
+    session.setAttribute("catalogBean", this);
     CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");
     if (catalogActionBean == null) {
       return new RedirectResolution(ACCESS_RESTRICTION);
     } else {
       item.initUpdateByAdmin(catalogActionBean.getItem());
+
       return new ForwardResolution(UPDATE_ITEM_ADMIN);
     }
+//    return new ForwardResolution(UPDATE_ITEM_ADMIN);
   }
 
   /**
