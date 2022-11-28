@@ -100,14 +100,7 @@
 			Admin Dashboard
 		</stripes:link>
 	</c:if>
-	<c:if test="${!sessionScope.accountBean.account.admin}">
-		<stripes:link
-				beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				event="viewUserTable">
-			<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-			User dashboard
-		</stripes:link>
-	</c:if>
+
 
 
 </div>

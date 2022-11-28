@@ -7,14 +7,8 @@
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
 <link rel="StyleSheet" href="../css/jpetstore.css" type="text/css"
       media="screen" />
-<head>
-    <title>Title</title>
-
-</head>
-<body>
 
 <SCRIPT LANGUAGE="JavaScript">
 
@@ -112,9 +106,5 @@
 <%--    </option>--%>
 
 <%--</select>--%>
-
-</body>
-
-</html>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
