@@ -66,6 +66,7 @@
 		event="signonForm">
           Sign In
 	    </stripes:link>
+
 </c:if> <c:if test="${sessionScope.accountBean != null}">
 	<c:if test="${!sessionScope.accountBean.authenticated}">
 		<stripes:link
@@ -99,6 +100,9 @@
 			Admin Dashboard
 		</stripes:link>
 	</c:if>
+
+
+
 </div>
 </div>
 

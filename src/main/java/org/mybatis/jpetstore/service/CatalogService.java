@@ -64,9 +64,7 @@ public class CatalogService {
   /**
    * Search product list.
    *
-   * @param keywords
-   *          the keywords
-   *
+   * @param keywords the keywords
    * @return the list
    */
   public List<Product> searchProductList(String keywords) {
