@@ -47,4 +47,6 @@ public interface ItemMapper {
   void updateItemByAdmin(Item item);
 
   void updateInventoryByAdmin(Item item);
+
+  void deleteItemByAdmin(String itemId);
 }
