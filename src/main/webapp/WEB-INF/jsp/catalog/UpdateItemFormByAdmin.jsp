@@ -34,9 +34,9 @@
                 </tr>
                 <tr>
                     <td>${actionBean.itemId}</td>
-                    <td><stripes:text name="actionBean.item.attribute1"  />${item.attribute1}</td>
-                    <td><stripes:text name="actionBean.item.listPrice" /></td>
-                    <td><stripes:text name="actionBean.item.quantity" /></td>
+                    <td><stripes:text name="item.attribute1"  /></td>
+                    <td><stripes:text name="item.listPrice" /></td>
+                    <td><stripes:text name="item.quantity" /></td>
                 </tr>
             </table>
             <stripes:param name="item.itemId" value= "${actionBean.itemId}" />

@@ -74,33 +74,6 @@ public class CatalogActionBean extends AbstractActionBean {
   private Item item;
   private List<Item> itemList;
   private String username;
-  private BigDecimal listPrice;
-  private String attribute1;
-  private int quantity;
-
-  public BigDecimal getListPrice() {
-    return listPrice;
-  }
-
-  public void setListPrice(BigDecimal listPrice) {
-    this.listPrice = listPrice;
-  }
-
-  public String getAttribute1() {
-    return attribute1;
-  }
-
-  public void setAttribute1(String attribute1) {
-    this.attribute1 = attribute1;
-  }
-
-  public int getQuantity() {
-    return quantity;
-  }
-
-  public void setQuantity(int quantity) {
-    this.quantity = quantity;
-  }
 
   public String getKeyword() {
     return keyword;
@@ -195,17 +168,25 @@ public class CatalogActionBean extends AbstractActionBean {
     return new ForwardResolution(MAIN);
   }
 
-  public Resolution newItemFormByAdmin() {return new ForwardResolution(NEW_ITEM_ADMIN);}
+  public Resolution newItemFormByAdmin() {
+    clearForAddByAdmin();
+    return new ForwardResolution(NEW_ITEM_ADMIN);
+  }
 
   public Resolution updateItemFormByAdmin() {
+    item = catalogService.getItem(getItemId());
+
     HttpSession session = context.getRequest().getSession();
+    session.setAttribute("catalogBean", this);
     CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");
     if (catalogActionBean == null) {
       return new RedirectResolution(ACCESS_RESTRICTION);
     } else {
       item.initUpdateByAdmin(catalogActionBean.getItem());
+
       return new ForwardResolution(UPDATE_ITEM_ADMIN);
     }
+//    return new ForwardResolution(UPDATE_ITEM_ADMIN);
   }
 
   /**
@@ -346,6 +327,18 @@ public class CatalogActionBean extends AbstractActionBean {
     productId = null;
     product = null;
     productList = null;
+
+    itemId = null;
+    item = null;
+    itemList = null;
+  }
+
+  public void clearForAddByAdmin() {
+    keyword = null;
+
+    categoryId = null;
+    category = null;
+    categoryList = null;
 
     itemId = null;
     item = null;
