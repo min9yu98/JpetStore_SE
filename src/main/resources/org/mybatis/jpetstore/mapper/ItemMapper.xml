@@ -84,10 +84,12 @@
     WHERE ITEMID = #{itemId}
   </update>
 
-  <update id="deleteItem">
-    UPDATE ITEM
-        SET STATUS = 'N'
-    WHERE ITEMID = #{itemId};
+  <update id="deleteItemByAdmin">
+    UPDATE ITEM, INVENTORY
+    SET ITEM.STATUS   = 'N',
+        INVENTORY.qty = 0
+    WHERE ITEM.ITEMID = #{itemid}
+      AND INVENTORY.itemid = #{itemid}
   </update>
 
   <insert id="insertItemByAdmin" parameterType="Item">
