@@ -110,8 +110,10 @@
   </update>
 
   <select id="getAnimalInfo" resultType="AnimalInfo">
-    select AIL.columname, AIV.value from ANIMALINFOCOLUMN AIC INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
-                                                              INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfoId = AIV.animalinfoId
+    select AIL.columname, AIV.value
+    from ANIMALINFOCOLUMN AIC
+           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
+           INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfovalueId = AIV.animalinfovalueId
     where AIC.catid = #{categoryId} and AIC.productid = #{productId};
   </select>
 
