@@ -80,38 +80,6 @@
 			</td>
 		</c:forEach>
 	</tr>
-<%--	<c:forEach var="list" items="${actionBean.animalInfoList}">--%>
-<%--		<tr>--%>
-<%--			<th>--%>
-<%--				${list.columname}--%>
-<%--			</th>--%>
-<%--			<td>--%>
-<%--					${list.value}--%>
-<%--			</td>--%>
-<%--		</tr>--%>
-
-<%--	</c:forEach>--%>
-<%--	<tr>--%>
-<%--		<c:forEach var="column" items="${actionBean.animalInfoList}">--%>
-<%--			<th>--%>
-<%--				${column.columname}--%>
-<%--			</th>--%>
-<%--		</c:forEach>--%>
-<%--	</tr>--%>
-<%--	<tr>--%>
-<%--		<c:forEach var="values" items="${actionBean.acnimalInfoList}">--%>
-<%--			<td>--%>
-<%--				${values.value}--%>
-<%--			</td>--%>
-<%--		</c:forEach>--%>
-<%--	</tr>--%>
-<%--	<c:forEach var="animalInfoColumnValueList" items="${actionBean.animalInfoColumnValueList}">--%>
-<%--		<tr>--%>
-<%--			<td>--%>
-<%--					${animalInfoColumnValueList.value}--%>
-<%--			</td>--%>
-<%--		</tr>--%>
-<%--	</c:forEach>--%>
 </table>
 
 </div>
