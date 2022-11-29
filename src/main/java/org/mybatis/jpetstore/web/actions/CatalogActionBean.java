@@ -310,6 +310,7 @@ public class CatalogActionBean extends AbstractActionBean {
   public ForwardResolution viewItem() {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
+    categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, "j2ee");
     return new ForwardResolution(VIEW_ITEM);
