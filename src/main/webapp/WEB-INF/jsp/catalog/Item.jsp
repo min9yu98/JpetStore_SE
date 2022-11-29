@@ -66,44 +66,58 @@
 	</table>
 	<br/>
 	<h3>INFORMATION</h3>
-	<table>
-		<tr>
-			<c:forEach var="list" items="${actionBean.animalInfoList}">
-				<th style="text-align: center">
-					${list.columname}
-				</th>
-			</c:forEach>
-		</tr>
-		<tr>
-			<c:forEach var="list" items="${actionBean.animalInfoList}">
-				<td style="text-align: center">
-					${list.value}
-				</td>
-			</c:forEach>
-		</tr>
-	</table>
+	<c:choose>
+		<c:when test="${actionBean.animalInfoList.isEmpty()}">
+			<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
+		</c:when>
+		<c:otherwise>
+			<table>
+				<tr>
+					<c:forEach var="list" items="${actionBean.animalInfoList}">
+						<th style="text-align: center">
+								${list.columname}
+						</th>
+					</c:forEach>
+				</tr>
+				<tr>
+					<c:forEach var="list" items="${actionBean.animalInfoList}">
+						<td style="text-align: center">
+								${list.value}
+						</td>
+					</c:forEach>
+				</tr>
+			</table>
+		</c:otherwise>
+	</c:choose>
 	<br/>
 	<c:if test="${sessionScope.accountBean != null}">
 		<c:if test="${sessionScope.accountBean.authenticated}">
 				<h3>ENVIRONMENT</h3>
-				<table>
-					<tr>
-						<th></th>
-						<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
-							<th style="text-align: center">
-									${userEnvList.envColumnName}
-							</th>
-						</c:forEach>
-					</tr>
-					<tr>
-						<th>MY</th>
-						<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
-							<td style="text-align: center">
-									${userEnvList.envItem}
-							</td>
-						</c:forEach>
-					</tr>
-				</table>
+				<c:choose>
+					<c:when test="${actionBean.userEnvList.isEmpty()}">
+						<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+					</c:when>
+					<c:otherwise>
+						<table>
+							<tr>
+								<th></th>
+								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+									<th style="text-align: center">
+											${userEnvList.envColumnName}
+									</th>
+								</c:forEach>
+							</tr>
+							<tr>
+								<th>MY</th>
+								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+									<td style="text-align: center">
+											${userEnvList.envItem}
+									</td>
+								</c:forEach>
+							</tr>
+						</table>
+					</c:otherwise>
+				</c:choose>
 		</c:if>
 	</c:if>
 </div>
