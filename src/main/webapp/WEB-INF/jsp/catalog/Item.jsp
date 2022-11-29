@@ -65,6 +65,7 @@
 	</tr>
 </table>
 	<br/>
+	<h3>INFORMATION</h3>
 <table>
 	<tr>
 		<c:forEach var="list" items="${actionBean.animalInfoList}">
@@ -112,7 +113,29 @@
 <%--			</td>--%>
 <%--		</tr>--%>
 <%--	</c:forEach>--%>
-</table>
+	</table>
+	<br/>
+	<h3>ENVIRONMENT</h3>
+	<table>
+		<tr>
+			<th style="text-align: center"></th>
+			<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+				<th style="text-align: center">
+						${userEnvList.envColumnName}
+				</th>
+			</c:forEach>
+		</tr>
+		<tr>
+			<th style="text-align: center">
+				MY
+			</th>
+			<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+				<th style="text-align: center">
+						${userEnvList.envItem}
+				</th>
+			</c:forEach>
+		</tr>
+	</table>
 
 </div>
 
