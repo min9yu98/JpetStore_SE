@@ -75,6 +75,43 @@ public class CatalogActionBean extends AbstractActionBean {
   private Item item;
   private List<Item> itemList;
   private String username;
+  private String envColumnName;
+  private String envItem;
+
+  public EnvironmentByUser getEnvironmentByUser() {
+    return environmentByUser;
+  }
+
+  public void setEnvironmentByUser(EnvironmentByUser environmentByUser) {
+    this.environmentByUser = environmentByUser;
+  }
+
+  private EnvironmentByUser environmentByUser;
+  private List<EnvironmentByUser> userEnvList;
+
+  public List<EnvironmentByUser> getUserEnvList() {
+    return userEnvList;
+  }
+
+  public void setUserEnvList(List<EnvironmentByUser> userEnvList) {
+    this.userEnvList = userEnvList;
+  }
+
+  public String getEnvColumnName() {
+    return envColumnName;
+  }
+
+  public void setEnvColumnName(String envColumnName) {
+    this.envColumnName = envColumnName;
+  }
+
+  public String getEnvItem() {
+    return envItem;
+  }
+
+  public void setEnvItem(String envItem) {
+    this.envItem = envItem;
+  }
 
   public String getKeyword() {
     return keyword;
@@ -275,6 +312,7 @@ public class CatalogActionBean extends AbstractActionBean {
     product = item.getProduct();
     categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
     return new ForwardResolution(VIEW_ITEM);
   }
 
