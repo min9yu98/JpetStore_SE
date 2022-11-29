@@ -75,9 +75,9 @@
 	</tr>
 	<tr>
 		<c:forEach var="list" items="${actionBean.animalInfoList}">
-			<th style="text-align: center">
+			<td style="text-align: center">
 				${list.value}
-			</th>
+			</td>
 		</c:forEach>
 	</tr>
 <%--	<c:forEach var="list" items="${actionBean.animalInfoList}">--%>

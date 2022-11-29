@@ -40,6 +40,7 @@ public class Item implements Serializable {
   private String attribute5;
   private Product product;
   private int quantity;
+  private String categoryId;
 
   public String getItemId() {
     return itemId;
@@ -148,6 +149,14 @@ public class Item implements Serializable {
 
   public void setProductId(String productId) {
     this.productId = productId;
+  }
+
+  public String getCategoryId() {
+    return categoryId;
+  }
+
+  public void setCategoryId(String categoryId) {
+    this.categoryId = categoryId;
   }
 
   public void initUpdateByAdmin(Item item) {
