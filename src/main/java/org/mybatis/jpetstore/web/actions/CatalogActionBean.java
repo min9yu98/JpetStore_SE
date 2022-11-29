@@ -311,7 +311,7 @@ public class CatalogActionBean extends AbstractActionBean {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
     categoryId = product.getCategoryId();
-    //animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+    animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
     return new ForwardResolution(VIEW_ITEM);
   }
