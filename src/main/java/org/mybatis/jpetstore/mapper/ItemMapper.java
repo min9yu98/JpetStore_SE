@@ -19,7 +19,10 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.annotations.Param;
+import org.mybatis.jpetstore.domain.AnimalInfo;
 import org.mybatis.jpetstore.domain.Item;
+import org.mybatis.jpetstore.domain.Product;
 
 /**
  * The Interface ItemMapper.
@@ -49,4 +52,6 @@ public interface ItemMapper {
   void updateInventoryByAdmin(Item item);
 
   void deleteItemByAdmin(String itemId);
+  
+  List<AnimalInfo> getAnimalInfo(@Param("categoryId") String categoryId, @Param("productId") String productId);
 }

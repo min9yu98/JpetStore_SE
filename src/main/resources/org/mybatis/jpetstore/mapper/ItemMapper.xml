@@ -107,4 +107,11 @@
   <update id="updateInventoryByAdmin" parameterType="Item">
     update INVENTORY SET qty = #{quantity} where itemid=#{itemId};
   </update>
+
+  <select id="getAnimalInfo" resultType="AnimalInfo">
+    select AIL.columname, AIV.value from ANIMALINFOCOLUMN AIC INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
+                                                              INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfoId = AIV.animalinfoId
+    where AIC.catid = #{categoryId} and AIC.productid = #{productId};
+  </select>
+
 </mapper>

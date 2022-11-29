@@ -18,6 +18,7 @@ package org.mybatis.jpetstore.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.mybatis.jpetstore.domain.AnimalInfo;
 import org.mybatis.jpetstore.domain.Category;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
@@ -108,5 +109,9 @@ public class CatalogService {
   public void updateItemByAdmin(Item item) {
     itemMapper.updateItemByAdmin(item);
     itemMapper.updateInventoryByAdmin(item);
+  }
+
+  public List<AnimalInfo> getAnimalInfo(String categoryId, String productId) {
+    return itemMapper.getAnimalInfo(categoryId, productId);
   }
 }

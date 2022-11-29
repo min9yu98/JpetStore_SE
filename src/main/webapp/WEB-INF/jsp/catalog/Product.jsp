@@ -27,10 +27,10 @@
 		value="${actionBean.product.categoryId}" />
 	Return to ${actionBean.product.categoryId}
 </stripes:link></div>
-
+<br>
 <div id="Catalog">
 
-<h2>${actionBean.product.name}</h2>
+<h2 style="text-align: center">${actionBean.product.name}</h2>
 
 <table>
 	<tr>
