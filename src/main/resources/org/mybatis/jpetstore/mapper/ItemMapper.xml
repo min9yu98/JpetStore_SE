@@ -40,7 +40,8 @@
       ATTR3 AS attribute3,
       ATTR4 AS attribute4,
       ATTR5 AS attribute5,
-      IV.qty AS quantity
+      IV.qty AS quantity,
+      P.category AS categoryId
     FROM ITEM I, PRODUCT P, INVENTORY IV
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.STATUS = 'P'
