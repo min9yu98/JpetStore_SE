@@ -79,6 +79,18 @@ public class CatalogActionBean extends AbstractActionBean {
   private String username;
   private String envColumnName;
   private String envItem;
+  private EnvironmentByUser environmentByUser;
+  private EnvironmentByProduct environmentByProduct;
+  private List<EnvironmentByUser> userEnvList;
+  private List<EnvironmentByProduct> productEnvList;
+
+  public EnvironmentByProduct getEnvironmentByProduct() {
+    return environmentByProduct;
+  }
+
+  public void setEnvironmentByProduct(EnvironmentByProduct environmentByProduct) {
+    this.environmentByProduct = environmentByProduct;
+  }
 
   public EnvironmentByUser getEnvironmentByUser() {
     return environmentByUser;
@@ -88,8 +100,13 @@ public class CatalogActionBean extends AbstractActionBean {
     this.environmentByUser = environmentByUser;
   }
 
-  private EnvironmentByUser environmentByUser;
-  private List<EnvironmentByUser> userEnvList;
+  public List<EnvironmentByProduct> getProductEnvList() {
+    return productEnvList;
+  }
+
+  public void setProductEnvList(List<EnvironmentByProduct> productEnvList) {
+    this.productEnvList = productEnvList;
+  }
 
   public List<EnvironmentByUser> getUserEnvList() {
     return userEnvList;
@@ -311,9 +328,8 @@ public class CatalogActionBean extends AbstractActionBean {
    */
   public ForwardResolution viewItem() {
     item = catalogService.getItem(itemId);
-    product = item.getProduct();
-    categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+    productEnvList = catalogService.getProductEnvList(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
     return new ForwardResolution(VIEW_ITEM);
   }
@@ -324,6 +340,7 @@ public class CatalogActionBean extends AbstractActionBean {
       product = item.getProduct();
       categoryId = product.getCategoryId();
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      productEnvList = catalogService.getProductEnvList(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
     } else {

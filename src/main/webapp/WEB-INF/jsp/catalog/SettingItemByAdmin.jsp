@@ -126,6 +126,14 @@
 										</td>
 									</c:forEach>
 								</tr>
+								<tr>
+									<th>${actionBean.productId}</th>
+									<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+										<td style="text-align: center">
+												${productEnvList.envItem}
+										</td>
+									</c:forEach>
+								</tr>
 							</table>
 						</c:otherwise>
 					</c:choose>

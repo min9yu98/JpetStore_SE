@@ -50,7 +50,6 @@
                                           beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                                           event="viewAdminTable">
                                 <stripes:param name="productId" value="${products.productId}" />
-                                <stripes:param name="productName" value="${products.name}"/>
                                 SETTING
                             </stripes:link>
                         </td>

@@ -33,4 +33,14 @@
       and E.catid = #{categoryId};
   </select>
 
+  <select id="getProductEnvList" resultType="EnvironmentbyProduct">
+      select E2.envcolumnname as envColumnName,
+             E3.envitem       as envItem
+      from PRODUCTENVIRONMENT
+               inner join ENVIRONMENTCOLUMN E on PRODUCTENVIRONMENT.environmentcolumnId = E.environmentcolumnId
+               inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
+               inner join ENVITEMLIST E3 on PRODUCTENVIRONMENT.envitemlistid = E3.envitemlistid
+      where PRODUCTENVIRONMENT.productid = #{productId}
+        and E.catid = #{categoryId};
+  </select>
 </mapper>

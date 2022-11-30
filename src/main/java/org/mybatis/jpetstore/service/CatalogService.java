@@ -118,4 +118,8 @@ public class CatalogService {
   public List<EnvironmentByUser> getUserEnvList(String categoryId, String username) {
     return environmentMapper.getUserEnvList(categoryId, username);
   }
+
+  public List<EnvironmentByProduct> getProductEnvList(String categoryId, String productId) {
+    return environmentMapper.getProductEnvList(categoryId, productId);
+  }
 }

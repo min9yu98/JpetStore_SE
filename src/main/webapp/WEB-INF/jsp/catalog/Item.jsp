@@ -115,6 +115,21 @@
 									</td>
 								</c:forEach>
 							</tr>
+<%--							<tr>--%>
+<%--								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">--%>
+<%--									<th style="text-align: center">--%>
+<%--											${productEnvList.envColumnName}--%>
+<%--									</th>--%>
+<%--								</c:forEach>--%>
+<%--							</tr>--%>
+							<tr>
+								<th>${actionBean.productId}</th>
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+									<td style="text-align: center">
+											${productEnvList.envItem}
+									</td>
+								</c:forEach>
+							</tr>
 						</table>
 					</c:otherwise>
 				</c:choose>
