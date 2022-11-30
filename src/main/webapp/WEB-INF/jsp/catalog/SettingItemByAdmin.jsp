@@ -25,112 +25,118 @@
 </stripes:link></div>
 <br>
 <br>
-<div id="Catalog">
-
-<table>
-	<tr>
-		<td>${actionBean.product.description}</td>
-	</tr>
-	<tr>
-		<td><b> ${actionBean.item.itemId} </b></td>
-	</tr>
-	<tr>
-		<td><b><font size="4"> ${actionBean.item.attribute1}
-		${actionBean.item.attribute2} ${actionBean.item.attribute3}
-		${actionBean.item.attribute4} ${actionBean.item.attribute5}
-		${actionBean.product.name} </font></b></td>
-	</tr>
-	<tr>
-		<td>${actionBean.product.name}</td>
-	</tr>
-	<tr>
-		<td><c:if test="${actionBean.item.quantity <= 0}">
-        Back ordered.
-      </c:if> <c:if test="${actionBean.item.quantity > 0}">
-      	${actionBean.item.quantity} in stock.
-	  </c:if></td>
-	</tr>
-	<tr>
-		<td><fmt:formatNumber value="${actionBean.item.listPrice}"
-			pattern="$#,##0.00" /></td>
-	</tr>
-
-	<tr>
-		<td><stripes:link class="Button"
-			beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
-			event="addItemToCart">
-			<stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
-       	Add to Cart
-       </stripes:link></td>
-	</tr>
-	</table>
-	<br/>
-	<h3>INFORMATION</h3>
-	<c:choose>
-		<c:when test="${actionBean.animalInfoList.isEmpty()}">
-			<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
-		</c:when>
-		<c:otherwise>
+<c:choose>
+	<c:when test="${sessionScope.accountBean.account.admin}">
+		<div id="Catalog">
 			<table>
 				<tr>
-					<c:forEach var="list" items="${actionBean.animalInfoList}">
-						<th>
-								${list.columname}
-						</th>
-					</c:forEach>
+					<td>${actionBean.product.description}</td>
 				</tr>
 				<tr>
-					<c:forEach var="list" items="${actionBean.animalInfoList}">
-						<td style="text-align: center">
-								${list.value}
-						</td>
-					</c:forEach>
+					<td><b> ${actionBean.item.itemId} </b></td>
 				</tr>
-				<c:forEach var="list" items="${actionBean.animalInfoList}">
-					<td style="text-align: center">
-						<stripes:link class="Button"
-									  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-									  event="viewItemListByAdmin">
-							<stripes:param name="productId" value="${products.productId}" />
-							EDIT ITEM
-						</stripes:link>
-					</td>
-				</c:forEach>
+				<tr>
+					<td><b><font size="4"> ${actionBean.item.attribute1}
+							${actionBean.item.attribute2} ${actionBean.item.attribute3}
+							${actionBean.item.attribute4} ${actionBean.item.attribute5}
+							${actionBean.product.name} </font></b></td>
+				</tr>
+				<tr>
+					<td>${actionBean.product.name}</td>
+				</tr>
+				<tr>
+					<td><c:if test="${actionBean.item.quantity <= 0}">
+						Back ordered.
+					</c:if> <c:if test="${actionBean.item.quantity > 0}">
+						${actionBean.item.quantity} in stock.
+					</c:if></td>
+				</tr>
+				<tr>
+					<td><fmt:formatNumber value="${actionBean.item.listPrice}"
+										  pattern="$#,##0.00" /></td>
+				</tr>
+
+				<tr>
+					<td><stripes:link class="Button"
+									  beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
+									  event="addItemToCart">
+						<stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
+						Add to Cart
+					</stripes:link></td>
+				</tr>
 			</table>
-		</c:otherwise>
-	</c:choose>
-	<br/>
-	<c:if test="${sessionScope.accountBean != null}">
-		<c:if test="${sessionScope.accountBean.authenticated}">
-				<h3>ENVIRONMENT</h3>
-				<c:choose>
-					<c:when test="${actionBean.userEnvList.isEmpty()}">
-						<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
-					</c:when>
-					<c:otherwise>
-						<table>
-							<tr>
-								<th></th>
-								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
-									<th style="text-align: center">
-											${userEnvList.envColumnName}
-									</th>
-								</c:forEach>
-							</tr>
-							<tr>
-								<th>MY</th>
-								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
-									<td style="text-align: center">
-											${userEnvList.envItem}
-									</td>
-								</c:forEach>
-							</tr>
-						</table>
-					</c:otherwise>
-				</c:choose>
-		</c:if>
-	</c:if>
-</div>
+			<br/>
+			<h3>INFORMATION</h3>
+			<c:choose>
+				<c:when test="${actionBean.animalInfoList.isEmpty()}">
+					<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
+				</c:when>
+				<c:otherwise>
+					<table>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoList}">
+								<th>
+										${list.columname}
+								</th>
+							</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoList}">
+								<td style="text-align: center">
+										${list.value}
+								</td>
+							</c:forEach>
+						</tr>
+						<c:forEach var="list" items="${actionBean.animalInfoList}">
+							<td style="text-align: center">
+								<stripes:link class="Button"
+											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+											  event="viewItemListByAdmin">
+									<stripes:param name="productId" value="${products.productId}" />
+									EDIT ITEM
+								</stripes:link>
+							</td>
+						</c:forEach>
+					</table>
+				</c:otherwise>
+			</c:choose>
+			<br/>
+			<c:if test="${sessionScope.accountBean != null}">
+				<c:if test="${sessionScope.accountBean.authenticated}">
+					<h3>ENVIRONMENT</h3>
+					<c:choose>
+						<c:when test="${actionBean.userEnvList.isEmpty()}">
+							<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+						</c:when>
+						<c:otherwise>
+							<table>
+								<tr>
+									<th></th>
+									<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+										<th style="text-align: center">
+												${userEnvList.envColumnName}
+										</th>
+									</c:forEach>
+								</tr>
+								<tr>
+									<th>MY</th>
+									<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+										<td style="text-align: center">
+												${userEnvList.envItem}
+										</td>
+									</c:forEach>
+								</tr>
+							</table>
+						</c:otherwise>
+					</c:choose>
+				</c:if>
+			</c:if>
+		</div>
+	</c:when>
+	<c:otherwise>
+		<%@ include file="../common/AccessRestriction.jsp"%>
+	</c:otherwise>
+</c:choose>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
 

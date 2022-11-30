@@ -315,10 +315,19 @@ public class CatalogActionBean extends AbstractActionBean {
     categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
+    return new ForwardResolution(VIEW_ITEM);
+  }
+
+  public ForwardResolution viewItemByAdmin() {
     if (accountService.isAdmin(username)) {
+      item = catalogService.getItem(itemId);
+      product = item.getProduct();
+      categoryId = product.getCategoryId();
+      animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
     } else {
-      return new ForwardResolution(VIEW_ITEM);
+      return new ForwardResolution(ACCESS_RESTRICTION);
     }
   }
 
