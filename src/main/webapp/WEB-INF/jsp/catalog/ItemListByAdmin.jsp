@@ -45,7 +45,7 @@
             <tr>
                 <td><stripes:link
                         beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-                        event="viewItemByAdmin">
+                        event="viewItem">
                     <stripes:param name="itemId" value="${itemList.itemId}" />
                     <stripes:param name="username" value="${sessionScope.accountBean.username}" />
                     ${itemList.itemId}

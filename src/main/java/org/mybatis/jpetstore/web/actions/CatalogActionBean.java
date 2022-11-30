@@ -53,6 +53,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
   private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingByAdmin.jsp";
   private static final String VIEW_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
+  private static final String UPDATE_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/UpdateAnimalInfoFormByAdmin.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -275,7 +276,6 @@ public class CatalogActionBean extends AbstractActionBean {
 
       return new ForwardResolution(UPDATE_ITEM_ADMIN);
     }
-//    return new ForwardResolution(UPDATE_ITEM_ADMIN);
   }
 
   /**
@@ -336,15 +336,31 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public ForwardResolution viewItemByAdmin() {
     if (accountService.isAdmin(username)) {
-      item = catalogService.getItem(itemId);
-      product = item.getProduct();
-      categoryId = product.getCategoryId();
+      product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
+
+  public Resolution updateAnimalInfoValueByAdmin() {
+    catalogService.updateAnimalInfoValueByAdmin(animalInfo);
+    return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
+  }
+
+  public Resolution updateAnimalInfoValueFormByAdmin() {
+    animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+
+    HttpSession session = context.getRequest().getSession();
+    session.setAttribute("catalogBean", this);
+    CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");
+    if (catalogActionBean == null) {
+      return new RedirectResolution(ACCESS_RESTRICTION);
+    } else {
+      return new ForwardResolution(UPDATE_ANIMAL_INFO_BY_ADMIN);
     }
   }
 

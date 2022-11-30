@@ -119,6 +119,10 @@ public class CatalogService {
     return environmentMapper.getUserEnvList(categoryId, username);
   }
 
+  public void updateAnimalInfoValueByAdmin(AnimalInfo animalInfo) {
+    itemMapper.updateAnimalInfoValueByAdmin(animalInfo);
+  }
+
   public List<EnvironmentByProduct> getProductEnvList(String categoryId, String productId) {
     return environmentMapper.getProductEnvList(categoryId, productId);
   }

@@ -117,4 +117,11 @@
     where AIC.catid = #{categoryId} and AIC.productid = #{productId};
   </select>
 
+  <update id="updateAnimalInfoValueByAdmin" parameterType="AnimalInfo">
+    update ANIMALINFOVALUE set value = #{value}
+                           where animalinfovalueId in (select animalinfovalueId from (select AIC.animalinfovalueId from ANIMALINFOCOLUMN AIC
+                                                                                                                INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
+                                                                                                                INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfovalueId = AIV.animalinfovalueId
+                                                                                                         where AIC.catid = #{categoryId} and AIC.productid = #{productId} and AIL.columname = #{columname}) as id);
+  </update>
 </mapper>
