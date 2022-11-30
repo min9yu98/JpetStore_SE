@@ -350,7 +350,6 @@ public class CatalogActionBean extends AbstractActionBean {
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
-      userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);

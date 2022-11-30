@@ -113,7 +113,9 @@
 								</c:forEach>
 							</tr>
 						</table>
-						<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+						<c:if test="${!sessionScope.accountBean.account.admin}">
+							<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<table>
