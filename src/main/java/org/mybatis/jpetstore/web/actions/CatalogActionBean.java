@@ -80,10 +80,19 @@ public class CatalogActionBean extends AbstractActionBean {
   private String username;
   private String envColumnName;
   private String envItem;
+  private int animalinfovalueId;
+  private int columnId;
   private EnvironmentByUser environmentByUser;
   private EnvironmentByProduct environmentByProduct;
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
+
+  public int getAnimalinfovalueId() {
+    return animalinfovalueId;
+  }
+  public void setAnimalinfovalueId(int animalinfovalueId) {
+    this.animalinfovalueId = animalinfovalueId;
+  }
 
   public EnvironmentByProduct getEnvironmentByProduct() {
     return environmentByProduct;
@@ -328,6 +337,8 @@ public class CatalogActionBean extends AbstractActionBean {
    */
   public ForwardResolution viewItem() {
     item = catalogService.getItem(itemId);
+    product = item.getProduct();
+    categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     productEnvList = catalogService.getProductEnvList(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
@@ -347,6 +358,8 @@ public class CatalogActionBean extends AbstractActionBean {
   }
 
   public Resolution updateAnimalInfoValueByAdmin() {
+    animalinfovalueId = catalogService.getAnimalInfoValueId(categoryId, productId, columname);
+    animalInfo.setAnimalinfovalueId(animalinfovalueId);
     catalogService.updateAnimalInfoValueByAdmin(animalInfo);
     return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
   }
@@ -364,6 +377,32 @@ public class CatalogActionBean extends AbstractActionBean {
     }
   }
 
+  public Resolution insertAnimalInfoFormByAdmin() {
+    return new ForwardResolution(INSERT_ANIMAL_INFO_BY_ADMIN);
+  }
+
+  public Resolution insertAnimalInfoByAdmin() {
+    if (accountService.isAdmin(username)) {
+      catalogService.insertAnimalInfoByAdmin(animalInfo);
+      return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
+
+  public ForwardResolution deleteAnimalInfoByAdmin() {
+    if (accountService.isAdmin(username)) {
+      columnId = catalogService.getAnimalInfoColumnId(columname);
+      animalInfo.setColumnId(columnId);
+      catalogService.deleteAnimalInfoByAdmin(productId, categoryId, columnId);
+
+      itemList = catalogService.getItemListByProduct(productId);
+      product = catalogService.getProduct(productId);
+      return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
   /**
    * itemList(admin)
    *

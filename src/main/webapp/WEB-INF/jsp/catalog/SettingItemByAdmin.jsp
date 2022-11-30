@@ -50,6 +50,15 @@
 										${list.columname}
 								</th>
 							</c:forEach>
+							<th style="text-align: center">
+								<stripes:link class="Button"
+											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+											  event="insertAnimalInfoFormByAdmin" style="background-color: rgba(0,0,0,0)">
+									<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+									<stripes:param name="productId" value="${products.productId}" />
+									ADD STANDARD
+								</stripes:link>
+							</th>
 						</tr>
 						<tr>
 							<c:forEach var="list" items="${actionBean.animalInfoList}">
@@ -57,19 +66,44 @@
 										${list.value}
 								</td>
 							</c:forEach>
-						</tr>
-						<c:forEach var="list" items="${actionBean.animalInfoList}">
 							<td style="text-align: center">
 								<stripes:link class="Button"
 											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-											  event="updateAnimalInfoValueFormByAdmin">
-									<stripes:param name="productId" value="${list.productId}" />
-									<stripes:param name="categoryId" value="${list.categoryId}" />
-									<stripes:param name="columname" value="${list.columname}" />
-									EDIT INFO
+											  event="insertAnimalInfoFormByAdmin" style="background-color: rgba(0,0,0,0)">
+									<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+									<stripes:param name="productId" value="${products.productId}" />
+									ADD VALUE
 								</stripes:link>
 							</td>
-						</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoList}">
+								<td style="text-align: center">
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="updateAnimalInfoValueFormByAdmin">
+										<stripes:param name="productId" value="${list.productId}" />
+										<stripes:param name="categoryId" value="${list.categoryId}" />
+										<stripes:param name="columname" value="${list.columname}" />
+										EDIT INFO
+									</stripes:link>
+								</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoList}">
+								<td style="text-align: center">
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="deleteAnimalInfoByAdmin" style="background-color: rgba(0,0,0,0)">
+										<stripes:param name="productId" value="${list.productId}" />
+										<stripes:param name="categoryId" value="${list.categoryId}" />
+										<stripes:param name="columname" value="${list.columname}" />
+										DELETE STANDARD
+									</stripes:link>
+								</td>
+							</c:forEach>
+						</tr>
 					</table>
 				</c:otherwise>
 			</c:choose>
