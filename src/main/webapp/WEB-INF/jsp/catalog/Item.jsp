@@ -74,7 +74,7 @@
 			<table>
 				<tr>
 					<c:forEach var="list" items="${actionBean.animalInfoList}">
-						<th style="text-align: center">
+						<th>
 								${list.columname}
 						</th>
 					</c:forEach>
@@ -86,6 +86,16 @@
 						</td>
 					</c:forEach>
 				</tr>
+				<c:forEach var="list" items="${actionBean.animalInfoList}">
+					<td style="text-align: center">
+						<stripes:link class="Button"
+									  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+									  event="viewItemListByAdmin">
+							<stripes:param name="productId" value="${products.productId}" />
+							EDIT ITEM
+						</stripes:link>
+					</td>
+				</c:forEach>
 			</table>
 		</c:otherwise>
 	</c:choose>
