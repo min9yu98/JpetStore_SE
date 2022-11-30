@@ -326,6 +326,15 @@ public class CatalogActionBean extends AbstractActionBean {
    *
    * @return the forward resolution
    */
+  public ForwardResolution viewAdminTable()
+  {
+    if (accountService.isAdmin(username)) {
+      productList = catalogService.getAllProductListByAdmin();
+      return new ForwardResolution(VIEW_ADMIN_TABLE);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
   public ForwardResolution viewItemListByAdmin() {
     if (productId != null && accountService.isAdmin(username)) {
       itemList = catalogService.getItemListByProduct(productId);
