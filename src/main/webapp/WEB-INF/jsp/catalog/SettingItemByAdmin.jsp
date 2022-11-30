@@ -33,36 +33,7 @@
 					<td>${actionBean.product.description}</td>
 				</tr>
 				<tr>
-					<td><b> ${actionBean.item.itemId} </b></td>
-				</tr>
-				<tr>
-					<td><b><font size="4"> ${actionBean.item.attribute1}
-							${actionBean.item.attribute2} ${actionBean.item.attribute3}
-							${actionBean.item.attribute4} ${actionBean.item.attribute5}
-							${actionBean.product.name} </font></b></td>
-				</tr>
-				<tr>
 					<td>${actionBean.product.name}</td>
-				</tr>
-				<tr>
-					<td><c:if test="${actionBean.item.quantity <= 0}">
-						Back ordered.
-					</c:if> <c:if test="${actionBean.item.quantity > 0}">
-						${actionBean.item.quantity} in stock.
-					</c:if></td>
-				</tr>
-				<tr>
-					<td><fmt:formatNumber value="${actionBean.item.listPrice}"
-										  pattern="$#,##0.00" /></td>
-				</tr>
-
-				<tr>
-					<td><stripes:link class="Button"
-									  beanclass="org.mybatis.jpetstore.web.actions.CartActionBean"
-									  event="addItemToCart">
-						<stripes:param name="workingItemId" value="${actionBean.item.itemId}" />
-						Add to Cart
-					</stripes:link></td>
 				</tr>
 			</table>
 			<br/>
@@ -75,7 +46,7 @@
 					<table>
 						<tr>
 							<c:forEach var="list" items="${actionBean.animalInfoList}">
-								<th>
+								<th style="text-align: center">
 										${list.columname}
 								</th>
 							</c:forEach>
@@ -91,9 +62,11 @@
 							<td style="text-align: center">
 								<stripes:link class="Button"
 											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-											  event="viewItemListByAdmin">
-									<stripes:param name="productId" value="${products.productId}" />
-									EDIT ITEM
+											  event="updateAnimalInfoValueFormByAdmin">
+									<stripes:param name="productId" value="${list.productId}" />
+									<stripes:param name="categoryId" value="${list.categoryId}" />
+									<stripes:param name="columname" value="${list.columname}" />
+									EDIT INFO
 								</stripes:link>
 							</td>
 						</c:forEach>

@@ -30,6 +30,24 @@ public class AnimalInfo implements Serializable {
 
     private String columname;
     private String value;
+    private String categoryId;
+    private String productId;
+
+    public String getProductId() {
+        return productId;
+    }
+
+    public void setProductId(String productId) {
+        this.productId = productId;
+    }
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
 
     public String getColumname() {
         return columname;

@@ -118,4 +118,8 @@ public class CatalogService {
   public List<EnvironmentByUser> getUserEnvList(String categoryId, String username) {
     return environmentMapper.getUserEnvList(categoryId, username);
   }
+
+  public void updateAnimalInfoValueByAdmin(AnimalInfo animalInfo) {
+    itemMapper.updateAnimalInfoValueByAdmin(animalInfo);
+  }
 }
