@@ -262,6 +262,10 @@ public class CatalogActionBean extends AbstractActionBean {
     this.animalInfoList = animalInfoList;
   }
 
+  public List<ProductEnvItemList> getProductEnvItemList() {
+    catalogService.getProductEnvItemList();
+  }
+
   @DefaultHandler
   public ForwardResolution viewMain() {
     return new ForwardResolution(MAIN);

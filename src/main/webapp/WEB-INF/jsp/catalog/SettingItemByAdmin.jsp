@@ -128,6 +128,14 @@
 								</td>
 							</c:forEach>
 						</tr>
+						<tr>
+							<th>EDIT ITEM</th>
+							<td>
+								<stripes:select name="productEnvItem">
+									<stripes:options-collection collection="${actionBean.productEnvItemList}" />
+								</stripes:select>
+							</td>
+						</tr>
 					</table>
 				</c:if>
 			</c:if>
