@@ -18,6 +18,6 @@
 <div>
   <script title="WARNING">
     alert("ACCESS DENIED");
-    location.href="http://localhost:8080/jpetstore_war/actions/Catalog.action";
+    location.href="http://localhost:8080/actions/Catalog.action";
   </script>
 </div>
