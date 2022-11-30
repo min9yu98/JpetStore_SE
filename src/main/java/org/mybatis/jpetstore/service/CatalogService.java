@@ -18,10 +18,9 @@ package org.mybatis.jpetstore.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.mybatis.jpetstore.domain.Category;
-import org.mybatis.jpetstore.domain.Item;
-import org.mybatis.jpetstore.domain.Product;
+import org.mybatis.jpetstore.domain.*;
 import org.mybatis.jpetstore.mapper.CategoryMapper;
+import org.mybatis.jpetstore.mapper.EnvironmentMapper;
 import org.mybatis.jpetstore.mapper.ItemMapper;
 import org.mybatis.jpetstore.mapper.ProductMapper;
 import org.springframework.stereotype.Service;
@@ -38,11 +37,13 @@ public class CatalogService {
   private final CategoryMapper categoryMapper;
   private final ItemMapper itemMapper;
   private final ProductMapper productMapper;
+  private final EnvironmentMapper environmentMapper;
 
-  public CatalogService(CategoryMapper categoryMapper, ItemMapper itemMapper, ProductMapper productMapper) {
+  public CatalogService(CategoryMapper categoryMapper, ItemMapper itemMapper, ProductMapper productMapper, EnvironmentMapper environmentMapper) {
     this.categoryMapper = categoryMapper;
     this.itemMapper = itemMapper;
     this.productMapper = productMapper;
+    this.environmentMapper = environmentMapper;
   }
 
   public List<Category> getCategoryList() {
@@ -108,5 +109,13 @@ public class CatalogService {
   public void updateItemByAdmin(Item item) {
     itemMapper.updateItemByAdmin(item);
     itemMapper.updateInventoryByAdmin(item);
+  }
+
+  public List<AnimalInfo> getAnimalInfo(String categoryId, String productId) {
+    return itemMapper.getAnimalInfo(categoryId, productId);
+  }
+
+  public List<EnvironmentByUser> getUserEnvList(String categoryId, String username) {
+    return environmentMapper.getUserEnvList(categoryId, username);
   }
 }

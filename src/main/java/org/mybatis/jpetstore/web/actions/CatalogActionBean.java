@@ -22,10 +22,7 @@ import com.google.gson.Gson;
 import net.sourceforge.stripes.action.*;
 import net.sourceforge.stripes.integration.spring.SpringBean;
 
-import org.mybatis.jpetstore.domain.Account;
-import org.mybatis.jpetstore.domain.Category;
-import org.mybatis.jpetstore.domain.Item;
-import org.mybatis.jpetstore.domain.Product;
+import org.mybatis.jpetstore.domain.*;
 import org.mybatis.jpetstore.service.AccountService;
 import org.mybatis.jpetstore.service.CatalogService;
 
@@ -70,10 +67,51 @@ public class CatalogActionBean extends AbstractActionBean {
   private Product product;
   private List<Product> productList;
 
+  private String columname;
+  private String value;
+  private AnimalInfo animalInfo;
+  private List<AnimalInfo> animalInfoList;
   private String itemId;
   private Item item;
   private List<Item> itemList;
   private String username;
+  private String envColumnName;
+  private String envItem;
+
+  public EnvironmentByUser getEnvironmentByUser() {
+    return environmentByUser;
+  }
+
+  public void setEnvironmentByUser(EnvironmentByUser environmentByUser) {
+    this.environmentByUser = environmentByUser;
+  }
+
+  private EnvironmentByUser environmentByUser;
+  private List<EnvironmentByUser> userEnvList;
+
+  public List<EnvironmentByUser> getUserEnvList() {
+    return userEnvList;
+  }
+
+  public void setUserEnvList(List<EnvironmentByUser> userEnvList) {
+    this.userEnvList = userEnvList;
+  }
+
+  public String getEnvColumnName() {
+    return envColumnName;
+  }
+
+  public void setEnvColumnName(String envColumnName) {
+    this.envColumnName = envColumnName;
+  }
+
+  public String getEnvItem() {
+    return envItem;
+  }
+
+  public void setEnvItem(String envItem) {
+    this.envItem = envItem;
+  }
 
   public String getKeyword() {
     return keyword;
@@ -163,6 +201,38 @@ public class CatalogActionBean extends AbstractActionBean {
     this.itemList = itemList;
   }
 
+  public String getColumname() {
+    return columname;
+  }
+
+  public void setColumname(String columname) {
+    this.columname = columname;
+  }
+
+  public String getValue() {
+    return value;
+  }
+
+  public void setValue(String value) {
+    this.value = value;
+  }
+
+  public AnimalInfo getAnimalInfo() {
+    return animalInfo;
+  }
+
+  public void setAnimalInfo(AnimalInfo animalInfo) {
+    this.animalInfo = animalInfo;
+  }
+
+  public List<AnimalInfo> getAnimalInfoList() {
+    return animalInfoList;
+  }
+
+  public void setAnimalInfoList(List<AnimalInfo> animalInfoList) {
+    this.animalInfoList = animalInfoList;
+  }
+
   @DefaultHandler
   public ForwardResolution viewMain() {
     return new ForwardResolution(MAIN);
@@ -240,6 +310,9 @@ public class CatalogActionBean extends AbstractActionBean {
   public ForwardResolution viewItem() {
     item = catalogService.getItem(itemId);
     product = item.getProduct();
+    categoryId = product.getCategoryId();
+    animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
     return new ForwardResolution(VIEW_ITEM);
   }
 

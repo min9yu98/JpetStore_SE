@@ -27,10 +27,10 @@
 		value="${actionBean.product.categoryId}" />
 	Return to ${actionBean.product.categoryId}
 </stripes:link></div>
-
+<br>
 <div id="Catalog">
 
-<h2>${actionBean.product.name}</h2>
+<h2 style="text-align: center">${actionBean.product.name}</h2>
 
 <table>
 	<tr>
@@ -46,6 +46,7 @@
 				beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 				event="viewItem">
 				<stripes:param name="itemId" value="${item.itemId}" />
+				<stripes:param name="username" value="${sessionScope.accountBean.username}" />
 				${item.itemId}
 			</stripes:link></td>
 			<td>${item.product.productId}</td>

@@ -20,7 +20,7 @@
 <div id="BackLink"><stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
 	Return to Main Menu</stripes:link></div>
-
+<br>
 <div id="Catalog">
 
 <h2>${actionBean.category.name}</h2>

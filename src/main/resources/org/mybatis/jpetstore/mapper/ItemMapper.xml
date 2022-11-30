@@ -40,7 +40,8 @@
       ATTR3 AS attribute3,
       ATTR4 AS attribute4,
       ATTR5 AS attribute5,
-      IV.qty AS quantity
+      IV.qty AS quantity,
+      P.category AS categoryId
     FROM ITEM I, PRODUCT P, INVENTORY IV
     WHERE P.PRODUCTID = I.PRODUCTID
       AND I.STATUS = 'P'
@@ -107,4 +108,13 @@
   <update id="updateInventoryByAdmin" parameterType="Item">
     update INVENTORY SET qty = #{quantity} where itemid=#{itemId};
   </update>
+
+  <select id="getAnimalInfo" resultType="AnimalInfo">
+    select AIL.columname, AIV.value
+    from ANIMALINFOCOLUMN AIC
+           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
+           INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfovalueId = AIV.animalinfovalueId
+    where AIC.catid = #{categoryId} and AIC.productid = #{productId};
+  </select>
+
 </mapper>
