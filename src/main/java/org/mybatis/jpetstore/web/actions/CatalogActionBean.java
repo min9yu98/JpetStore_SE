@@ -54,7 +54,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingByAdmin.jsp";
   private static final String VIEW_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
   private static final String UPDATE_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/UpdateAnimalInfoFormByAdmin.jsp";
-
+  private static final String INSERT_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertAnimalInfoByAdmin.jsp";
   @SpringBean
   private transient CatalogService catalogService;
   @SpringBean
