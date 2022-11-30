@@ -122,4 +122,20 @@ public class CatalogService {
   public void updateAnimalInfoValueByAdmin(AnimalInfo animalInfo) {
     itemMapper.updateAnimalInfoValueByAdmin(animalInfo);
   }
+
+  public int getAnimalInfoValueId(String categoryId, String productId, String columname) {
+    return itemMapper.getAnimalInfoValueId(categoryId, productId, columname);
+  }
+
+  public void insertAnimalInfoByAdmin(AnimalInfo animalInfo) {
+    itemMapper.insertAnimalInfoByAdmin(animalInfo);
+  }
+
+  public void deleteAnimalInfoByAdmin(String productId, String categoryId, int columnId) {
+    itemMapper.deleteAnimalInfoByAdmin(productId, categoryId, columnId);
+  }
+
+  public int getAnimalInfoColumnId(String columname) {
+    return itemMapper.getAnimalInfoColumnId(columname);
+  }
 }

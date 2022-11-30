@@ -29,9 +29,27 @@ public class AnimalInfo implements Serializable {
     private static final long serialVersionUID = -2159121673445254632L;
 
     private String columname;
+    private int columnId;
     private String value;
     private String categoryId;
     private String productId;
+    private int animalinfovalueId;
+
+    public int getColumnId() {
+        return columnId;
+    }
+
+    public void setColumnId(int columnId) {
+        this.columnId = columnId;
+    }
+
+    public int getAnimalinfovalueId() {
+        return animalinfovalueId;
+    }
+
+    public void setAnimalinfovalueId(int animalinfovalueId) {
+        this.animalinfovalueId = animalinfovalueId;
+    }
 
     public String getProductId() {
         return productId;
