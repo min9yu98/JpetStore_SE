@@ -51,6 +51,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_USER_TABLE="/WEB-INF/jsp/catalog/UserTable.jsp";
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
+  private static final String  VIEW_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/ItemByAdmin.jsp";
 
   @SpringBean
   private transient CatalogService catalogService;
@@ -313,7 +314,11 @@ public class CatalogActionBean extends AbstractActionBean {
     categoryId = product.getCategoryId();
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
-    return new ForwardResolution(VIEW_ITEM);
+    if (accountService.isAdmin(username)) {
+      return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
+    } else {
+      return new ForwardResolution(VIEW_ITEM);
+    }
   }
 
   /**
