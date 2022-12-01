@@ -128,9 +128,18 @@
     where AIC.catid = #{categoryId} and AIC.productid = #{productId} and AIL.columname = #{columname};
   </select>
 
-  <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
+  <insert id="insertAnimalInfoColumnByAdmin" parameterType="AnimalInfo">
     insert into ANIMALINFOCOLUMNLIST (columname) value (#{columname});
   </insert>
+
+  <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
+    insert into ANIMALINFOCOLUMN (columnid, animalinfovalueId, catid, productid)
+    values (#{columnId}, 81, #{categoryId}, #{productId});
+  </insert>
+
+  <select id="getLastInsertColumnId" resultType="int">
+    SELECT last_insert_id();
+  </select>
 
   <select id="getAnimalInfoColumnId" resultType="int">
     select columnid from ANIMALINFOCOLUMNLIST where columname = #{columname};

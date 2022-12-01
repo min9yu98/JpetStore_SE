@@ -61,4 +61,13 @@
       CATEGORY as categoryId
     FROM PRODUCT
   </select>
+
+  <select id="getProductCategoryListByAdmin" resultType="Product">
+    SELECT
+      PRODUCTID,
+      NAME,
+      DESCN as description,
+      CATEGORY as categoryId
+    FROM PRODUCT where category = #{categoryId};
+  </select>
 </mapper>

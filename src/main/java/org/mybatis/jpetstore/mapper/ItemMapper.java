@@ -59,9 +59,12 @@ public interface ItemMapper {
 
   int getAnimalInfoValueId(@Param("categoryId") String categoryId, @Param("productId") String productId, @Param("columname") String columname);
 
-  void insertAnimalInfoByAdmin(AnimalInfo animalInfo);
+  void insertAnimalInfoColumnByAdmin(AnimalInfo animalInfo);
+  void insertAnimalInfoByAdmin(@Param("columnId") int columnId, @Param("categoryId") String categoryId, @Param("productId") String productId);
 
   void deleteAnimalInfoByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId);
 
   int getAnimalInfoColumnId(String columname);
+
+  int getLastInsertColumnId();
 }
