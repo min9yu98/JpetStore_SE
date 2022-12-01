@@ -61,7 +61,7 @@ public interface ItemMapper {
 
   void insertAnimalInfoByAdmin(AnimalInfo animalInfo);
 
-  void deleteAnimalInfoByAdmin(String productId, String categoryId, int columnId);
+  void deleteAnimalInfoByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId);
 
   int getAnimalInfoColumnId(String columname);
 }

@@ -97,9 +97,11 @@
 									<stripes:link class="Button"
 												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 												  event="deleteAnimalInfoByAdmin" style="background-color: rgba(0,0,0,0)">
-										<stripes:param name="productId" value="${list.productId}" />
-										<stripes:param name="categoryId" value="${list.categoryId}" />
+										<stripes:param name="productId" value="${actionBean.product.productId}" />
+										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
+										<stripes:param name="animalInfo" value="${actionBean.animalInfo}" />
 										<stripes:param name="columname" value="${list.columname}" />
+										<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
 										DELETE STANDARD
 									</stripes:link>
 								</td>

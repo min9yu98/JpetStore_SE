@@ -131,8 +131,8 @@ public class CatalogService {
     itemMapper.insertAnimalInfoByAdmin(animalInfo);
   }
 
-  public void deleteAnimalInfoByAdmin(String productId, String categoryId, int columnId) {
-    itemMapper.deleteAnimalInfoByAdmin(productId, categoryId, columnId);
+  public void deleteAnimalInfoByAdmin(String categoryId, int columnId) {
+    itemMapper.deleteAnimalInfoByAdmin(categoryId, columnId);
   }
 
   public int getAnimalInfoColumnId(String columname) {
