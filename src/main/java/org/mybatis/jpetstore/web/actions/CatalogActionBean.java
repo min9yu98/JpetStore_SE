@@ -364,11 +364,14 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution insertAnimalInfoColumnByAdmin() {
     if (accountService.isAdmin(username)) {
-      catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
-      columnId = catalogService.getLastInsertColumnId();
-      productList = catalogService.getProductCategoryListByAdmin(categoryId);
-      for (Product p: productList){
-        catalogService.insertAnimalInfoByAdmin(columnId, categoryId, p.getProductId());
+      boolean checkingColumnId = catalogService.isColumnIdExist(animalInfo.getColumname());
+      if (!checkingColumnId) {
+        catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
+        columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
+        productList = catalogService.getProductCategoryListByAdmin(categoryId);
+        for (Product p: productList){
+          catalogService.insertAnimalInfoByAdmin(columnId, categoryId, p.getProductId());
+        }
       }
       return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
     } else {

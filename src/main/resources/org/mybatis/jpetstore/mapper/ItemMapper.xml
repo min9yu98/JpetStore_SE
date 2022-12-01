@@ -129,15 +129,23 @@
   </select>
 
   <insert id="insertAnimalInfoColumnByAdmin" parameterType="AnimalInfo">
-    insert into ANIMALINFOCOLUMNLIST (columname) value (#{columname});
+    insert into ANIMALINFOCOLUMNLIST(columname) value (#{columname}) on duplicate key update columname = #{columname};
   </insert>
+
+  <select id="getColumnIdByAdmin" resultType="int">
+    select columnid from ANIMALINFOCOLUMNLIST where columname = #{columname};
+  </select>
 
   <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
     insert into ANIMALINFOCOLUMN (columnid, animalinfovalueId, catid, productid)
     values (#{columnId}, 81, #{categoryId}, #{productId});
   </insert>
 
-  <select id="getLastInsertColumnId" resultType="int">
+  <select id="isColumnIdExist" resultType="boolean">
+    select exists(select columname from ANIMALINFOCOLUMNLIST where columname = #{columname});
+  </select>
+
+  <select id="getLastAccessColumnId" resultType="int">
     SELECT last_insert_id();
   </select>
 

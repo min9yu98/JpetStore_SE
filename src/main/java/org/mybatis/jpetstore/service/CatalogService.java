@@ -131,6 +131,10 @@ public class CatalogService {
     itemMapper.insertAnimalInfoColumnByAdmin(animalInfo);
   }
 
+  public int getColumnIdByAdmin(String columname) {
+    return itemMapper.getColumnIdByAdmin(columname);
+  }
+
   public void insertAnimalInfoByAdmin(int columnId, String categoryId, String productId) {
     itemMapper.insertAnimalInfoByAdmin(columnId, categoryId, productId);
   }
@@ -143,11 +147,15 @@ public class CatalogService {
     return itemMapper.getAnimalInfoColumnId(columname);
   }
 
-  public int getLastInsertColumnId() {
-    return itemMapper.getLastInsertColumnId();
+  public int getLastAccessColumnId() {
+    return itemMapper.getLastAccessColumnId();
   }
 
   public List<Product> getProductCategoryListByAdmin(String categoryId) {
     return productMapper.getProductCategoryListByAdmin(categoryId);
+  }
+
+  public boolean isColumnIdExist(String columname) {
+    return itemMapper.isColumnIdExist(columname);
   }
 }

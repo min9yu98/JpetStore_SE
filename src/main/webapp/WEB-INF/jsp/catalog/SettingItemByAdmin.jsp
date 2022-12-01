@@ -17,12 +17,8 @@
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
 
-<div id="BackLink"><stripes:link
-	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-	event="viewProduct">
-	<stripes:param name="productId" value="${actionBean.product.productId}" />
-	Return to ${actionBean.product.productId}
-</stripes:link></div>
+<br>
+<br>
 <br>
 <br>
 <c:choose>
