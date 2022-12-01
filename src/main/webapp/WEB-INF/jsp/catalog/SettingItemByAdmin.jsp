@@ -16,7 +16,8 @@
 
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
-
+<jsp:useBean id="catalog"
+			 class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
 <div id="BackLink"><stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 	event="viewProduct">
@@ -130,11 +131,13 @@
 						</tr>
 						<tr>
 							<th>EDIT ITEM</th>
-							<td>
-								<stripes:select name="productEnvItem">
-									<stripes:options-collection collection="${actionBean.productEnvItemList}" />
-								</stripes:select>
-							</td>
+							<c:forEach var="productEnvList" items="${actionBean.productEnvList}" varStatus="loop">
+								<td style="text-align: center">
+									<stripes:select name="productEnvList[${loop.index}].envItem">
+										<stripes:options-collection collection="${productEnvList}" value="$productEnvList.envItem}" />
+									</stripes:select>
+								</td>
+							</c:forEach>
 						</tr>
 					</table>
 				</c:if>

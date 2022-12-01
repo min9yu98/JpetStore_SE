@@ -86,6 +86,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private EnvironmentByProduct environmentByProduct;
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
+  private List<ProductEnvItemList> productEnvItemList;
 
   public int getAnimalinfovalueId() {
     return animalinfovalueId;
@@ -263,7 +264,7 @@ public class CatalogActionBean extends AbstractActionBean {
   }
 
   public List<ProductEnvItemList> getProductEnvItemList() {
-    catalogService.getProductEnvItemList();
+    return catalogService.getProductEnvItemList(categoryId, envColumnName);
   }
 
   @DefaultHandler

@@ -142,4 +142,8 @@ public class CatalogService {
   public List<EnvironmentByProduct> getProductEnvList(String categoryId, String productId) {
     return environmentMapper.getProductEnvList(categoryId, productId);
   }
+
+  public List<ProductEnvItemList> getProductEnvItemList(String categoryId, String envColumnName) {
+    return environmentMapper.getProductEnvItemList(categoryId, envColumnName);
+  }
 }
