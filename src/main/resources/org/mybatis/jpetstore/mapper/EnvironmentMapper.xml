@@ -44,7 +44,7 @@
         and E.catid = #{categoryId};
   </select>
 
-  <select id="getProductEnvItemList" resultType="ProductEnvItemList">
+  <select id="getProductEnvItemList" resultType="ProductEnvItem">
       select ENVITEMLIST.envitem as envitem
       from ENVITEMLIST
                inner join ENVIRONMENTCOLUMN E on ENVITEMLIST.envcolumnid = E.envcolumnid

@@ -116,7 +116,7 @@
 					<h3>ENVIRONMENT</h3>
 					<table>
 						<tr>
-							<th></th>
+							<th rowspan="3">${actionBean.productId}</th>
 							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 								<th style="text-align: center">
 										${productEnvList.envColumnName}
@@ -124,7 +124,6 @@
 							</c:forEach>
 						</tr>
 						<tr>
-							<th>${actionBean.productId}</th>
 							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 								<td style="text-align: center">
 										${productEnvList.envItem}
@@ -132,12 +131,16 @@
 							</c:forEach>
 						</tr>
 						<tr>
-							<th>EDIT ITEM</th>
-							<c:forEach var="productEnvList" items="${actionBean.productEnvList}" varStatus="loop">
+							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 								<td style="text-align: center">
-									<stripes:select name="productEnvList[${loop.index}].envItem">
-										<stripes:options-collection collection="${productEnvList}" value="$productEnvList.envItem}" />
-									</stripes:select>
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="updateEnvItem">
+										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
+										<stripes:param name="envColumnName" value="${productEnvList.envColumnName}" />
+										<stripes:param name="envItem" value="${productEnvList.envItem}" />
+										EDIT ENV
+									</stripes:link>
 								</td>
 							</c:forEach>
 						</tr>

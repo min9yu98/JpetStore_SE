@@ -143,7 +143,7 @@ public class CatalogService {
     return environmentMapper.getProductEnvList(categoryId, productId);
   }
 
-  public List<ProductEnvItemList> getProductEnvItemList(String categoryId, String envColumnName) {
+  public List<ProductEnvItem> getProductEnvItemList(String categoryId, String envColumnName) {
     return environmentMapper.getProductEnvItemList(categoryId, envColumnName);
   }
 }

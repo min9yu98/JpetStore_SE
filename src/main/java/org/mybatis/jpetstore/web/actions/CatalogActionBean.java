@@ -15,7 +15,6 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -54,6 +53,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
   private static final String UPDATE_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/UpdateAnimalInfoFormByAdmin.jsp";
   private static final String INSERT_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertAnimalInfoByAdmin.jsp";
+  public static final String UPDATE_ANIMAL_ENV_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateEnvItemByAdmin.jsp";
   @SpringBean
   private transient CatalogService catalogService;
   @SpringBean
@@ -85,7 +85,17 @@ public class CatalogActionBean extends AbstractActionBean {
   private EnvironmentByProduct environmentByProduct;
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
-  private List<ProductEnvItemList> productEnvItemList;
+  private List<ProductEnvItem> productEnvItemList;
+  private ProductEnvItem productEnvItem;
+
+
+  public ProductEnvItem getProductEnvItem() {
+    return productEnvItem;
+  }
+
+  public void setProductEnvItem(ProductEnvItem productEnvItem) {
+    this.productEnvItem = productEnvItem;
+  }
 
   public int getAnimalinfovalueId() {
     return animalinfovalueId;
@@ -263,8 +273,8 @@ public class CatalogActionBean extends AbstractActionBean {
     this.animalInfoList = animalInfoList;
   }
 
-  public List<ProductEnvItemList> getProductEnvItemList() {
-    return catalogService.getProductEnvItemList(categoryId, envColumnName);
+  public List<ProductEnvItem> getProductEnvItemList() {
+    return productEnvItemList;
   }
 
   @DefaultHandler
@@ -354,6 +364,7 @@ public class CatalogActionBean extends AbstractActionBean {
     if (accountService.isAdmin(username)) {
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      productEnvList = catalogService.getProductEnvList(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
@@ -473,6 +484,11 @@ public class CatalogActionBean extends AbstractActionBean {
   public Resolution updateItemByAdmin() {
     catalogService.updateItemByAdmin(item);
     return new RedirectResolution(CatalogActionBean.class, "viewItemListByAdmin");
+  }
+
+  public Resolution updateEnvItem() {
+    productEnvItemList = catalogService.getProductEnvItemList(categoryId, envColumnName);
+    return new ForwardResolution(UPDATE_ANIMAL_ENV_ITEM_ADMIN);
   }
 
   /**
