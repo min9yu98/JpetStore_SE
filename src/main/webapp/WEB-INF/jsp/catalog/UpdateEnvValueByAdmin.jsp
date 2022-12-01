@@ -17,27 +17,26 @@
             <stripes:form name="test" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
                 <table>
                     <tr>
-                        <c:forEach var="productEnvItemList"
-                                   items="${actionBean.productEnvItemList}">
+                        <c:forEach var="productEnvValueList"
+                                   items="${actionBean.productEnvValueList}">
                             <th>
-                                ${productEnvItemList.envItem}
+                                ${productEnvValueList.envValue}
                             </th>
                         </c:forEach>
                     </tr>
                     <tr>
-                        <c:forEach var="productEnvItemList"
-                                   items="${actionBean.productEnvItemList}">
+                        <c:forEach var="productEnvValueList"
+                                   items="${actionBean.productEnvValueList}">
                             <td style="text-align: center">
-                                <stripes:radio name="envItem" value="${productEnvItemList.envItem}"/>
+                                <stripes:radio name="envValue" value="${productEnvValueList.envValue}"/>
                             </td>
                         </c:forEach>
                     </tr>
                 </table>
-                <stripes:submit name="viewItemByAdmin" value="Submit" />
+<%--                <stripes:param name="productId" value= "${actionBean.product.productId}" />--%>
+<%--                <stripes:param name="categoryId" value="${actionBean.product.categoryId}" />--%>
+                <stripes:submit name="updateEnvValueByAdmin" value="Submit" />
             </stripes:form>
-<%--            <stripes:param name="columname" value="${actionBean.columname}" />--%>
-<%--            <stripes:param name="productId" value= "${actionBean.product.productId}" />--%>
-<%--            <stripes:param name="categoryId" value="${actionBean.product.categoryId}" />--%>
         </div>
     </c:when>
     <c:otherwise>

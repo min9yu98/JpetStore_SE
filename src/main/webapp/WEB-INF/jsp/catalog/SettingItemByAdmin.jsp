@@ -26,10 +26,10 @@
 		<div id="Catalog">
 			<table>
 				<tr>
-					<td>${actionBean.product.description}</td>
+					<th>${actionBean.product.description}</th>
 				</tr>
 				<tr>
-					<td>${actionBean.product.name}</td>
+					<th>${actionBean.product.name}</th>
 				</tr>
 			</table>
 			<br/>
@@ -123,10 +123,11 @@
 								<td style="text-align: center">
 									<stripes:link class="Button"
 												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-												  event="updateEnvItem">
+												  event="updateEnvValueFormByAdmin">
 										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
 										<stripes:param name="envColumnName" value="${productEnvList.envColumnName}" />
-										<stripes:param name="envItem" value="${productEnvList.envItem}" />
+										<stripes:param name="envValue" value="${productEnvList.envItem}" />
+										<stripes:param name="productId" value="${actionBean.product.productId}" />
 										EDIT ENV
 									</stripes:link>
 								</td>

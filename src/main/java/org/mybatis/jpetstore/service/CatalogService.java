@@ -151,8 +151,12 @@ public class CatalogService {
     return environmentMapper.getProductEnvList(categoryId, productId);
   }
 
-  public List<ProductEnvItem> getProductEnvItemList(String categoryId, String envColumnName) {
-    return environmentMapper.getProductEnvItemList(categoryId, envColumnName);
+  public List<ProductEnvValue> getProductEnvValueList(String categoryId, String envColumnName) {
+    return environmentMapper.getProductEnvValueList(categoryId, envColumnName);
+  }
+
+  public void updateEnvValueByAdmin(String envColumnName, String envValue, String productId) {
+    environmentMapper.updateEnvValueByAdmin(envColumnName, envValue, productId);
   }
 
   public int getLastAccessColumnId() {

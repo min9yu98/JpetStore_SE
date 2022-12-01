@@ -3,7 +3,7 @@ package org.mybatis.jpetstore.mapper;
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.jpetstore.domain.EnvironmentByProduct;
 import org.mybatis.jpetstore.domain.EnvironmentByUser;
-import org.mybatis.jpetstore.domain.ProductEnvItem;
+import org.mybatis.jpetstore.domain.ProductEnvValue;
 
 import java.util.List;
 
@@ -12,5 +12,7 @@ public interface EnvironmentMapper {
 
     List<EnvironmentByProduct> getProductEnvList(@Param("categoryId") String categoryId, @Param("productId") String productId);
 
-    List<ProductEnvItem> getProductEnvItemList(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
+    List<ProductEnvValue> getProductEnvValueList(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
+
+    void updateEnvValueByAdmin(@Param("envColumnName") String envColumnName, @Param("envValue") String envValue, @Param("productId") String productId);
 }
