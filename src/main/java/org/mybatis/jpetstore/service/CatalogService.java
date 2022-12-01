@@ -127,8 +127,12 @@ public class CatalogService {
     return itemMapper.getAnimalInfoValueId(categoryId, productId, columname);
   }
 
-  public void insertAnimalInfoByAdmin(AnimalInfo animalInfo) {
-    itemMapper.insertAnimalInfoByAdmin(animalInfo);
+  public void insertAnimalInfoColumnByAdmin(AnimalInfo animalInfo) {
+    itemMapper.insertAnimalInfoColumnByAdmin(animalInfo);
+  }
+
+  public void insertAnimalInfoByAdmin(int columnId, String categoryId, String productId) {
+    itemMapper.insertAnimalInfoByAdmin(columnId, categoryId, productId);
   }
 
   public void deleteAnimalInfoByAdmin(String categoryId, int columnId) {
@@ -137,5 +141,13 @@ public class CatalogService {
 
   public int getAnimalInfoColumnId(String columname) {
     return itemMapper.getAnimalInfoColumnId(columname);
+  }
+
+  public int getLastInsertColumnId() {
+    return itemMapper.getLastInsertColumnId();
+  }
+
+  public List<Product> getProductCategoryListByAdmin(String categoryId) {
+    return productMapper.getProductCategoryListByAdmin(categoryId);
   }
 }
