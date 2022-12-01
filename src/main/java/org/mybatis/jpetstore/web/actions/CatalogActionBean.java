@@ -51,8 +51,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_USER_TABLE="/WEB-INF/jsp/catalog/UserTable.jsp";
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
-  private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingByAdmin.jsp";
-  private static final String VIEW_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
+  private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
   private static final String UPDATE_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/UpdateAnimalInfoFormByAdmin.jsp";
   private static final String INSERT_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertAnimalInfoByAdmin.jsp";
   @SpringBean
@@ -333,7 +332,7 @@ public class CatalogActionBean extends AbstractActionBean {
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
-      return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
+      return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
@@ -375,30 +374,16 @@ public class CatalogActionBean extends AbstractActionBean {
   public ForwardResolution deleteAnimalInfoByAdmin() {
     if (accountService.isAdmin(username)) {
       columnId = catalogService.getAnimalInfoColumnId(columname);
-      animalInfo.setColumnId(columnId);
-      catalogService.deleteAnimalInfoByAdmin(productId, categoryId, columnId);
-
-      itemList = catalogService.getItemListByProduct(productId);
       product = catalogService.getProduct(productId);
-      return new ForwardResolution(VIEW_ITEM_BY_ADMIN);
-    } else {
-      return new ForwardResolution(ACCESS_RESTRICTION);
-    }
-  }
-  /**
-   * itemList(admin)
-   *
-   * @return the forward resolution
-   */
-  public ForwardResolution viewAdminTable()
-  {
-    if (accountService.isAdmin(username)) {
-      productList = catalogService.getAllProductListByAdmin();
+      categoryId = product.getCategoryId();
+      catalogService.deleteAnimalInfoByAdmin(categoryId, columnId);
+      animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
   }
+
   public ForwardResolution viewItemListByAdmin() {
     if (productId != null && accountService.isAdmin(username)) {
       itemList = catalogService.getItemListByProduct(productId);

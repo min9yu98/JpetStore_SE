@@ -137,6 +137,6 @@
   </select>
 
   <update id="deleteAnimalInfoByAdmin" parameterType="AnimalInfo">
-    update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and productid = #{productId} and columnid = #{columnId};
+    update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and columnid = #{columnId};
   </update>
 </mapper>
