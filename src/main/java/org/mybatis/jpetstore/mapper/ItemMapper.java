@@ -66,5 +66,9 @@ public interface ItemMapper {
 
   int getAnimalInfoColumnId(String columname);
 
-  int getLastInsertColumnId();
+  int getLastAccessColumnId();
+
+  int getColumnIdByAdmin(String columname);
+
+  boolean isColumnIdExist(String columname);
 }
