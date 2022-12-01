@@ -138,7 +138,11 @@
 
   <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
     insert into ANIMALINFOCOLUMN (columnid, animalinfovalueId, catid, productid)
-    values (#{columnId}, 81, #{categoryId}, #{productId});
+    values (#{columnId}, #{animalinfovalueId}, #{categoryId}, #{productId});
+  </insert>
+
+  <insert id="insertNullIntoValue">
+    insert into ANIMALINFOVALUE(value) value (null);
   </insert>
 
   <select id="isColumnIdExist" resultType="boolean">
@@ -156,4 +160,16 @@
   <update id="deleteAnimalInfoByAdmin" parameterType="AnimalInfo">
     update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and columnid = #{columnId};
   </update>
+
+  <update id="deleteAnimalInfoValueByAdmin">
+    update ANIMALINFOVALUE SET value = null where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
+  </update>
+
+  <update id="returnToTrueExistAnimalInfo">
+    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId};
+  </update>
+
+  <select id="isExistAnimalInfo" resultType="boolean">
+    select exists(select status from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} limit 1);
+  </select>
 </mapper>

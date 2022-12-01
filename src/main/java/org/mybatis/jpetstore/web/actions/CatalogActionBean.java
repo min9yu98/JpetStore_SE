@@ -365,13 +365,17 @@ public class CatalogActionBean extends AbstractActionBean {
   public Resolution insertAnimalInfoColumnByAdmin() {
     if (accountService.isAdmin(username)) {
       boolean checkingColumnId = catalogService.isColumnIdExist(animalInfo.getColumname());
+      catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
+      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
+      productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
       if (!checkingColumnId) {
-        catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
-        columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
-        productList = catalogService.getProductCategoryListByAdmin(categoryId);
-        for (Product p: productList){
-          catalogService.insertAnimalInfoByAdmin(columnId, categoryId, p.getProductId());
+        for (Product p : productList) {
+          catalogService.insertNullIntoValue();
+          animalinfovalueId = catalogService.getLastAccessColumnId();
+          catalogService.insertAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
         }
+      } else {
+        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
       }
       return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
     } else {
@@ -384,7 +388,11 @@ public class CatalogActionBean extends AbstractActionBean {
       columnId = catalogService.getAnimalInfoColumnId(columname);
       product = catalogService.getProduct(productId);
       categoryId = product.getCategoryId();
+      productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
       catalogService.deleteAnimalInfoByAdmin(categoryId, columnId);
+      for (Product p : productList) {
+        catalogService.deleteAnimalInfoValueByAdmin(categoryId, columnId, p.getProductId());
+      }
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {

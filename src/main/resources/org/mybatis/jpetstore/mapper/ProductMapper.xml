@@ -62,7 +62,7 @@
     FROM PRODUCT
   </select>
 
-  <select id="getProductCategoryListByAdmin" resultType="Product">
+  <select id="getProductListAboutCategoryByAdmin" resultType="Product">
     SELECT
       PRODUCTID,
       NAME,
