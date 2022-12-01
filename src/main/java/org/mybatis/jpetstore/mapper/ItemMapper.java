@@ -60,7 +60,7 @@ public interface ItemMapper {
   int getAnimalInfoValueId(@Param("categoryId") String categoryId, @Param("productId") String productId, @Param("columname") String columname);
 
   void insertAnimalInfoColumnByAdmin(AnimalInfo animalInfo);
-  void insertAnimalInfoByAdmin(@Param("columnId") int columnId, @Param("categoryId") String categoryId, @Param("productId") String productId);
+  void insertAnimalInfoByAdmin(@Param("columnId") int columnId, @Param("animalinfovalueId") int animalinfovalueId, @Param("categoryId") String categoryId, @Param("productId") String productId);
 
   void deleteAnimalInfoByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId);
 
@@ -71,4 +71,12 @@ public interface ItemMapper {
   int getColumnIdByAdmin(String columname);
 
   boolean isColumnIdExist(String columname);
+
+  void insertNullIntoValue();
+
+  void deleteAnimalInfoValueByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId, @Param("productId") String productId);
+
+  boolean isExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
+
+  void returnToTrueExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
 }

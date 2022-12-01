@@ -34,5 +34,5 @@ public interface ProductMapper {
   
   List<Product> getProductListByAdmin();
 
-  List<Product> getProductCategoryListByAdmin(String categoryId);
+  List<Product> getProductListAboutCategoryByAdmin(String categoryId);
 }
