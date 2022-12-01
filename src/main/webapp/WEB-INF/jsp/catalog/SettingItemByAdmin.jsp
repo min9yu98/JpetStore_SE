@@ -16,14 +16,9 @@
 
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
-<jsp:useBean id="catalog"
-			 class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
-<div id="BackLink"><stripes:link
-	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-	event="viewProduct">
-	<stripes:param name="productId" value="${actionBean.product.productId}" />
-	Return to ${actionBean.product.productId}
-</stripes:link></div>
+
+<br>
+<br>
 <br>
 <br>
 <c:choose>
@@ -51,15 +46,17 @@
 										${list.columname}
 								</th>
 							</c:forEach>
-							<th style="text-align: center">
+							<td rowspan="2" style="text-align: center">
 								<stripes:link class="Button"
 											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 											  event="insertAnimalInfoFormByAdmin" style="background-color: rgba(0,0,0,0)">
 									<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
 									<stripes:param name="productId" value="${products.productId}" />
+									<br>
 									ADD STANDARD
+									<br>
 								</stripes:link>
-							</th>
+							</td>
 						</tr>
 						<tr>
 							<c:forEach var="list" items="${actionBean.animalInfoList}">
@@ -67,15 +64,6 @@
 										${list.value}
 								</td>
 							</c:forEach>
-							<td style="text-align: center">
-								<stripes:link class="Button"
-											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-											  event="insertAnimalInfoFormByAdmin" style="background-color: rgba(0,0,0,0)">
-									<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-									<stripes:param name="productId" value="${products.productId}" />
-									ADD VALUE
-								</stripes:link>
-							</td>
 						</tr>
 						<tr>
 							<c:forEach var="list" items="${actionBean.animalInfoList}">
@@ -102,7 +90,7 @@
 										<stripes:param name="animalInfo" value="${actionBean.animalInfo}" />
 										<stripes:param name="columname" value="${list.columname}" />
 										<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-										DELETE STANDARD
+										DELETE
 									</stripes:link>
 								</td>
 							</c:forEach>

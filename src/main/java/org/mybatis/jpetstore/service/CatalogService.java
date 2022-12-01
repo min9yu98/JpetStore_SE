@@ -127,8 +127,16 @@ public class CatalogService {
     return itemMapper.getAnimalInfoValueId(categoryId, productId, columname);
   }
 
-  public void insertAnimalInfoByAdmin(AnimalInfo animalInfo) {
-    itemMapper.insertAnimalInfoByAdmin(animalInfo);
+  public void insertAnimalInfoColumnByAdmin(AnimalInfo animalInfo) {
+    itemMapper.insertAnimalInfoColumnByAdmin(animalInfo);
+  }
+
+  public int getColumnIdByAdmin(String columname) {
+    return itemMapper.getColumnIdByAdmin(columname);
+  }
+
+  public void insertAnimalInfoByAdmin(int columnId, int animalinfovalueId, String categoryId, String productId) {
+    itemMapper.insertAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, productId);
   }
 
   public void deleteAnimalInfoByAdmin(String categoryId, int columnId) {
@@ -145,5 +153,33 @@ public class CatalogService {
 
   public List<ProductEnvItem> getProductEnvItemList(String categoryId, String envColumnName) {
     return environmentMapper.getProductEnvItemList(categoryId, envColumnName);
+  }
+
+  public int getLastAccessColumnId() {
+    return itemMapper.getLastAccessColumnId();
+  }
+
+  public List<Product> getProductListAboutCategoryByAdmin(String categoryId) {
+    return productMapper.getProductListAboutCategoryByAdmin(categoryId);
+  }
+
+  public boolean isColumnIdExist(String columname) {
+    return itemMapper.isColumnIdExist(columname);
+  }
+
+  public void insertNullIntoValue() {
+    itemMapper.insertNullIntoValue();
+  }
+
+  public void deleteAnimalInfoValueByAdmin(String categoryId, int columnId, String productId) {
+    itemMapper.deleteAnimalInfoValueByAdmin(categoryId, columnId, productId);
+  }
+
+  public boolean isExistAnimalInfo(int columnId, String categoryId) {
+    return itemMapper.isExistAnimalInfo(columnId, categoryId);
+  }
+
+  public void returnToTrueExistAnimalInfo(int columnId, String categoryId) {
+    itemMapper.returnToTrueExistAnimalInfo(columnId, categoryId);
   }
 }

@@ -396,9 +396,21 @@ public class CatalogActionBean extends AbstractActionBean {
     return new ForwardResolution(INSERT_ANIMAL_INFO_BY_ADMIN);
   }
 
-  public Resolution insertAnimalInfoByAdmin() {
+  public Resolution insertAnimalInfoColumnByAdmin() {
     if (accountService.isAdmin(username)) {
-      catalogService.insertAnimalInfoByAdmin(animalInfo);
+      boolean checkingColumnId = catalogService.isColumnIdExist(animalInfo.getColumname());
+      catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
+      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
+      productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
+      if (!checkingColumnId) {
+        for (Product p : productList) {
+          catalogService.insertNullIntoValue();
+          animalinfovalueId = catalogService.getLastAccessColumnId();
+          catalogService.insertAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
+        }
+      } else {
+        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
+      }
       return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
@@ -410,7 +422,11 @@ public class CatalogActionBean extends AbstractActionBean {
       columnId = catalogService.getAnimalInfoColumnId(columname);
       product = catalogService.getProduct(productId);
       categoryId = product.getCategoryId();
+      productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
       catalogService.deleteAnimalInfoByAdmin(categoryId, columnId);
+      for (Product p : productList) {
+        catalogService.deleteAnimalInfoValueByAdmin(categoryId, columnId, p.getProductId());
+      }
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {

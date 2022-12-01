@@ -35,7 +35,7 @@
             </table>
             <stripes:param name="productId" value= "${actionBean.product.productId}" />
             <stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
-            <stripes:submit name="insertAnimalInfoByAdmin" value="Submit" /></stripes:form>
+            <stripes:submit name="insertAnimalInfoColumnByAdmin" value="Submit" /></stripes:form>
         </div>
     </c:when>
     <c:otherwise>

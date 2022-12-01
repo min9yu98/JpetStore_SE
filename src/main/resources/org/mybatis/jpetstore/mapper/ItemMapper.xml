@@ -128,9 +128,30 @@
     where AIC.catid = #{categoryId} and AIC.productid = #{productId} and AIL.columname = #{columname};
   </select>
 
-  <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
-    insert into ANIMALINFOCOLUMNLIST (columname) value (#{columname});
+  <insert id="insertAnimalInfoColumnByAdmin" parameterType="AnimalInfo">
+    insert into ANIMALINFOCOLUMNLIST(columname) value (#{columname}) on duplicate key update columname = #{columname};
   </insert>
+
+  <select id="getColumnIdByAdmin" resultType="int">
+    select columnid from ANIMALINFOCOLUMNLIST where columname = #{columname};
+  </select>
+
+  <insert id="insertAnimalInfoByAdmin" parameterType="AnimalInfo">
+    insert into ANIMALINFOCOLUMN (columnid, animalinfovalueId, catid, productid)
+    values (#{columnId}, #{animalinfovalueId}, #{categoryId}, #{productId});
+  </insert>
+
+  <insert id="insertNullIntoValue">
+    insert into ANIMALINFOVALUE(value) value (null);
+  </insert>
+
+  <select id="isColumnIdExist" resultType="boolean">
+    select exists(select columname from ANIMALINFOCOLUMNLIST where columname = #{columname});
+  </select>
+
+  <select id="getLastAccessColumnId" resultType="int">
+    SELECT last_insert_id();
+  </select>
 
   <select id="getAnimalInfoColumnId" resultType="int">
     select columnid from ANIMALINFOCOLUMNLIST where columname = #{columname};
@@ -139,4 +160,16 @@
   <update id="deleteAnimalInfoByAdmin" parameterType="AnimalInfo">
     update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and columnid = #{columnId};
   </update>
+
+  <update id="deleteAnimalInfoValueByAdmin">
+    update ANIMALINFOVALUE SET value = null where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
+  </update>
+
+  <update id="returnToTrueExistAnimalInfo">
+    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId};
+  </update>
+
+  <select id="isExistAnimalInfo" resultType="boolean">
+    select exists(select status from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} limit 1);
+  </select>
 </mapper>
