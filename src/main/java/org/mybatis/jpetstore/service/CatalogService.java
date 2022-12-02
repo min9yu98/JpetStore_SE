@@ -190,4 +190,12 @@ public class CatalogService {
   public void deleteEnvColumnByAdmin(String categoryId, String envColumnName) {
     environmentMapper.deleteEnvColumnByAdmin(categoryId, envColumnName);
   }
+
+  public List<EnvironmentByProduct> getProductEnvColumnByCategoryId(String categoryId) {
+    return environmentMapper.getProductEnvColumnByCategoryId(categoryId);
+  }
+
+  public List<EnvironmentByProduct> getEnvItem(String categoryId, String envColumnName) {
+    return environmentMapper.getEnvItem(categoryId, envColumnName);
+  }
 }

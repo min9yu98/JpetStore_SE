@@ -42,10 +42,13 @@
 		</tr>
 	</c:forEach>
 </table>
-<stripes:link class="buttin" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean" event="categoryAPI">
-	<striped:param name="categoryId" value="${actionBean.category.name}"/>
-	view API
-</stripes:link>
+	<stripes:link class="Button"
+				  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+				  event="viewUserEnvInfo">
+		<stripes:param name="categoryId" value="${actionBean.categoryId}" />
+		<stripes:param name="username" value="${sessionScope.accountBean.username}" />
+		My ENVIRONMENT SETTING
+	</stripes:link>
 </div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>

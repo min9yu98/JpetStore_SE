@@ -33,16 +33,15 @@
       and E.catid = #{categoryId};
   </select>
 
-  <select id="getProductEnvList" resultType="EnvironmentbyProduct">
+  <select id="getProductEnvList" resultType="EnvironmentByProduct">
       select E2.envcolumnname as envColumnName,
              E3.envitem       as envItem
       from PRODUCTENVIRONMENT
                inner join ENVIRONMENTCOLUMN E on PRODUCTENVIRONMENT.environmentcolumnId = E.environmentcolumnId
                inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
                inner join ENVITEMLIST E3 on PRODUCTENVIRONMENT.envitemlistid = E3.envitemlistid
-      where PRODUCTENVIRONMENT.productid = 'AV-CB-01'
-        and E.catid = 'BIRDS'
-        and E.status = true;
+      where PRODUCTENVIRONMENT.productid = #{productId}
+        and E.catid = #{categoryId} and E.status = true;
   </select>
 
   <select id="getProductEnvValueList" resultType="ProductEnvValue">
@@ -66,6 +65,21 @@
                                                 and ENVITEMLIST.envitem = #{envValue})
       where PRODUCTENVIRONMENT.productid = #{productId};
   </update>
+
+    <select id="getProductEnvColumnByCategoryId" resultType="EnvironmentByProduct">
+        select EC.envcolumnname as envColumnName
+        from ENVCOLUMN EC
+                 inner join ENVIRONMENTCOLUMN E on EC.envcolumnid = E.envcolumnid
+        where E.catid = #{categoryId}
+    </select>
+
+    <select id="getEnvItem" resultType="EnvironmentByProduct">
+        select E2.envitem as envItem
+        from ENVIRONMENTCOLUMN EC
+                 inner join ENVCOLUMN E on EC.envcolumnid = E.envcolumnid
+                 inner join ENVITEMLIST E2 on E.envcolumnid = E2.envcolumnid
+        where EC.catid = #{categoryId} and E.envcolumnname = #{envColumnName}
+    </select>
 
   <update id="deleteEnvColumnByAdmin">
       update

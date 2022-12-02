@@ -43,13 +43,7 @@
 </stripes:form> <stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.OrderActionBean"
 	event="listOrders">My Orders</stripes:link>
-	<br>
-	<stripes:link class="button"
-				  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				  event="viewUserTable">
-		<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-		User dashboard
-	</stripes:link></div>
+</div>
 
 
 
