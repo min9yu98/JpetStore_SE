@@ -519,6 +519,18 @@ public class CatalogActionBean extends AbstractActionBean {
     }
   }
 
+  public Resolution deleteEnvColumnByAdmin() {
+    if (accountService.isAdmin(username)) {
+      catalogService.deleteEnvColumnByAdmin(categoryId, envColumnName);
+      product = catalogService.getProduct(productId);
+      animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      productEnvList = catalogService.getProductEnvList(categoryId, productId);
+      return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
+
   /**
    * Clear.
    */
