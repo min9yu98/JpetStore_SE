@@ -44,7 +44,7 @@
 </table>
 	<stripes:link class="Button"
 				  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				  event="viewUserEnvInfo">
+				  event="settingUserEnvForm">
 		<stripes:param name="categoryId" value="${actionBean.categoryId}" />
 		<stripes:param name="username" value="${sessionScope.accountBean.username}" />
 		My ENVIRONMENT SETTING
