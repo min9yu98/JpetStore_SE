@@ -104,7 +104,7 @@
 					<h3>ENVIRONMENT</h3>
 					<table>
 						<tr>
-							<th rowspan="3">${actionBean.productId}</th>
+							<th rowspan="4">${actionBean.productId}</th>
 							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 								<th style="text-align: center">
 										${productEnvList.envColumnName}
@@ -129,6 +129,20 @@
 										<stripes:param name="envValue" value="${productEnvList.envItem}" />
 										<stripes:param name="productId" value="${actionBean.product.productId}" />
 										EDIT ENV
+									</stripes:link>
+								</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+								<td style="text-align: center">
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="deleteEnvColumnByAdmin">
+										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
+										<stripes:param name="envColumnName" value="${productEnvList.envColumnName}" />
+										<stripes:param name="productId" value="${actionBean.product.productId}" />
+										REMOVE
 									</stripes:link>
 								</td>
 							</c:forEach>
