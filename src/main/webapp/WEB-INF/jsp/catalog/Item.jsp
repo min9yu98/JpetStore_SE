@@ -95,20 +95,48 @@
 				<h3>ENVIRONMENT</h3>
 				<c:choose>
 					<c:when test="${actionBean.userEnvList.isEmpty()}">
-						<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+						<table>
+							<tr>
+								<th></th>
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+									<th style="text-align: center">
+											${productEnvList.envColumnName}
+									</th>
+								</c:forEach>
+							</tr>
+							<tr>
+								<th>${actionBean.productId}</th>
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+									<td style="text-align: center">
+											${productEnvList.envItem}
+									</td>
+								</c:forEach>
+							</tr>
+						</table>
+						<c:if test="${!sessionScope.accountBean.account.admin}">
+							<p style="color: deeppink">You haven't entered a value for environmental information yet..</p>
+						</c:if>
 					</c:when>
 					<c:otherwise>
 						<table>
 							<tr>
 								<th></th>
-								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 									<th style="text-align: center">
-											${userEnvList.envColumnName}
+											${productEnvList.envColumnName}
 									</th>
 								</c:forEach>
 							</tr>
 							<tr>
-								<th>MY</th>
+								<th>${actionBean.productId}</th>
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+									<td style="text-align: center">
+											${productEnvList.envItem}
+									</td>
+								</c:forEach>
+							</tr>
+							<tr>
+								<th style="text-align:center">MY</th>
 								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
 									<td style="text-align: center">
 											${userEnvList.envItem}

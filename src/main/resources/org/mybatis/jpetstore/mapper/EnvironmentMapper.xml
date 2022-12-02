@@ -33,4 +33,36 @@
       and E.catid = #{categoryId};
   </select>
 
+  <select id="getProductEnvList" resultType="EnvironmentbyProduct">
+      select E2.envcolumnname as envColumnName,
+             E3.envitem       as envItem
+      from PRODUCTENVIRONMENT
+               inner join ENVIRONMENTCOLUMN E on PRODUCTENVIRONMENT.environmentcolumnId = E.environmentcolumnId
+               inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
+               inner join ENVITEMLIST E3 on PRODUCTENVIRONMENT.envitemlistid = E3.envitemlistid
+      where PRODUCTENVIRONMENT.productid = #{productId}
+        and E.catid = #{categoryId};
+  </select>
+
+  <select id="getProductEnvValueList" resultType="ProductEnvValue">
+      select ENVITEMLIST.envitem as envValue
+      from ENVITEMLIST
+               inner join ENVIRONMENTCOLUMN E on ENVITEMLIST.envcolumnid = E.envcolumnid
+      where E.catid = #{categoryId}
+        and E.envcolumnid = (select envcolumnid from ENVCOLUMN where ENVCOLUMN.envcolumnname = #{envColumnName})
+  </select>
+    
+  <update id="updateEnvValueByAdmin">
+      update
+          PRODUCTENVIRONMENT
+              inner join (ENVIRONMENTCOLUMN E2 inner join ENVCOLUMN E3 on E2.envcolumnid = E3.envcolumnid and E2.envcolumnid =
+                                                                                                              (select envcolumnid from ENVCOLUMN where envcolumnname = #{envColumnName}))
+              on PRODUCTENVIRONMENT.environmentcolumnId = E2.environmentcolumnId
+      set PRODUCTENVIRONMENT.envitemlistid = (select envitemlistid
+                                              from ENVITEMLIST
+                                                       inner join ENVCOLUMN E on ENVITEMLIST.envcolumnid = E.envcolumnid
+                                              where E.envcolumnname = #{envColumnName}
+                                                and ENVITEMLIST.envitem = #{envValue})
+      where PRODUCTENVIRONMENT.productid = #{productId};
+  </update>
 </mapper>

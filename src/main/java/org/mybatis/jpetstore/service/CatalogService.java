@@ -147,6 +147,18 @@ public class CatalogService {
     return itemMapper.getAnimalInfoColumnId(columname);
   }
 
+  public List<EnvironmentByProduct> getProductEnvList(String categoryId, String productId) {
+    return environmentMapper.getProductEnvList(categoryId, productId);
+  }
+
+  public List<ProductEnvValue> getProductEnvValueList(String categoryId, String envColumnName) {
+    return environmentMapper.getProductEnvValueList(categoryId, envColumnName);
+  }
+
+  public void updateEnvValueByAdmin(String envColumnName, String envValue, String productId) {
+    environmentMapper.updateEnvValueByAdmin(envColumnName, envValue, productId);
+  }
+
   public int getLastAccessColumnId() {
     return itemMapper.getLastAccessColumnId();
   }

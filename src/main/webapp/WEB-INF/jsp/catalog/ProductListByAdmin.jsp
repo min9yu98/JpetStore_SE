@@ -51,7 +51,8 @@
                                           event="viewItemByAdmin">
                                 <stripes:param name="productId" value="${products.productId}" />
                                 <stripes:param name="categoryId" value="${products.categoryId}" />
-                                <stripes:param name="productName" value="${products.name}"/>
+                                <stripes:param name="productName" value="${products.name}" />
+                                <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
                                 SETTING
                             </stripes:link>
                         </td>
