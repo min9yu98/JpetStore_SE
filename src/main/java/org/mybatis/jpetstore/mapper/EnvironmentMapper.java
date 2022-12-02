@@ -15,4 +15,8 @@ public interface EnvironmentMapper {
     List<ProductEnvValue> getProductEnvValueList(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
 
     void updateEnvValueByAdmin(@Param("envColumnName") String envColumnName, @Param("envValue") String envValue, @Param("productId") String productId);
+
+    List<EnvironmentByProduct> getProductEnvColumnByCategoryId(String categoryId);
+
+    List<EnvironmentByProduct> getEnvItem(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
 }

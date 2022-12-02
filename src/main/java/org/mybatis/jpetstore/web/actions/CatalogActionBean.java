@@ -15,6 +15,7 @@
  */
 package org.mybatis.jpetstore.web.actions;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -47,13 +48,14 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
   private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
   private static final String NEW_ITEM_ADMIN = "/WEB-INF/jsp/catalog/InsertItemFormByAdmin.jsp";
-  private static final String VIEW_USER_TABLE="/WEB-INF/jsp/catalog/UserTable.jsp";
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
   private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
   private static final String UPDATE_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/UpdateAnimalInfoFormByAdmin.jsp";
   private static final String INSERT_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertAnimalInfoByAdmin.jsp";
   public static final String UPDATE_ANIMAL_ENV_VALUE_ADMIN = "/WEB-INF/jsp/catalog/UpdateEnvValueByAdmin.jsp";
+  private static final String UPDATE_USER_ENV_VALUE_FORM = "/WEB-INF/jsp/catalog/UpdateUserEnvValueForm.jsp";
+  private static final String USER_ENV_INFO = "/WEB-INF/jsp/catalog/UserEnvInfo.jsp";
   @SpringBean
   private transient CatalogService catalogService;
   @SpringBean
@@ -86,8 +88,34 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
   private List<ProductEnvValue> productEnvValueList;
+  private List<List<EnvironmentByProduct>> productEnvValueLists = new ArrayList<>();
   private ProductEnvValue productEnvValue;
+  private int cnt;
+  private int cnt2;
 
+  public int getCnt2() {
+    return cnt2;
+  }
+
+  public void setCnt2(int cnt2) {
+    this.cnt2 = cnt2;
+  }
+
+  public int getCnt() {
+    return cnt;
+  }
+
+  public void setCnt(int cnt) {
+    this.cnt = cnt;
+  }
+
+  public List<List<EnvironmentByProduct>> getProductEnvValueLists() {
+    return productEnvValueLists;
+  }
+
+  public void setProductEnvValueLists(List<List<EnvironmentByProduct>> productEnvValueLists) {
+    this.productEnvValueLists = productEnvValueLists;
+  }
 
   public ProductEnvValue getProductEnvValue() {
     return productEnvValue;
@@ -341,10 +369,6 @@ public class CatalogActionBean extends AbstractActionBean {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
   }
-  public ForwardResolution viewUserTable()
-  {
-    return new ForwardResolution(VIEW_USER_TABLE);
-  }
   /**
    * View item.
    *
@@ -517,6 +541,26 @@ public class CatalogActionBean extends AbstractActionBean {
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
+  }
+
+  public Resolution updateUserEnvValueForm() {
+    productEnvValueList = catalogService.getProductEnvValueList(categoryId, envColumnName);
+    return new ForwardResolution(USER_ENV_INFO);
+  }
+
+  public Resolution updateUserEnvValue() {
+    return new ForwardResolution(UPDATE_USER_ENV_VALUE_FORM);
+  }
+
+  public Resolution viewUserEnvInfo() {
+    productEnvList = catalogService.getProductEnvColumnByCategoryId(categoryId);
+    cnt = productEnvList.size();
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
+    for (EnvironmentByProduct p : productEnvList) {
+      cnt2 = catalogService.getEnvItem(categoryId, envColumnName).size();
+      productEnvValueLists.add(catalogService.getEnvItem(categoryId, envColumnName));
+    }
+    return new ForwardResolution(USER_ENV_INFO);
   }
 
   /**

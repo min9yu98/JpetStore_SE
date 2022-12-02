@@ -186,4 +186,12 @@ public class CatalogService {
   public void returnToTrueExistAnimalInfo(int columnId, String categoryId) {
     itemMapper.returnToTrueExistAnimalInfo(columnId, categoryId);
   }
+
+  public List<EnvironmentByProduct> getProductEnvColumnByCategoryId(String categoryId) {
+    return environmentMapper.getProductEnvColumnByCategoryId(categoryId);
+  }
+
+  public List<EnvironmentByProduct> getEnvItem(String categoryId, String envColumnName) {
+    return environmentMapper.getEnvItem(categoryId, envColumnName);
+  }
 }
