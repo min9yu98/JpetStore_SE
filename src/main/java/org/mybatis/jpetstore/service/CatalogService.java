@@ -198,4 +198,8 @@ public class CatalogService {
   public List<EnvironmentByProduct> getEnvItem(String categoryId, String envColumnName) {
     return environmentMapper.getEnvItem(categoryId, envColumnName);
   }
+
+  public void settingUserEnv(String categoryId, String envColumnName, String username, String envValue) {
+    environmentMapper.settingUserEnv(categoryId, envColumnName, username, envValue);
+  }
 }

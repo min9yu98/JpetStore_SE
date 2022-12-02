@@ -89,8 +89,8 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
   private List<ProductEnvValue> productEnvValueList;
-  private List<List<ProductEnvValue>> productEnvValueLists = new ArrayList<>();
-  private List<List<EnvironmentByUser>> userEnvLists = new ArrayList<>();
+  private List<List<ProductEnvValue>> productEnvValueLists;
+  private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
 
   public List<List<EnvironmentByUser>> getUserEnvLists() {
@@ -580,6 +580,19 @@ public class CatalogActionBean extends AbstractActionBean {
   public Resolution settingUserEnvForm() {
     productEnvList = catalogService.getProductEnvColumnByCategoryId(categoryId);
     cnt = productEnvList.size();
+    productEnvValueLists = new ArrayList<>();
+    for (EnvironmentByProduct environmentByProduct : productEnvList) {
+      productEnvValueLists.add(catalogService.getProductEnvValueList(categoryId, environmentByProduct.getEnvColumnName()));
+    }
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
+    return new ForwardResolution(SETTING_USER_ENV_FORM);
+  }
+
+  public Resolution settingUserEnv() {
+    catalogService.settingUserEnv(categoryId, envColumnName, username, envValue);
+    productEnvList = catalogService.getProductEnvColumnByCategoryId(categoryId);
+    cnt = productEnvList.size();
+    productEnvValueLists = new ArrayList<>();
     for (EnvironmentByProduct environmentByProduct : productEnvList) {
       productEnvValueLists.add(catalogService.getProductEnvValueList(categoryId, environmentByProduct.getEnvColumnName()));
     }

@@ -110,28 +110,36 @@
 <%--          </tr>--%>
 <%--        </table>--%>
 <%--      </c:forEach>--%>
-      <stripes:form name="test" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
         <c:forEach var="p1" items="${actionBean.productEnvValueLists}">
-          <h3>hahaha</h3>
-          <table>
-            <tr>
-              <c:forEach var="p2" items="${p1}">
-                <th style="text-align: center">
-                    ${p2.envValue}
+          <stripes:form name="test" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+            <table>
+              <tr>
+                <th style="text-align: center" colspan="${p1.size()}">
+                    ${p1.get(0).envColumnName}
                 </th>
-              </c:forEach>
-            </tr>
-            <tr>
-              <c:forEach var="p2" items="${p1}">
-                <td style="text-align: center">
-                  <stripes:checkbox name="envValue" value="${p2.envValue}" />
-                </td>
-              </c:forEach>
-            </tr>
-          </table>
+              </tr>
+              <tr>
+                <c:forEach var="p2" items="${p1}">
+                  <th style="text-align: center">
+                      ${p2.envValue}
+                  </th>
+                </c:forEach>
+              </tr>
+              <tr>
+                <c:forEach var="p2" items="${p1}">
+                  <td style="text-align: center">
+                    <stripes:radio name="envValue" value="${p2.envValue}" />
+                  </td>
+                </c:forEach>
+              </tr>
+            </table>
+            <stripes:param name="categoryId" value="actionBean.categoryId" />
+            <stripes:param name="envColumnName" value="actionBean.productEnvValueLists.get(0).envColumnName"/>
+            <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+            <stripes:param name="envValue" value="envValue" />
+            <stripes:submit name="settingUserEnv" value="Submit" />
+          </stripes:form>
         </c:forEach>
-        <stripes:submit name="updateEnvValueByAdmin" value="Submit" />
-      </stripes:form>
     </c:if>
   </c:if>
 </div>
