@@ -187,6 +187,10 @@ public class CatalogService {
     itemMapper.returnToTrueExistAnimalInfo(columnId, categoryId);
   }
 
+  public void deleteEnvColumnByAdmin(String categoryId, String envColumnName) {
+    environmentMapper.deleteEnvColumnByAdmin(categoryId, envColumnName);
+  }
+
   public List<EnvironmentByProduct> getProductEnvColumnByCategoryId(String categoryId) {
     return environmentMapper.getProductEnvColumnByCategoryId(categoryId);
   }

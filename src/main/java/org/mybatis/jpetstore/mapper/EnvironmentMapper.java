@@ -19,4 +19,6 @@ public interface EnvironmentMapper {
     List<EnvironmentByProduct> getProductEnvColumnByCategoryId(String categoryId);
 
     List<EnvironmentByProduct> getEnvItem(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
+
+    void deleteEnvColumnByAdmin(@Param("categoryId") String categoryId, @Param("envColumnName") String envColumnName);
 }

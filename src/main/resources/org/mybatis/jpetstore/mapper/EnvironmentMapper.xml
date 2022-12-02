@@ -41,7 +41,7 @@
                inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
                inner join ENVITEMLIST E3 on PRODUCTENVIRONMENT.envitemlistid = E3.envitemlistid
       where PRODUCTENVIRONMENT.productid = #{productId}
-        and E.catid = #{categoryId};
+        and E.catid = #{categoryId} and E.status = true;
   </select>
 
   <select id="getProductEnvValueList" resultType="ProductEnvValue">
@@ -80,4 +80,13 @@
                  inner join ENVITEMLIST E2 on E.envcolumnid = E2.envcolumnid
         where EC.catid = #{categoryId} and E.envcolumnname = #{envColumnName}
     </select>
+
+  <update id="deleteEnvColumnByAdmin">
+      update
+          ENVIRONMENTCOLUMN
+              inner join ENVCOLUMN E on ENVIRONMENTCOLUMN.envcolumnid = E.envcolumnid
+      set ENVIRONMENTCOLUMN.status = false
+      where catid = #{categoryId}
+        and E.envcolumnname = #{envColumnName};
+  </update>
 </mapper>

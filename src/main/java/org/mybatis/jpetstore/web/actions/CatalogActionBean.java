@@ -48,6 +48,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String VIEW_PRODUCT_LIST_ADMIN = "/WEB-INF/jsp/catalog/ProductListByAdmin.jsp";
   private static final String VIEW_ITEM_LIST_ADMIN = "/WEB-INF/jsp/catalog/ItemListByAdmin.jsp";
   private static final String NEW_ITEM_ADMIN = "/WEB-INF/jsp/catalog/InsertItemFormByAdmin.jsp";
+  private static final String VIEW_USER_TABLE="/WEB-INF/jsp/catalog/UserTable.jsp";
   public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
   private static final String UPDATE_ITEM_ADMIN = "/WEB-INF/jsp/catalog/UpdateItemFormByAdmin.jsp";
   private static final String SETTING_ITEM_BY_ADMIN = "/WEB-INF/jsp/catalog/SettingItemByAdmin.jsp";
@@ -369,6 +370,10 @@ public class CatalogActionBean extends AbstractActionBean {
       return new ForwardResolution(ACCESS_RESTRICTION);
     }
   }
+  public ForwardResolution viewUserTable()
+  {
+    return new ForwardResolution(VIEW_USER_TABLE);
+  }
   /**
    * View item.
    *
@@ -543,6 +548,18 @@ public class CatalogActionBean extends AbstractActionBean {
     }
   }
 
+  public Resolution deleteEnvColumnByAdmin() {
+    if (accountService.isAdmin(username)) {
+      catalogService.deleteEnvColumnByAdmin(categoryId, envColumnName);
+      product = catalogService.getProduct(productId);
+      animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      productEnvList = catalogService.getProductEnvList(categoryId, productId);
+      return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
+  }
+
   public Resolution updateUserEnvValueForm() {
     productEnvValueList = catalogService.getProductEnvValueList(categoryId, envColumnName);
     return new ForwardResolution(USER_ENV_INFO);
@@ -562,7 +579,6 @@ public class CatalogActionBean extends AbstractActionBean {
     }
     return new ForwardResolution(USER_ENV_INFO);
   }
-
   /**
    * Clear.
    */
