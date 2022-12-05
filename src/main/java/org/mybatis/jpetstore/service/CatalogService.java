@@ -202,4 +202,8 @@ public class CatalogService {
   public void settingUserEnv(String categoryId, String envColumnName, String username, String envValue) {
     environmentMapper.settingUserEnv(categoryId, envColumnName, username, envValue);
   }
+
+  public void insertProductByAdmin(Product product) {
+    productMapper.insertProductByAdmin(product);
+  }
 }

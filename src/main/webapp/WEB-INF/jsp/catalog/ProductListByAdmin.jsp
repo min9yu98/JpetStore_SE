@@ -59,6 +59,12 @@
                     </tr>
                 </c:forEach>
             </table>
+            <stripes:link class="Button"
+                          beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+                          event="insertProductFormByAdmin">
+                <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+                ADD PRODUCT
+            </stripes:link>
         </div>
     </c:when>
     <c:otherwise>

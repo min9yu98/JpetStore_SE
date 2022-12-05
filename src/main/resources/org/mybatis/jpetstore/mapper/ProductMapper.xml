@@ -70,4 +70,8 @@
       CATEGORY as categoryId
     FROM PRODUCT where category = #{categoryId};
   </select>
+
+  <insert id="insertProductByAdmin" parameterType="Product">
+    insert into PRODUCT(productid, category, name, descn) values (#{productId}, #{categoryId}, #{name}, #{description});
+  </insert>
 </mapper>
