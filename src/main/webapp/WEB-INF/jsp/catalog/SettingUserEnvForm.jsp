@@ -133,10 +133,10 @@
                 </c:forEach>
               </tr>
             </table>
-            <stripes:param name="categoryId" value="actionBean.categoryId" />
-            <stripes:param name="envColumnName" value="actionBean.productEnvValueLists.get(0).envColumnName"/>
+            <stripes:param name="categoryId" value="${actionBean.categoryId}" />
+            <stripes:param name="envColumnName" value="${p1.get(0).envColumnName}"/>
             <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
-            <stripes:param name="envValue" value="envValue" />
+            <stripes:param name="envValue" value="${envValue}" />
             <stripes:submit name="settingUserEnv" value="Submit" />
           </stripes:form>
         </c:forEach>
