@@ -141,4 +141,14 @@
     insert REQUEST(parentCategory, subCategory, userid, title, content) values (#{parentCategory}, #{subCategory}, #{username}, #{title}, #{content});
   </insert>
 
+  <select id="viewUserRequestListByAdmin" resultType="Account">
+    select userid as username, title, content, createAt as writingDate, parentCategory, subCategory
+    from REQUEST
+  </select>
+
+  <select id="viewUserRequestContentByAdmin" resultType="Account">
+    select userid as username, title, content, createAt as writingDate, parentCategory, subCategory
+    from REQUEST where userid = #{username} and title = #{title} and createAt = #{writingDate};
+  </select>
+
 </mapper>

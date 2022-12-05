@@ -15,6 +15,7 @@
  */
 package org.mybatis.jpetstore.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.mybatis.jpetstore.domain.Account;
@@ -79,4 +80,11 @@ public class AccountService {
     accountMapper.insertRequestByUser(account);
   }
 
+  public List<Account> viewUserRequestListByAdmin() {
+    return accountMapper.viewUserRequestListByAdmin();
+  }
+
+  public Account viewUserRequestContentByAdmin(String username, String title, String writingDate) {
+    return accountMapper.viewUserRequestContentByAdmin(username, title, writingDate);
+  }
 }
