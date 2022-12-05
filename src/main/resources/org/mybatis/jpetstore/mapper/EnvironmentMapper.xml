@@ -45,11 +45,12 @@
   </select>
 
   <select id="getProductEnvValueList" resultType="ProductEnvValue">
-      select ENVITEMLIST.envitem as envValue
+      select envcolumnname as envColumnName, ENVITEMLIST.envitem as envValue
       from ENVITEMLIST
                inner join ENVIRONMENTCOLUMN E on ENVITEMLIST.envcolumnid = E.envcolumnid
+               inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
       where E.catid = #{categoryId}
-        and E.envcolumnid = (select envcolumnid from ENVCOLUMN where ENVCOLUMN.envcolumnname = #{envColumnName})
+        and E.envcolumnid = (select envcolumnid from ENVCOLUMN where ENVCOLUMN.envcolumnname = #{envColumnName});
   </select>
     
   <update id="updateEnvValueByAdmin">
@@ -89,4 +90,17 @@
       where catid = #{categoryId}
         and E.envcolumnname = #{envColumnName};
   </update>
+
+  <insert id="settingUserEnv">
+      insert into USERENVIRONMENT (environmentcolumnId, userid, envitemlistid)
+      values ((select environmentcolumnId
+               from ENVIRONMENTCOLUMN
+                        inner join ENVCOLUMN E on ENVIRONMENTCOLUMN.envcolumnid = E.envcolumnid
+               where ENVIRONMENTCOLUMN.catid = #{categoryId}
+                 and E.envcolumnname = #{envColumnName}), #{username},
+              (select ENVITEMLIST.envitemlistid from ENVITEMLIST where envitem = #{envValue}))
+      on duplicate key update envitemlistid = (select ENVITEMLIST.envitemlistid
+                                               from ENVITEMLIST
+                                               where envitem = #{envValue});
+  </insert>
 </mapper>

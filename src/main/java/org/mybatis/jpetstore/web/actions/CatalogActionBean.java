@@ -56,7 +56,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private static final String INSERT_ANIMAL_INFO_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertAnimalInfoByAdmin.jsp";
   public static final String UPDATE_ANIMAL_ENV_VALUE_ADMIN = "/WEB-INF/jsp/catalog/UpdateEnvValueByAdmin.jsp";
   private static final String UPDATE_USER_ENV_VALUE_FORM = "/WEB-INF/jsp/catalog/UpdateUserEnvValueForm.jsp";
-  private static final String USER_ENV_INFO = "/WEB-INF/jsp/catalog/UserEnvInfo.jsp";
+  private static final String SETTING_USER_ENV_FORM = "/WEB-INF/jsp/catalog/SettingUserEnvForm.jsp";
   @SpringBean
   private transient CatalogService catalogService;
   @SpringBean
@@ -89,8 +89,16 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
   private List<ProductEnvValue> productEnvValueList;
-  private List<List<EnvironmentByProduct>> productEnvValueLists = new ArrayList<>();
+  private List<List<ProductEnvValue>> productEnvValueLists;
+  private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
+
+  public List<List<EnvironmentByUser>> getUserEnvLists() {
+    return userEnvLists;
+  }
+  public void setUserEnvLists(List<List<EnvironmentByUser>> userEnvLists) {
+    this.userEnvLists = userEnvLists;
+  }
   private int cnt;
   private int cnt2;
 
@@ -110,11 +118,11 @@ public class CatalogActionBean extends AbstractActionBean {
     this.cnt = cnt;
   }
 
-  public List<List<EnvironmentByProduct>> getProductEnvValueLists() {
+  public List<List<ProductEnvValue>> getProductEnvValueLists() {
     return productEnvValueLists;
   }
 
-  public void setProductEnvValueLists(List<List<EnvironmentByProduct>> productEnvValueLists) {
+  public void setProductEnvValueLists(List<List<ProductEnvValue>> productEnvValueLists) {
     this.productEnvValueLists = productEnvValueLists;
   }
 
@@ -562,22 +570,34 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution updateUserEnvValueForm() {
     productEnvValueList = catalogService.getProductEnvValueList(categoryId, envColumnName);
-    return new ForwardResolution(USER_ENV_INFO);
+    return new ForwardResolution(VIEW_CATEGORY);
   }
 
   public Resolution updateUserEnvValue() {
     return new ForwardResolution(UPDATE_USER_ENV_VALUE_FORM);
   }
 
-  public Resolution viewUserEnvInfo() {
+  public Resolution settingUserEnvForm() {
     productEnvList = catalogService.getProductEnvColumnByCategoryId(categoryId);
     cnt = productEnvList.size();
-    userEnvList = catalogService.getUserEnvList(categoryId, username);
-    for (EnvironmentByProduct p : productEnvList) {
-      cnt2 = catalogService.getEnvItem(categoryId, envColumnName).size();
-      productEnvValueLists.add(catalogService.getEnvItem(categoryId, envColumnName));
+    productEnvValueLists = new ArrayList<>();
+    for (EnvironmentByProduct environmentByProduct : productEnvList) {
+      productEnvValueLists.add(catalogService.getProductEnvValueList(categoryId, environmentByProduct.getEnvColumnName()));
     }
-    return new ForwardResolution(USER_ENV_INFO);
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
+    return new ForwardResolution(SETTING_USER_ENV_FORM);
+  }
+
+  public Resolution settingUserEnv() {
+    catalogService.settingUserEnv(categoryId, envColumnName, username, envValue);
+    productEnvList = catalogService.getProductEnvColumnByCategoryId(categoryId);
+    cnt = productEnvList.size();
+    productEnvValueLists = new ArrayList<>();
+    for (EnvironmentByProduct environmentByProduct : productEnvList) {
+      productEnvValueLists.add(catalogService.getProductEnvValueList(categoryId, environmentByProduct.getEnvColumnName()));
+    }
+    userEnvList = catalogService.getUserEnvList(categoryId, username);
+    return new ForwardResolution(SETTING_USER_ENV_FORM);
   }
   /**
    * Clear.

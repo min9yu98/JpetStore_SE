@@ -95,22 +95,54 @@
 
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
-
 <div id="Catalog">
   <c:if test="${sessionScope.accountBean != null}">
     <c:if test="${sessionScope.accountBean.authenticated}">
-      <c:forEach var="productEnvList" items="${actionBean.productEnvList}">
-        <h1>${productEnvList.envColumnName}</h1>
-        <c:forEach var="list1" items="${actionBean.productEnvValueLists}" begin="0" end="${actionBean.cnt}">
-          <c:forEach var="list2" items="${list1}" begin="0" end="${actionBean.cnt2}">
-            ${list2.envItem}
-          </c:forEach>
+<%--      <c:forEach var="productEnvList" items="${actionBean.productEnvList}">--%>
+<%--        <h3>${productEnvList.envColumnName}</h3>--%>
+<%--        <table>--%>
+<%--          <tr style="text-align: center">--%>
+<%--            <c:forEach var="p1" items="${actionBean.productEnvValueLists}" begin="0" end="actionBean.cnt">--%>
+<%--              <c:forEach var="p2" items="${p1}" begin="0" end="5">--%>
+<%--                ${p2}--%>
+<%--              </c:forEach>--%>
+<%--            </c:forEach>--%>
+<%--          </tr>--%>
+<%--        </table>--%>
+<%--      </c:forEach>--%>
+        <c:forEach var="p1" items="${actionBean.productEnvValueLists}">
+          <stripes:form name="test" beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
+            <table>
+              <tr>
+                <th style="text-align: center" colspan="${p1.size()}">
+                    ${p1.get(0).envColumnName}
+                </th>
+              </tr>
+              <tr>
+                <c:forEach var="p2" items="${p1}">
+                  <th style="text-align: center">
+                      ${p2.envValue}
+                  </th>
+                </c:forEach>
+              </tr>
+              <tr>
+                <c:forEach var="p2" items="${p1}">
+                  <td style="text-align: center">
+                    <stripes:radio name="envValue" value="${p2.envValue}" />
+                  </td>
+                </c:forEach>
+              </tr>
+            </table>
+            <stripes:param name="categoryId" value="actionBean.categoryId" />
+            <stripes:param name="envColumnName" value="actionBean.productEnvValueLists.get(0).envColumnName"/>
+            <stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+            <stripes:param name="envValue" value="envValue" />
+            <stripes:submit name="settingUserEnv" value="Submit" />
+          </stripes:form>
         </c:forEach>
-      </c:forEach>
     </c:if>
   </c:if>
 </div>
-
 <%@ include file="../common/IncludeBottom.jsp"%>
 
 
