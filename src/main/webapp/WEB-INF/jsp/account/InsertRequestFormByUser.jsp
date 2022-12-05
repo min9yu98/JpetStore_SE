@@ -24,7 +24,7 @@
     <h3>User Request</h3>
     <table>
         <tr>
-            <td>User ID:</td>
+            <td>User ID</td>
             <td>${actionBean.username}</td>
         </tr>
         <tr>
