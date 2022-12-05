@@ -78,6 +78,8 @@ public class CatalogActionBean extends AbstractActionBean {
   private String value;
   private AnimalInfo animalInfo;
   private List<AnimalInfo> animalInfoList;
+  private AnimalInfoColumn animalInfoColumn;
+  private List<AnimalInfoColumn> animalInfoColumnList;
   private String itemId;
   private Item item;
   private List<Item> itemList;
@@ -94,6 +96,24 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<List<ProductEnvValue>> productEnvValueLists;
   private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
+  private int cnt;
+  private int cnt2;
+
+  public AnimalInfoColumn getAnimalInfoColumn() {
+    return animalInfoColumn;
+  }
+
+  public void setAnimalInfoColumn(AnimalInfoColumn animalInfoColumn) {
+    this.animalInfoColumn = animalInfoColumn;
+  }
+
+  public List<AnimalInfoColumn> getAnimalInfoColumnList() {
+    return animalInfoColumnList;
+  }
+
+  public void setAnimalInfoColumnList(List<AnimalInfoColumn> animalInfoColumnList) {
+    this.animalInfoColumnList = animalInfoColumnList;
+  }
 
   public List<List<EnvironmentByUser>> getUserEnvLists() {
     return userEnvLists;
@@ -101,8 +121,6 @@ public class CatalogActionBean extends AbstractActionBean {
   public void setUserEnvLists(List<List<EnvironmentByUser>> userEnvLists) {
     this.userEnvLists = userEnvLists;
   }
-  private int cnt;
-  private int cnt2;
 
   public int getCnt2() {
     return cnt2;
@@ -403,6 +421,7 @@ public class CatalogActionBean extends AbstractActionBean {
     if (accountService.isAdmin(username)) {
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      animalInfoColumnList = catalogService.getAnimalInfoColumnList(categoryId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
@@ -420,7 +439,6 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution updateAnimalInfoValueFormByAdmin() {
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
-
     HttpSession session = context.getRequest().getSession();
     session.setAttribute("catalogBean", this);
     CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");

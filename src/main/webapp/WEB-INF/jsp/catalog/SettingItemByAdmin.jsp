@@ -35,8 +35,63 @@
 			<br/>
 			<h3>INFORMATION</h3>
 			<c:choose>
+<%--				아직 동물에 대한 정보가 입력되지 않은 경우--%>
 				<c:when test="${actionBean.animalInfoList.isEmpty()}">
-					<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
+					<table>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoColumnList}">
+								<th style="text-align: center">
+										${list.columname}
+								</th>
+							</c:forEach>
+							<td rowspan="2" style="text-align: center">
+								<stripes:link class="Button"
+											  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+											  event="insertAnimalInfoFormByAdmin" style="background-color: rgba(0,0,0,0)">
+									<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+									<stripes:param name="productId" value="${products.productId}" />
+									<br>
+									ADD STANDARD
+									<br>
+								</stripes:link>
+							</td>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoColumnList}">
+								<td> </td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoColumnList}">
+								<td style="text-align: center">
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="updateAnimalInfoValueFormByAdmin">
+										<stripes:param name="productId" value="${actionBean.product.productId}" />
+										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
+										<stripes:param name="columname" value="${list.columname}" />
+										EDIT INFO
+									</stripes:link>
+								</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<c:forEach var="list" items="${actionBean.animalInfoColumnList}">
+								<td style="text-align: center">
+									<stripes:link class="Button"
+												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+												  event="deleteAnimalInfoByAdmin" style="background-color: rgba(0,0,0,0)">
+										<stripes:param name="productId" value="${actionBean.product.productId}" />
+										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
+										<stripes:param name="animalInfo" value="${actionBean.animalInfo}" />
+										<stripes:param name="columname" value="${list.columname}" />
+										<stripes:param name="username" value="${sessionScope.accountBean.account.username}" />
+										DELETE
+									</stripes:link>
+								</td>
+							</c:forEach>
+						</tr>
+					</table>
 				</c:when>
 				<c:otherwise>
 					<table>

@@ -206,4 +206,8 @@ public class CatalogService {
   public void insertProductByAdmin(Product product) {
     productMapper.insertProductByAdmin(product);
   }
+
+  public List<AnimalInfoColumn> getAnimalInfoColumnList(String categoryId) {
+    return itemMapper.getAnimalInfoColumnList(categoryId);
+  }
 }

@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.jpetstore.domain.AnimalInfo;
+import org.mybatis.jpetstore.domain.AnimalInfoColumn;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
 
@@ -79,4 +80,6 @@ public interface ItemMapper {
   boolean isExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
 
   void returnToTrueExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
+
+  List<AnimalInfoColumn> getAnimalInfoColumnList(@Param("categoryId") String categoryId);
 }
