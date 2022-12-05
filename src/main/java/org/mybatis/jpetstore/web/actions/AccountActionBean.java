@@ -48,6 +48,8 @@ public class AccountActionBean extends AbstractActionBean {
   private static final String EDIT_ACCOUNT = "/WEB-INF/jsp/account/EditAccountForm.jsp";
   private static final String SIGNON = "/WEB-INF/jsp/account/SignonForm.jsp";
   private static final String INSERT_REQUEST_BY_USER = "/WEB-INF/jsp/account/InsertRequestFormByUser.jsp";
+  private static final String VIEW_USER_REQUEST_LIST_BY_ADMIN = "/WEB-INF/jsp/account/ViewUserRequestListByAdmin.jsp";
+  private static final String VIEW_USER_REQUEST_CONTENT_BY_ADMIN = "/WEB-INF/jsp/account/ViewUserRequestContentByAdmin.jsp";
 
   private static final List<String> LANGUAGE_LIST;
   private static final List<String> CATEGORY_LIST;
@@ -61,9 +63,47 @@ public class AccountActionBean extends AbstractActionBean {
 
   private List<Account> userRequests;
   private Account account = new Account();
+  private Account request = new Account();
   private List<Product> myList;
   private boolean authenticated;
   private boolean admin;
+  private String username;
+  private String title;
+  private String content;
+  private String writingDate;
+
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public Account getRequest() {
+    return request;
+  }
+
+  public void setRequest(Account request) {
+    this.request = request;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getWritingDate() {
+    return writingDate;
+  }
+
+  public void setWritingDate(String writingDate) {
+    this.writingDate = writingDate;
+  }
 
   static {
     LANGUAGE_LIST = Collections.unmodifiableList(Arrays.asList("english", "japanese"));
@@ -230,6 +270,20 @@ public class AccountActionBean extends AbstractActionBean {
 
   public Resolution insertRequestFormByUser() {
     return new ForwardResolution(INSERT_REQUEST_BY_USER);
+  }
+
+  public ForwardResolution viewUserRequestListByAdmin() {
+    userRequests = accountService.viewUserRequestListByAdmin();
+    return new ForwardResolution(VIEW_USER_REQUEST_LIST_BY_ADMIN);
+  }
+
+  public ForwardResolution viewUserRequestContentByAdmin() {
+    username = account.getUsername();
+    title = account.getTitle();
+    writingDate = account.getWritingDate();
+    request = accountService.viewUserRequestContentByAdmin(username, title, writingDate);
+    content = request.getContent();
+    return new ForwardResolution(VIEW_USER_REQUEST_CONTENT_BY_ADMIN);
   }
   /**
    * Clear.

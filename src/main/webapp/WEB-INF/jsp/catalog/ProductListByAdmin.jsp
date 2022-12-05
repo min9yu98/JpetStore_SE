@@ -14,6 +14,14 @@
 
 <jsp:useBean id="catalog"
              class="org.mybatis.jpetstore.web.actions.CatalogActionBean"/>
+<div id="BackLink"><stripes:link
+        beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+        event="viewUserRequestListByAdmin">
+    <stripes:param name="username" value="${sessionScope.accountBean.username}" />
+    USER REQUESTS
+</stripes:link></div>
+<br>
+<br>
 <c:choose>
     <c:when test="${sessionScope.accountBean.account.admin}">
         <div id="Catalog">

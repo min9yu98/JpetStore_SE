@@ -15,7 +15,10 @@
  */
 package org.mybatis.jpetstore.mapper;
 
+import org.apache.ibatis.annotations.Param;
 import org.mybatis.jpetstore.domain.Account;
+
+import java.util.List;
 
 /**
  * The Interface AccountMapper.
@@ -42,4 +45,8 @@ public interface AccountMapper {
 
   boolean isAdmin(String username);
   void insertRequestByUser(Account account);
+
+  List<Account> viewUserRequestListByAdmin();
+
+  Account viewUserRequestContentByAdmin(@Param("username") String username, @Param("title") String title, @Param("writingDate") String writingDate);
 }
