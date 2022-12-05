@@ -75,4 +75,8 @@ public class AccountService {
   public boolean isAdmin(String username) {
     return accountMapper.isAdmin(username);
   }
+  public void insertRequestByUser(Account account) {
+    accountMapper.insertRequestByUser(account);
+  }
+
 }

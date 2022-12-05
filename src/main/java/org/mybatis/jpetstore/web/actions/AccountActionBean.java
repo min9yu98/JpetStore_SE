@@ -47,15 +47,19 @@ public class AccountActionBean extends AbstractActionBean {
   private static final String NEW_ACCOUNT = "/WEB-INF/jsp/account/NewAccountForm.jsp";
   private static final String EDIT_ACCOUNT = "/WEB-INF/jsp/account/EditAccountForm.jsp";
   private static final String SIGNON = "/WEB-INF/jsp/account/SignonForm.jsp";
+  private static final String INSERT_REQUEST_BY_USER = "/WEB-INF/jsp/account/InsertRequestFormByUser.jsp";
 
   private static final List<String> LANGUAGE_LIST;
   private static final List<String> CATEGORY_LIST;
+  private static final List<String> REQUEST_PARENT_CATEGORY;
+  private static final List<String> REQUEST_SUB_CATEGORY;
 
   @SpringBean
   private transient AccountService accountService;
   @SpringBean
   private transient CatalogService catalogService;
 
+  private List<Account> userRequests;
   private Account account = new Account();
   private List<Product> myList;
   private boolean authenticated;
@@ -64,6 +68,17 @@ public class AccountActionBean extends AbstractActionBean {
   static {
     LANGUAGE_LIST = Collections.unmodifiableList(Arrays.asList("english", "japanese"));
     CATEGORY_LIST = Collections.unmodifiableList(Arrays.asList("FISH", "DOGS", "REPTILES", "CATS", "BIRDS"));
+    REQUEST_PARENT_CATEGORY = Collections.unmodifiableList(Arrays.asList("동물 정보", "동물 환경", "기타"));
+    REQUEST_SUB_CATEGORY = Collections.unmodifiableList(Arrays.asList("기준 수정 요청", "정보 수정 요청", "기타"));
+  }
+  public List<String> getRequestParentCategory() {return REQUEST_PARENT_CATEGORY;}
+  public List<String> getRequestSubCategory() {return REQUEST_SUB_CATEGORY;}
+  public List<Account> getUserRequests() {
+    return userRequests;
+  }
+
+  public void setUserRequests(List<Account> userRequests) {
+    this.userRequests = userRequests;
   }
 
   public Account getAccount() {
@@ -208,6 +223,14 @@ public class AccountActionBean extends AbstractActionBean {
     return admin && account != null && account.getUsername() != null;
   }
 
+  public Resolution insertRequestByUser() {
+    accountService.insertRequestByUser(account);
+    return new RedirectResolution(CatalogActionBean.class, "viewItem");
+  }
+
+  public Resolution insertRequestFormByUser() {
+    return new ForwardResolution(INSERT_REQUEST_BY_USER);
+  }
   /**
    * Clear.
    */

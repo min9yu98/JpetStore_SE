@@ -146,6 +146,13 @@
 						</table>
 					</c:otherwise>
 				</c:choose>
+			<br>
+			<stripes:link class="Button"
+						  beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+						  event="insertRequestFormByUser">
+				<stripes:param name="username" value="${sessionScope.accountBean.username}" />
+				SUGGESTIONS
+			</stripes:link>
 		</c:if>
 	</c:if>
 </div>
