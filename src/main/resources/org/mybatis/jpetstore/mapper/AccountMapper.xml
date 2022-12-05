@@ -137,4 +137,8 @@
     WHERE userid = #{username}
   </select>
 
+  <insert id="insertRequestByUser" parameterType="Account">
+    insert REQUEST(parentCategory, subCategory, userid, title, content) values (#{parentCategory}, #{subCategory}, #{username}, #{title}, #{content});
+  </insert>
+
 </mapper>

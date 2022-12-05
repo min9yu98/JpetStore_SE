@@ -52,7 +52,50 @@ public class Account implements Serializable {
   private boolean listOption;
   private boolean bannerOption;
   private String bannerName;
+  private String title;
+  private String content;
+  private String parentCategory;
+  private String subCategory;
 
+  public String getParentCategory() {
+    return parentCategory;
+  }
+
+  public void setParentCategory(String parentCategory) {
+    this.parentCategory = parentCategory;
+  }
+
+  public String getSubCategory() {
+    return subCategory;
+  }
+
+  public void setSubCategory(String subCategory) {
+    this.subCategory = subCategory;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
+
+  public String getContent() {
+    return content;
+  }
+
+  public void setContent(String content) {
+    this.content = content;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
+  }
   @Validate(required = true, on = { "newAccount", "editAccount" })
   public void setFirstName(String firstName) {
     this.firstName = firstName;
