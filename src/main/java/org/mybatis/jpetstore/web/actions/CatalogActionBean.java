@@ -57,6 +57,8 @@ public class CatalogActionBean extends AbstractActionBean {
   public static final String UPDATE_ANIMAL_ENV_VALUE_ADMIN = "/WEB-INF/jsp/catalog/UpdateEnvValueByAdmin.jsp";
   private static final String UPDATE_USER_ENV_VALUE_FORM = "/WEB-INF/jsp/catalog/UpdateUserEnvValueForm.jsp";
   private static final String SETTING_USER_ENV_FORM = "/WEB-INF/jsp/catalog/SettingUserEnvForm.jsp";
+  private static final String INSERT_PRODUCT_BY_ADMIN = "/WEB-INF/jsp/catalog/InsertProductByAdmin.jsp";
+
   @SpringBean
   private transient CatalogService catalogService;
   @SpringBean
@@ -599,6 +601,16 @@ public class CatalogActionBean extends AbstractActionBean {
     userEnvList = catalogService.getUserEnvList(categoryId, username);
     return new ForwardResolution(SETTING_USER_ENV_FORM);
   }
+
+  public Resolution insertProductByAdmin() {
+    catalogService.insertProductByAdmin(product);
+    return new RedirectResolution(CatalogActionBean.class, "viewProductListByAdmin");
+  }
+
+  public Resolution insertProductFormByAdmin() {
+    return new ForwardResolution(INSERT_PRODUCT_BY_ADMIN);
+  }
+
   /**
    * Clear.
    */
