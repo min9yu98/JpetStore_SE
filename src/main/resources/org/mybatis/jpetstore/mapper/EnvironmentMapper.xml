@@ -30,7 +30,7 @@
            inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
            inner join ENVITEMLIST E3 on USERENVIRONMENT.envitemlistid = E3.envitemlistid
     where USERENVIRONMENT.userid = #{username}
-      and E.catid = #{categoryId};
+      and E.catid = #{categoryId} order by envcolumnname;
   </select>
 
   <select id="getProductEnvList" resultType="EnvironmentByProduct">
@@ -41,7 +41,7 @@
                inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
                inner join ENVITEMLIST E3 on PRODUCTENVIRONMENT.envitemlistid = E3.envitemlistid
       where PRODUCTENVIRONMENT.productid = #{productId}
-        and E.catid = #{categoryId} and E.status = true;
+        and E.catid = #{categoryId} and E.status = true order by envcolumnname;
   </select>
 
   <select id="getProductEnvValueList" resultType="ProductEnvValue">
