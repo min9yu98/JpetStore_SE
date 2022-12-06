@@ -34,6 +34,15 @@ public class AnimalInfo implements Serializable {
     private String categoryId;
     private String productId;
     private int animalinfovalueId;
+    private boolean status;
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
 
     public int getColumnId() {
         return columnId;

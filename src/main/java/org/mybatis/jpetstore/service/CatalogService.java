@@ -167,10 +167,6 @@ public class CatalogService {
     return productMapper.getProductListAboutCategoryByAdmin(categoryId);
   }
 
-  public boolean isColumnIdExist(String columname) {
-    return itemMapper.isColumnIdExist(columname);
-  }
-
   public void insertNullIntoValue() {
     itemMapper.insertNullIntoValue();
   }
@@ -213,5 +209,9 @@ public class CatalogService {
 
   public void insertProductValueByAdmin(int columnId, int animalinfovalueId, String categoryId, String productId) {
     itemMapper.insertProductValueByAdmin(columnId, animalinfovalueId, categoryId, productId);
+  }
+
+  public void updateAnimalInfoByAdmin(int columnId, int animalinfovalueId, String categoryId, String productId) {
+    itemMapper.updateAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, productId);
   }
 }

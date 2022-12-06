@@ -70,8 +70,6 @@ public interface ItemMapper {
 
   int getColumnIdByAdmin(String columname);
 
-  boolean isColumnIdExist(String columname);
-
   void insertNullIntoValue();
 
   void deleteAnimalInfoValueByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId, @Param("productId") String productId);
@@ -83,4 +81,6 @@ public interface ItemMapper {
     List<AnimalInfo> getAnimalInfoColumnName(String categoryId);
 
   void insertProductValueByAdmin(@Param("columnId") int columnId, @Param("animalinfovalueId") int animalinfovalueId, @Param("categoryId") String categoryId, @Param("productId") String productId);
+
+  void updateAnimalInfoByAdmin(@Param("columnId") int columnId, @Param("animalinfovalueId") int animalinfovalueId, @Param("categoryId") String categoryId, @Param("productId") String productId);
 }
