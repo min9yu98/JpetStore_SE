@@ -160,19 +160,21 @@
 					<table>
 						<tr>
 							<th rowspan="4">${actionBean.productId}</th>
-							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+							<c:forEach var="productEnvColumnList" items="${actionBean.environmentColumnByProductList}">
 								<th style="text-align: center">
-										${productEnvList.envColumnName}
+										${productEnvColumnList.envColumnName}
 								</th>
 							</c:forEach>
 						</tr>
-						<tr>
-							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
-								<td style="text-align: center">
-										${productEnvList.envItem}
-								</td>
-							</c:forEach>
-						</tr>
+						<c:if test="${!actionBean.environmentByProductValueisNull}">
+							<tr>
+								<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+									<td style="text-align: center">
+											${productEnvList.envItem}
+									</td>
+								</c:forEach>
+							</tr>
+						</c:if>
 						<tr>
 							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
 								<td style="text-align: center">

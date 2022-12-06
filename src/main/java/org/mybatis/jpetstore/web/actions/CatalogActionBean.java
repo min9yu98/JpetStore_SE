@@ -91,6 +91,9 @@ public class CatalogActionBean extends AbstractActionBean {
   private int columnId;
   private EnvironmentByUser environmentByUser;
   private EnvironmentByProduct environmentByProduct;
+  private EnvironmentByProduct environmentColumnByProduct;
+  private boolean environmentByProductValueisNull;
+  private List<EnvironmentByProduct> environmentColumnByProductList;
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
   private List<ProductEnvValue> productEnvValueList;
@@ -99,6 +102,22 @@ public class CatalogActionBean extends AbstractActionBean {
   private ProductEnvValue productEnvValue;
   private int cnt;
   private int cnt2;
+
+  public List<EnvironmentByProduct> getEnvironmentColumnByProductList() {
+    return environmentColumnByProductList;
+  }
+
+  public void setEnvironmentColumnByProductList(List<EnvironmentByProduct> environmentColumnByProductList) {
+    this.environmentColumnByProductList = environmentColumnByProductList;
+  }
+
+  public boolean isEnvironmentByProductValueisNull() {
+    return environmentByProductValueisNull;
+  }
+
+  public void setEnvironmentByProductValueisNull(boolean environmentByProductValueisNull) {
+    this.environmentByProductValueisNull = environmentByProductValueisNull;
+  }
 
   public boolean isAnimalInfoColumnisNull() {
     return animalInfoColumnisNull;
@@ -440,7 +459,16 @@ public class CatalogActionBean extends AbstractActionBean {
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       animalInfoColumnList = catalogService.getAnimalInfoColumnList(categoryId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
+      environmentColumnByProductList = catalogService.getProductEnvColumnByCategoryId(categoryId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
+      for (EnvironmentByProduct e : productEnvList) {
+        if (e.getEnvItem() == null) {
+          setEnvironmentByProductValueisNull(true);
+          break;
+        } else {
+          setEnvironmentByProductValueisNull(false);
+        }
+      }
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);

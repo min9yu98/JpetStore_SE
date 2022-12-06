@@ -73,7 +73,8 @@
         select EC.envcolumnname as envColumnName
         from ENVCOLUMN EC
                  inner join ENVIRONMENTCOLUMN E on EC.envcolumnid = E.envcolumnid
-        where E.catid = #{categoryId}
+        where E.catid = 'CATS'
+          and E.status = true;
     </select>
 
     <select id="getEnvItem" resultType="EnvironmentByProduct">
