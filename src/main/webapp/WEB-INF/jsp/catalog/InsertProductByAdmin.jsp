@@ -23,7 +23,6 @@
     <c:when test="${sessionScope.accountBean.account.admin}">
         <div id="Catalog"><stripes:form
                 beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
-            <h2 style="text-align: center">${actionBean.product.name}</h2>
             <table>
                 <tr>
                     <th>Product ID</th>
