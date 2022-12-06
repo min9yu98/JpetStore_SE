@@ -67,7 +67,7 @@
 	<br/>
 	<h3>INFORMATION</h3>
 	<c:choose>
-		<c:when test="${actionBean.animalInfoList.isEmpty()}">
+		<c:when test="${actionBean.animalInfoList.isEmpty() || actionBean.animalInfoColumnisNull}">
 			<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
 		</c:when>
 		<c:otherwise>

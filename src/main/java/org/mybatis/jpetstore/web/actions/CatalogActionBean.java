@@ -79,6 +79,7 @@ public class CatalogActionBean extends AbstractActionBean {
   private AnimalInfo animalInfo;
   private List<AnimalInfo> animalInfoList;
   private AnimalInfoColumn animalInfoColumn;
+  private boolean animalInfoColumnisNull;
   private List<AnimalInfoColumn> animalInfoColumnList;
   private String itemId;
   private Item item;
@@ -98,6 +99,14 @@ public class CatalogActionBean extends AbstractActionBean {
   private ProductEnvValue productEnvValue;
   private int cnt;
   private int cnt2;
+
+  public boolean isAnimalInfoColumnisNull() {
+    return animalInfoColumnisNull;
+  }
+
+  public void setAnimalInfoColumnisNull(boolean animalInfoColumnisNull) {
+    this.animalInfoColumnisNull = animalInfoColumnisNull;
+  }
 
   public AnimalInfoColumn getAnimalInfoColumn() {
     return animalInfoColumn;
@@ -414,6 +423,14 @@ public class CatalogActionBean extends AbstractActionBean {
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     productEnvList = catalogService.getProductEnvList(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
+    for (AnimalInfo a : animalInfoList) {
+      if (a.getValue() == null) {
+        setAnimalInfoColumnisNull(true);
+        break;
+      } else {
+        setAnimalInfoColumnisNull(false);
+      }
+    }
     return new ForwardResolution(VIEW_ITEM);
   }
 
