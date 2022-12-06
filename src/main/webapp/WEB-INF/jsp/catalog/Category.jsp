@@ -19,38 +19,41 @@
 
 <div id="BackLink"><stripes:link
 	beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean">
-	Return to Main Menu</stripes:link></div>
+	Return to Main Menu</stripes:link>
+</div>
 <br>
 <div id="Catalog">
+	<h2>${actionBean.category.name}</h2>
 
-<h2>${actionBean.category.name}</h2>
-
-<table>
-	<tr>
-		<th>Product ID</th>
-		<th>Name</th>
-	</tr>
-	<c:forEach var="product" items="${actionBean.productList}">
+	<table>
 		<tr>
-			<td><stripes:link
-				beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				event="viewProduct">
-				<stripes:param name="productId" value="${product.productId}" />
-				${product.productId}
-			</stripes:link></td>
-			<td>${product.name}</td>
+			<th>Product ID</th>
+			<th>Name</th>
 		</tr>
-	</c:forEach>
-</table>
-	<stripes:link class="Button"
-				  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
-				  event="settingUserEnvForm">
-		<stripes:param name="categoryId" value="${actionBean.categoryId}" />
-		<stripes:param name="username" value="${sessionScope.accountBean.username}" />
-		My ENVIRONMENT SETTING
-	</stripes:link>
+		<c:forEach var="product" items="${actionBean.productList}">
+			<tr>
+				<td><stripes:link
+						beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+						event="viewProduct">
+					<stripes:param name="productId" value="${product.productId}" />
+					${product.productId}
+				</stripes:link></td>
+				<td>${product.name}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<c:if test="${sessionScope.accountBean.authenticated}">
+		<c:if test="${!sessionScope.accountBean.account.admin}">
+			<stripes:link class="Button"
+						  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
+						  event="settingUserEnvForm">
+				<stripes:param name="categoryId" value="${actionBean.categoryId}" />
+				<stripes:param name="username" value="${sessionScope.accountBean.username}" />
+				My ENVIRONMENT SETTING
+			</stripes:link>
+		</c:if>
+	</c:if>
 </div>
-
 <%@ include file="../common/IncludeBottom.jsp"%>
 
 
