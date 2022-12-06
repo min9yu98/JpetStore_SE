@@ -88,7 +88,9 @@ public class CatalogActionBean extends AbstractActionBean {
   private String envColumnName;
   private String envValue;
   private int animalinfovalueId;
+  private List<Integer> animalinfovalueIdList;
   private int columnId;
+  private boolean status;
   private EnvironmentByUser environmentByUser;
   private EnvironmentByProduct environmentByProduct;
   private EnvironmentByProduct environmentColumnByProduct;
@@ -141,6 +143,30 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public void setAnimalInfoColumnList(List<AnimalInfoColumn> animalInfoColumnList) {
     this.animalInfoColumnList = animalInfoColumnList;
+  }
+
+  public List<Integer> getAnimalinfovalueIdList() {
+    return animalinfovalueIdList;
+  }
+
+  public void setAnimalinfovalueIdList(List<Integer> animalinfovalueIdList) {
+    this.animalinfovalueIdList = animalinfovalueIdList;
+  }
+
+  public boolean isStatus() {
+    return status;
+  }
+
+  public void setStatus(boolean status) {
+    this.status = status;
+  }
+
+  public int getColumnId() {
+    return columnId;
+  }
+
+  public void setColumnId(int columnId) {
+    this.columnId = columnId;
   }
 
   public List<List<EnvironmentByUser>> getUserEnvLists() {
@@ -456,6 +482,7 @@ public class CatalogActionBean extends AbstractActionBean {
   public ForwardResolution viewItemByAdmin() {
     if (accountService.isAdmin(username)) {
       product = catalogService.getProduct(productId);
+      categoryId = product.getCategoryId();
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       animalInfoColumnList = catalogService.getAnimalInfoColumnList(categoryId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
@@ -500,18 +527,23 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution insertAnimalInfoColumnByAdmin() {
     if (accountService.isAdmin(username)) {
-      boolean checkingColumnId = catalogService.isColumnIdExist(animalInfo.getColumname());
-      catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
-      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
+      catalogService.insertAnimalInfoColumnByAdmin(animalInfo); // column 이름 없으면 삽입, 있으면 update 즉 그대로
+      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname()); // 위 컬럼이름에 대한 id값 불러오기
+      status = catalogService.isExistAnimalInfo(columnId, categoryId);
       productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
-      if (!checkingColumnId) {
+      if (status) {
+        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
+        for (Product p : productList) {
+          catalogService.insertNullIntoValue();
+          animalinfovalueId = catalogService.getLastAccessColumnId();
+          catalogService.updateAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
+        }
+      } else {
         for (Product p : productList) {
           catalogService.insertNullIntoValue();
           animalinfovalueId = catalogService.getLastAccessColumnId();
           catalogService.insertAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
         }
-      } else {
-        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
       }
       return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
     } else {
@@ -672,6 +704,14 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution insertProductByAdmin() {
     catalogService.insertProductByAdmin(product);
+    categoryId = product.getCategoryId();
+    animalInfoList = catalogService.getAnimalInfoColumnName(categoryId);
+    for (AnimalInfo info : animalInfoList) {
+      catalogService.insertNullIntoValue();
+      animalinfovalueId = catalogService.getLastAccessColumnId();
+      columnId = info.getColumnId();
+      catalogService.insertProductValueByAdmin(info.getColumnId(), animalinfovalueId, categoryId, product.getProductId());
+    }
     return new RedirectResolution(CatalogActionBean.class, "viewProductListByAdmin");
   }
 

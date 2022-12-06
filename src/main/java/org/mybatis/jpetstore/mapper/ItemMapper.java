@@ -82,4 +82,10 @@ public interface ItemMapper {
   void returnToTrueExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
 
   List<AnimalInfoColumn> getAnimalInfoColumnList(@Param("categoryId") String categoryId);
+
+    List<AnimalInfo> getAnimalInfoColumnName(String categoryId);
+
+  void insertProductValueByAdmin(@Param("columnId") int columnId, @Param("animalinfovalueId") int animalinfovalueId, @Param("categoryId") String categoryId, @Param("productId") String productId);
+
+  void updateAnimalInfoByAdmin(@Param("columnId") int columnId, @Param("animalinfovalueId") int animalinfovalueId, @Param("categoryId") String categoryId, @Param("productId") String productId);
 }

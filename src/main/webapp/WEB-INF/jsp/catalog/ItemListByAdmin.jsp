@@ -83,6 +83,7 @@
                   beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
                   event="newItemFormByAdmin">
         <stripes:param name="productId" value="${actionBean.product.productId}" />
+        <stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
         ADD
     </stripes:link>
         </div>

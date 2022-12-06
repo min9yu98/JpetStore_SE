@@ -112,8 +112,8 @@
   <select id="getAnimalInfo" resultType="AnimalInfo">
     select AIL.columname, AIV.value
     from ANIMALINFOCOLUMN AIC
-           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
            INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfovalueId = AIV.animalinfovalueId
+           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
     where AIC.catid = #{categoryId} and AIC.productid = #{productId} and AIC.status=true;
   </select>
 
@@ -161,16 +161,37 @@
     update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and columnid = #{columnId};
   </update>
 
-  <update id="deleteAnimalInfoValueByAdmin">
-    update ANIMALINFOVALUE SET value = null where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
-  </update>
+  <delete id="deleteAnimalInfoValueByAdmin">
+    delete from ANIMALINFOVALUE where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
+  </delete>
 
   <update id="returnToTrueExistAnimalInfo">
-    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId};
+    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId}
   </update>
 
   <select id="isExistAnimalInfo" resultType="boolean">
     select exists(select status from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} limit 1);
+  </select>
+
+  <select id="getAnimalInfoColumnName" resultType="AnimalInfo">
+    select DISTINCT A.columname, AIC.columnid
+    from ANIMALINFOCOLUMN AIC
+           inner join ANIMALINFOCOLUMNLIST A on AIC.columnid = A.columnid
+    where AIC.catid = #{categoryId}
+  </select>
+
+  <insert id="insertProductValueByAdmin" parameterType="AnimalInfo">
+    insert into ANIMALINFOCOLUMN(columnid, animalinfovalueId, catid, productid)
+    VALUES (#{columnId}, #{animalinfovalueId}, #{categoryId}, #{productId})
+  </insert>
+
+  <update id="updateAnimalInfoByAdmin">
+    update ANIMALINFOCOLUMN set animalinfovalueId = #{animalinfovalueId}
+                            where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId}
+  </update>
+
+  <select id="" resultType="int">
+    select animalinfovalueId from ANIMALINFOCOLUMN where catid = #{categoryId} and columnid = #{columnId}
   </select>
 
   <select id="getAnimalInfoColumnList" resultType="AnimalInfoColumn">

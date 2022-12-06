@@ -19,18 +19,21 @@
         event="viewUserRequestListByAdmin">
     <stripes:param name="username" value="${sessionScope.accountBean.username}" />
     Return Back
+
+    <link rel="StyleSheet" href="../css/bootstrap.css">
 </stripes:link></div>
 <br>
 <br>
 <c:choose>
     <c:when test="${sessionScope.accountBean.account.admin}">
-        <div id="Catalog">
-            <table>
-                <tr>
+        <div id="Catalog" class="container">
+
+            <table class="tableboot table-striped" style="text-align: left;">
+                <tr style="background-color: #aaaaaa">
                     <th>Writer</th>
                     <th>Parent Category</th>
                     <th>SubCategory</th>
-                    <th>Writing Date</th>
+                    <th style ="width:15%; ">Writing Date</th>
                 </tr>
                 <tr>
                     <td>
@@ -47,10 +50,11 @@
                     </td>
                 </tr>
             </table>
-            <table>
+            <table class="tableboot table-striped" style="text-align: left;">
                 <tr>
-                    <th style="text-align: center;">
-                        Title
+                    <th style="background-color: #aaaaaa">
+
+                       Title
                     </th>
                 </tr>
                 <tr>
@@ -59,16 +63,12 @@
                     </td>
                 </tr>
             </table>
-            <table>
-                <tr>
-                    <th style="text-align: center">
-                        Content
-                    </th>
+            <table class="table table-striped" style="text-align: left;">
+                <tr style="background-color: #aaaaaa">
+                    <th>content</th>
                 </tr>
                 <tr>
-                    <td>
-                            ${actionBean.content}
-                    </td>
+                    <td>${actionBean.content}</td>
                 </tr>
             </table>
         </div>
