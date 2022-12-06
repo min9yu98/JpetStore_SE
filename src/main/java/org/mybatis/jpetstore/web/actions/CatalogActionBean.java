@@ -95,6 +95,14 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
 
+  public int getColumnId() {
+    return columnId;
+  }
+
+  public void setColumnId(int columnId) {
+    this.columnId = columnId;
+  }
+
   public List<List<EnvironmentByUser>> getUserEnvLists() {
     return userEnvLists;
   }
@@ -604,6 +612,14 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution insertProductByAdmin() {
     catalogService.insertProductByAdmin(product);
+    categoryId = product.getCategoryId();
+    animalInfoList = catalogService.getAnimalInfoColumnName(categoryId);
+    for (AnimalInfo info : animalInfoList) {
+      catalogService.insertNullIntoValue();
+      animalinfovalueId = catalogService.getLastAccessColumnId();
+      columnId = info.getColumnId();
+      catalogService.insertProductValueByAdmin(info.getColumnId(), animalinfovalueId, categoryId, product.getProductId());
+    }
     return new RedirectResolution(CatalogActionBean.class, "viewProductListByAdmin");
   }
 
