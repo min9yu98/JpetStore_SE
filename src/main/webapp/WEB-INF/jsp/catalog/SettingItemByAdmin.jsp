@@ -159,7 +159,6 @@
 					<h3>ENVIRONMENT</h3>
 					<table>
 						<tr>
-							<th rowspan="4">${actionBean.productId}</th>
 							<c:forEach var="productEnvColumnList" items="${actionBean.environmentColumnByProductList}">
 								<th style="text-align: center">
 										${productEnvColumnList.envColumnName}
