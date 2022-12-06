@@ -74,6 +74,7 @@
         from ENVCOLUMN EC
                  inner join ENVIRONMENTCOLUMN E on EC.envcolumnid = E.envcolumnid
         where E.catid = #{categoryId}
+          and E.status = true;
     </select>
 
     <select id="getEnvItem" resultType="EnvironmentByProduct">
@@ -91,6 +92,14 @@
       set ENVIRONMENTCOLUMN.status = false
       where catid = #{categoryId}
         and E.envcolumnname = #{envColumnName};
+      update PRODUCTENVIRONMENT
+      set PRODUCTENVIRONMENT.status = false
+      where PRODUCTENVIRONMENT.environmentcolumnId = (select EC.environmentcolumnId
+                                                      from ENVIRONMENTCOLUMN EC
+                                                      where EC.catid = #{categoryId}
+                                                        and EC.envcolumnid = (select ENVCOLUMN.envcolumnid
+                                                                              from ENVCOLUMN
+                                                                              where ENVCOLUMN.envcolumnname = #{envColumnName}));
   </update>
 
   <insert id="settingUserEnv">
@@ -104,5 +113,20 @@
       on duplicate key update envitemlistid = (select ENVITEMLIST.envitemlistid
                                                from ENVITEMLIST
                                                where envitem = #{envValue});
+  </insert>
+
+  <select id="isExistProductenvrionmentId" resultType="boolean">
+      select exists(select productenvironmentId from PRODUCTENVIRONMENT where productid = #{productId}) as 'isExist';
+  </select>
+
+  <insert id="insertEnvValueByAdmin">
+      insert into PRODUCTENVIRONMENT (PRODUCTENVIRONMENT.environmentcolumnId, PRODUCTENVIRONMENT.productid,
+                                      PRODUCTENVIRONMENT.envitemlistid)
+      values ((select ENVIRONMENTCOLUMN.environmentcolumnId
+               from ENVIRONMENTCOLUMN
+               where catid = #{categoryId}
+                 and ENVIRONMENTCOLUMN.envcolumnid = (select envcolumnid from ENVCOLUMN where ENVCOLUMN.envcolumnname = #{envColumnName})),
+              #{productId},
+              (select ENVITEMLIST.envitemlistid from ENVITEMLIST where envitem = #{envValue}));
   </insert>
 </mapper>

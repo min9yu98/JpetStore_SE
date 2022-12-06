@@ -67,7 +67,7 @@
 	<br/>
 	<h3>INFORMATION</h3>
 	<c:choose>
-		<c:when test="${actionBean.animalInfoList.isEmpty()}">
+		<c:when test="${actionBean.animalInfoList.isEmpty() || actionBean.animalInfoColumnisNull}">
 			<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
 		</c:when>
 		<c:otherwise>
@@ -94,6 +94,9 @@
 		<c:if test="${sessionScope.accountBean.authenticated}">
 				<h3>ENVIRONMENT</h3>
 				<c:choose>
+					<c:when test="${actionBean.productEnvList.isEmpty()}">
+						<p style="color: deeppink">We're getting ready. We're sorry for the inconvenience..</p>
+					</c:when>
 					<c:when test="${actionBean.userEnvList.isEmpty()}">
 						<table>
 							<tr>
@@ -156,12 +159,16 @@
 					</c:otherwise>
 				</c:choose>
 			<br>
-			<stripes:link class="Button"
-						  beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
-						  event="insertRequestFormByUser">
-				<stripes:param name="username" value="${sessionScope.accountBean.username}" />
-				SUGGESTIONS
-			</stripes:link>
+			<c:if test="${sessionScope.accountBean.authenticated}">
+				<c:if test="${!sessionScope.accountBean.account.admin}">
+					<stripes:link class="Button"
+								  beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
+								  event="insertRequestFormByUser">
+						<stripes:param name="username" value="${sessionScope.accountBean.username}" />
+						SUGGESTIONS
+					</stripes:link>
+				</c:if>
+			</c:if>
 		</c:if>
 	</c:if>
 </div>

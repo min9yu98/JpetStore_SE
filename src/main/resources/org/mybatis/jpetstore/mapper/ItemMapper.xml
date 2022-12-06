@@ -145,6 +145,10 @@
     insert into ANIMALINFOVALUE(value) value (null);
   </insert>
 
+  <select id="isColumnIdExist" resultType="boolean">
+    select exists(select columname from ANIMALINFOCOLUMNLIST where columname = #{columname});
+  </select>
+
   <select id="getLastAccessColumnId" resultType="int">
     SELECT last_insert_id();
   </select>
@@ -188,5 +192,12 @@
 
   <select id="" resultType="int">
     select animalinfovalueId from ANIMALINFOCOLUMN where catid = #{categoryId} and columnid = #{columnId}
+  </select>
+
+  <select id="getAnimalInfoColumnList" resultType="AnimalInfoColumn">
+    select distinct A.columname
+    from ANIMALINFOCOLUMN AIC
+           inner join ANIMALINFOCOLUMNLIST A on AIC.columnid = A.columnid
+    where AIC.catid = #{categoryId};
   </select>
 </mapper>

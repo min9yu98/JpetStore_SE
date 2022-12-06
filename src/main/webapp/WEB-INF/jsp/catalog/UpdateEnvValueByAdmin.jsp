@@ -33,8 +33,7 @@
                         </c:forEach>
                     </tr>
                 </table>
-<%--                <stripes:param name="productId" value= "${actionBean.product.productId}" />--%>
-<%--                <stripes:param name="categoryId" value="${actionBean.product.categoryId}" />--%>
+                <stripes:param name="productId" value="${actionBean.product.productId}" />
                 <stripes:submit name="updateEnvValueByAdmin" value="Submit" />
             </stripes:form>
         </div>

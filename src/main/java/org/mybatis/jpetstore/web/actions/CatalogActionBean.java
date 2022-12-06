@@ -78,6 +78,9 @@ public class CatalogActionBean extends AbstractActionBean {
   private String value;
   private AnimalInfo animalInfo;
   private List<AnimalInfo> animalInfoList;
+  private AnimalInfoColumn animalInfoColumn;
+  private boolean animalInfoColumnisNull;
+  private List<AnimalInfoColumn> animalInfoColumnList;
   private String itemId;
   private Item item;
   private List<Item> itemList;
@@ -90,12 +93,57 @@ public class CatalogActionBean extends AbstractActionBean {
   private boolean status;
   private EnvironmentByUser environmentByUser;
   private EnvironmentByProduct environmentByProduct;
+  private EnvironmentByProduct environmentColumnByProduct;
+  private boolean environmentByProductValueisNull;
+  private List<EnvironmentByProduct> environmentColumnByProductList;
   private List<EnvironmentByUser> userEnvList;
   private List<EnvironmentByProduct> productEnvList;
   private List<ProductEnvValue> productEnvValueList;
   private List<List<ProductEnvValue>> productEnvValueLists;
   private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
+  private int cnt;
+  private int cnt2;
+
+  public List<EnvironmentByProduct> getEnvironmentColumnByProductList() {
+    return environmentColumnByProductList;
+  }
+
+  public void setEnvironmentColumnByProductList(List<EnvironmentByProduct> environmentColumnByProductList) {
+    this.environmentColumnByProductList = environmentColumnByProductList;
+  }
+
+  public boolean isEnvironmentByProductValueisNull() {
+    return environmentByProductValueisNull;
+  }
+
+  public void setEnvironmentByProductValueisNull(boolean environmentByProductValueisNull) {
+    this.environmentByProductValueisNull = environmentByProductValueisNull;
+  }
+
+  public boolean isAnimalInfoColumnisNull() {
+    return animalInfoColumnisNull;
+  }
+
+  public void setAnimalInfoColumnisNull(boolean animalInfoColumnisNull) {
+    this.animalInfoColumnisNull = animalInfoColumnisNull;
+  }
+
+  public AnimalInfoColumn getAnimalInfoColumn() {
+    return animalInfoColumn;
+  }
+
+  public void setAnimalInfoColumn(AnimalInfoColumn animalInfoColumn) {
+    this.animalInfoColumn = animalInfoColumn;
+  }
+
+  public List<AnimalInfoColumn> getAnimalInfoColumnList() {
+    return animalInfoColumnList;
+  }
+
+  public void setAnimalInfoColumnList(List<AnimalInfoColumn> animalInfoColumnList) {
+    this.animalInfoColumnList = animalInfoColumnList;
+  }
 
   public List<Integer> getAnimalinfovalueIdList() {
     return animalinfovalueIdList;
@@ -127,8 +175,6 @@ public class CatalogActionBean extends AbstractActionBean {
   public void setUserEnvLists(List<List<EnvironmentByUser>> userEnvLists) {
     this.userEnvLists = userEnvLists;
   }
-  private int cnt;
-  private int cnt2;
 
   public int getCnt2() {
     return cnt2;
@@ -422,6 +468,14 @@ public class CatalogActionBean extends AbstractActionBean {
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
     productEnvList = catalogService.getProductEnvList(categoryId, productId);
     userEnvList = catalogService.getUserEnvList(categoryId, username);
+    for (AnimalInfo a : animalInfoList) {
+      if (a.getValue() == null) {
+        setAnimalInfoColumnisNull(true);
+        break;
+      } else {
+        setAnimalInfoColumnisNull(false);
+      }
+    }
     return new ForwardResolution(VIEW_ITEM);
   }
 
@@ -430,8 +484,18 @@ public class CatalogActionBean extends AbstractActionBean {
       product = catalogService.getProduct(productId);
       categoryId = product.getCategoryId();
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
+      animalInfoColumnList = catalogService.getAnimalInfoColumnList(categoryId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
+      environmentColumnByProductList = catalogService.getProductEnvColumnByCategoryId(categoryId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
+      for (EnvironmentByProduct e : productEnvList) {
+        if (e.getEnvItem() == null) {
+          setEnvironmentByProductValueisNull(true);
+          break;
+        } else {
+          setEnvironmentByProductValueisNull(false);
+        }
+      }
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);
@@ -447,7 +511,6 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution updateAnimalInfoValueFormByAdmin() {
     animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
-
     HttpSession session = context.getRequest().getSession();
     session.setAttribute("catalogBean", this);
     CatalogActionBean catalogActionBean = (CatalogActionBean) session.getAttribute("/actions/Catalog.action");
@@ -580,7 +643,11 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution updateEnvValueByAdmin() {
     if (accountService.isAdmin(username)) {
-      catalogService.updateEnvValueByAdmin(envColumnName, envValue, productId);
+      if (catalogService.isExistProductenvrionmentId(productId)) {
+        catalogService.updateEnvValueByAdmin(envColumnName, envValue, productId);
+      } else {
+        catalogService.insertEnvValueByAdmin(categoryId, productId, envColumnName, envValue);
+      }
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
@@ -596,6 +663,7 @@ public class CatalogActionBean extends AbstractActionBean {
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
+      environmentColumnByProductList = catalogService.getProductEnvColumnByCategoryId(categoryId);
       return new ForwardResolution(SETTING_ITEM_BY_ADMIN);
     } else {
       return new ForwardResolution(ACCESS_RESTRICTION);

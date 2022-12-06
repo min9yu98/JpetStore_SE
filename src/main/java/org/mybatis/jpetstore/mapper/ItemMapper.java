@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.mybatis.jpetstore.domain.AnimalInfo;
+import org.mybatis.jpetstore.domain.AnimalInfoColumn;
 import org.mybatis.jpetstore.domain.Item;
 import org.mybatis.jpetstore.domain.Product;
 
@@ -70,6 +71,8 @@ public interface ItemMapper {
 
   int getColumnIdByAdmin(String columname);
 
+  boolean isColumnIdExist(String columname);
+
   void insertNullIntoValue();
 
   void deleteAnimalInfoValueByAdmin(@Param("categoryId") String categoryId, @Param("columnId") int columnId, @Param("productId") String productId);
@@ -77,6 +80,8 @@ public interface ItemMapper {
   boolean isExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
 
   void returnToTrueExistAnimalInfo(@Param("columnId") int columnId, @Param("categoryId") String categoryId);
+
+  List<AnimalInfoColumn> getAnimalInfoColumnList(@Param("categoryId") String categoryId);
 
     List<AnimalInfo> getAnimalInfoColumnName(String categoryId);
 

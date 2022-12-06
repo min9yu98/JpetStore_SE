@@ -167,6 +167,10 @@ public class CatalogService {
     return productMapper.getProductListAboutCategoryByAdmin(categoryId);
   }
 
+  public boolean isColumnIdExist(String columname) {
+    return itemMapper.isColumnIdExist(columname);
+  }
+
   public void insertNullIntoValue() {
     itemMapper.insertNullIntoValue();
   }
@@ -201,6 +205,18 @@ public class CatalogService {
 
   public void insertProductByAdmin(Product product) {
     productMapper.insertProductByAdmin(product);
+  }
+
+  public List<AnimalInfoColumn> getAnimalInfoColumnList(String categoryId) {
+    return itemMapper.getAnimalInfoColumnList(categoryId);
+  }
+
+  public boolean isExistProductenvrionmentId(String productId) {
+    return environmentMapper.isExistProductenvrionmentId(productId);
+  }
+
+  public void insertEnvValueByAdmin(String categoryId, String productId, String envColumnName, String envValue) {
+    environmentMapper.insertEnvValueByAdmin(categoryId, productId, envColumnName, envValue);
   }
 
   public List<AnimalInfo> getAnimalInfoColumnName(String categoryId) {
