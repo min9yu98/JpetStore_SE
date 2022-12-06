@@ -137,10 +137,19 @@
 							</tr>
 							<tr>
 								<th style="text-align:center">MY</th>
-								<c:forEach var="userEnvList" items="${actionBean.userEnvList}">
-									<td style="text-align: center">
+								<c:forEach var="userEnvList" items="${actionBean.userEnvList}" varStatus="status">
+									<c:choose>
+										<c:when test="${actionBean.productEnvList[status.index].envItem eq userEnvList.envItem}">
+											<td style="text-align: center; background-color: rgba(29,132,241,0.38)">
 											${userEnvList.envItem}
-									</td>
+											</td>
+										</c:when>
+										<c:otherwise>
+											<td style="text-align: center; background-color: lightcoral">
+											${userEnvList.envItem}
+											</td>
+										</c:otherwise>
+									</c:choose>
 								</c:forEach>
 							</tr>
 						</table>
@@ -158,6 +167,3 @@
 </div>
 
 <%@ include file="../common/IncludeBottom.jsp"%>
-
-
-
