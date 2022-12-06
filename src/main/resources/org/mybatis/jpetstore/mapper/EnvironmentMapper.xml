@@ -73,7 +73,7 @@
         select EC.envcolumnname as envColumnName
         from ENVCOLUMN EC
                  inner join ENVIRONMENTCOLUMN E on EC.envcolumnid = E.envcolumnid
-        where E.catid = 'CATS'
+        where E.catid = #{categoryId}
           and E.status = true;
     </select>
 
@@ -92,6 +92,14 @@
       set ENVIRONMENTCOLUMN.status = false
       where catid = #{categoryId}
         and E.envcolumnname = #{envColumnName};
+      update PRODUCTENVIRONMENT
+      set PRODUCTENVIRONMENT.status = false
+      where PRODUCTENVIRONMENT.environmentcolumnId = (select EC.environmentcolumnId
+                                                      from ENVIRONMENTCOLUMN EC
+                                                      where EC.catid = #{categoryId}
+                                                        and EC.envcolumnid = (select ENVCOLUMN.envcolumnid
+                                                                              from ENVCOLUMN
+                                                                              where ENVCOLUMN.envcolumnname = #{envColumnName}));
   </update>
 
   <insert id="settingUserEnv">
