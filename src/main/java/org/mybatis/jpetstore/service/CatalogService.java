@@ -210,4 +210,12 @@ public class CatalogService {
   public List<AnimalInfoColumn> getAnimalInfoColumnList(String categoryId) {
     return itemMapper.getAnimalInfoColumnList(categoryId);
   }
+
+  public boolean isExistProductenvrionmentId(String productId) {
+    return environmentMapper.isExistProductenvrionmentId(productId);
+  }
+
+  public void insertEnvValueByAdmin(String categoryId, String productId, String envColumnName, String envValue) {
+    environmentMapper.insertEnvValueByAdmin(categoryId, productId, envColumnName, envValue);
+  }
 }

@@ -176,14 +176,13 @@
 							</tr>
 						</c:if>
 						<tr>
-							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+							<c:forEach var="productEnvColumnList" items="${actionBean.environmentColumnByProductList}">
 								<td style="text-align: center">
 									<stripes:link class="Button"
 												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 												  event="updateEnvValueFormByAdmin">
 										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
-										<stripes:param name="envColumnName" value="${productEnvList.envColumnName}" />
-										<stripes:param name="envValue" value="${productEnvList.envItem}" />
+										<stripes:param name="envColumnName" value="${productEnvColumnList.envColumnName}" />
 										<stripes:param name="productId" value="${actionBean.product.productId}" />
 										EDIT ENV
 									</stripes:link>
@@ -191,13 +190,13 @@
 							</c:forEach>
 						</tr>
 						<tr>
-							<c:forEach var="productEnvList" items="${actionBean.productEnvList}">
+							<c:forEach var="productEnvColumnList" items="${actionBean.environmentColumnByProductList}">
 								<td style="text-align: center">
 									<stripes:link class="Button"
 												  beanclass="org.mybatis.jpetstore.web.actions.CatalogActionBean"
 												  event="deleteEnvColumnByAdmin">
 										<stripes:param name="categoryId" value="${actionBean.product.categoryId}" />
-										<stripes:param name="envColumnName" value="${productEnvList.envColumnName}" />
+										<stripes:param name="envColumnName" value="${productEnvColumnList.envColumnName}" />
 										<stripes:param name="productId" value="${actionBean.product.productId}" />
 										REMOVE
 									</stripes:link>

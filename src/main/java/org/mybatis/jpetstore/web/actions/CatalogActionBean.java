@@ -611,7 +611,11 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution updateEnvValueByAdmin() {
     if (accountService.isAdmin(username)) {
-      catalogService.updateEnvValueByAdmin(envColumnName, envValue, productId);
+      if (catalogService.isExistProductenvrionmentId(productId)) {
+        catalogService.updateEnvValueByAdmin(envColumnName, envValue, productId);
+      } else {
+        catalogService.insertEnvValueByAdmin(categoryId, productId, envColumnName, envValue);
+      }
       product = catalogService.getProduct(productId);
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);

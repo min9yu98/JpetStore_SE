@@ -106,4 +106,19 @@
                                                from ENVITEMLIST
                                                where envitem = #{envValue});
   </insert>
+
+  <select id="isExistProductenvrionmentId" resultType="boolean">
+      select exists(select productenvironmentId from PRODUCTENVIRONMENT where productid = #{productId}) as 'isExist';
+  </select>
+
+  <insert id="insertEnvValueByAdmin">
+      insert into PRODUCTENVIRONMENT (PRODUCTENVIRONMENT.environmentcolumnId, PRODUCTENVIRONMENT.productid,
+                                      PRODUCTENVIRONMENT.envitemlistid)
+      values ((select ENVIRONMENTCOLUMN.environmentcolumnId
+               from ENVIRONMENTCOLUMN
+               where catid = #{categoryId}
+                 and ENVIRONMENTCOLUMN.envcolumnid = (select envcolumnid from ENVCOLUMN where ENVCOLUMN.envcolumnname = #{envColumnName})),
+              #{productId},
+              (select ENVITEMLIST.envitemlistid from ENVITEMLIST where envitem = #{envValue}));
+  </insert>
 </mapper>
