@@ -206,4 +206,12 @@ public class CatalogService {
   public void insertProductByAdmin(Product product) {
     productMapper.insertProductByAdmin(product);
   }
+
+  public List<AnimalInfo> getAnimalInfoColumnName(String categoryId) {
+    return itemMapper.getAnimalInfoColumnName(categoryId);
+  }
+
+  public void insertProductValueByAdmin(int columnId, int animalinfovalueId, String categoryId, String productId) {
+    itemMapper.insertProductValueByAdmin(columnId, animalinfovalueId, categoryId, productId);
+  }
 }

@@ -172,4 +172,16 @@
   <select id="isExistAnimalInfo" resultType="boolean">
     select exists(select status from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} limit 1);
   </select>
+
+  <select id="getAnimalInfoColumnName" resultType="AnimalInfo">
+    select DISTINCT A.columname, AIC.columnid
+    from ANIMALINFOCOLUMN AIC
+           inner join ANIMALINFOCOLUMNLIST A on AIC.columnid = A.columnid
+    where AIC.catid = #{categoryId}
+  </select>
+
+  <insert id="insertProductValueByAdmin" parameterType="AnimalInfo">
+    insert into ANIMALINFOCOLUMN(columnid, animalinfovalueId, catid, productid)
+    VALUES (#{columnId}, #{animalinfovalueId}, #{categoryId}, #{productId})
+  </insert>
 </mapper>
