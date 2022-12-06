@@ -11,7 +11,7 @@
        limitations under the License.
 --%>
 <%@ include file="../common/IncludeTop.jsp"%>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <jsp:useBean id="catalog"
              class="org.mybatis.jpetstore.web.actions.AccountActionBean"/>
 <div id="BackLink"><stripes:link
@@ -19,23 +19,26 @@
         event="viewProductListByAdmin">
     <stripes:param name="username" value="${sessionScope.accountBean.username}" />
     Return Back
+    <link rel="StyleSheet" href="../css/bootstrap.css">
 </stripes:link></div>
 <br>
 <br>
 <h1 style="text-align: center">
     USER REQUEST
 </h1>
+<br><br>
+<%--<link rel="StyleSheet" href="../css/bootstrap.css">--%>
 <c:choose>
     <c:when test="${sessionScope.accountBean.account.admin}">
         <div id="Catalog">
-            <table>
+            <table class="table table-striped">
                 <thead>
-                <tr>
+                <tr style="text-align: left;">
                     <th>Writer</th>
                     <th>Title</th>
                     <th>Parent Category</th>
                     <th>SubCategory</th>
-                    <th>Writing Date</th>
+                    <th style="width:15%">Writing Date</th>
                 </tr>
                 </thead>
                 <tbody>
