@@ -29,8 +29,8 @@
                inner join ENVIRONMENTCOLUMN E on USERENVIRONMENT.environmentcolumnId = E.environmentcolumnId
                inner join ENVCOLUMN E2 on E.envcolumnid = E2.envcolumnid
                inner join ENVITEMLIST E3 on USERENVIRONMENT.envitemlistid = E3.envitemlistid
-      where USERENVIRONMENT.userid = 'j2ee'
-        and E.catid = 'CATS'
+      where USERENVIRONMENT.userid = #{username}
+        and E.catid = #{categoryId}
         and E.status = true
       order by envcolumnname;
   </select>
