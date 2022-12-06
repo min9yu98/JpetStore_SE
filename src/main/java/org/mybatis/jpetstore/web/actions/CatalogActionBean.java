@@ -716,6 +716,7 @@ public class CatalogActionBean extends AbstractActionBean {
   }
 
   public Resolution insertProductFormByAdmin() {
+    clear();
     return new ForwardResolution(INSERT_PRODUCT_BY_ADMIN);
   }
 
