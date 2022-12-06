@@ -112,8 +112,8 @@
   <select id="getAnimalInfo" resultType="AnimalInfo">
     select AIL.columname, AIV.value
     from ANIMALINFOCOLUMN AIC
-           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
            INNER JOIN ANIMALINFOVALUE AIV on AIC.animalinfovalueId = AIV.animalinfovalueId
+           INNER JOIN ANIMALINFOCOLUMNLIST AIL on AIC.columnid = AIL.columnid
     where AIC.catid = #{categoryId} and AIC.productid = #{productId} and AIC.status=true;
   </select>
 
@@ -145,10 +145,6 @@
     insert into ANIMALINFOVALUE(value) value (null);
   </insert>
 
-  <select id="isColumnIdExist" resultType="boolean">
-    select exists(select columname from ANIMALINFOCOLUMNLIST where columname = #{columname});
-  </select>
-
   <select id="getLastAccessColumnId" resultType="int">
     SELECT last_insert_id();
   </select>
@@ -161,12 +157,12 @@
     update ANIMALINFOCOLUMN SET status = false where catid = #{categoryId} and columnid = #{columnId};
   </update>
 
-  <update id="deleteAnimalInfoValueByAdmin">
-    update ANIMALINFOVALUE SET value = null where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
-  </update>
+  <delete id="deleteAnimalInfoValueByAdmin">
+    delete from ANIMALINFOVALUE where animalinfovalueId = (select animalinfovalueId from ANIMALINFOCOLUMN where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId})
+  </delete>
 
   <update id="returnToTrueExistAnimalInfo">
-    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId};
+    update ANIMALINFOCOLUMN SET status = true where columnid = #{columnId} and catid = #{categoryId}
   </update>
 
   <select id="isExistAnimalInfo" resultType="boolean">
@@ -184,4 +180,13 @@
     insert into ANIMALINFOCOLUMN(columnid, animalinfovalueId, catid, productid)
     VALUES (#{columnId}, #{animalinfovalueId}, #{categoryId}, #{productId})
   </insert>
+
+  <update id="updateAnimalInfoByAdmin">
+    update ANIMALINFOCOLUMN set animalinfovalueId = #{animalinfovalueId}
+                            where columnid = #{columnId} and catid = #{categoryId} and productid = #{productId}
+  </update>
+
+  <select id="" resultType="int">
+    select animalinfovalueId from ANIMALINFOCOLUMN where catid = #{categoryId} and columnid = #{columnId}
+  </select>
 </mapper>

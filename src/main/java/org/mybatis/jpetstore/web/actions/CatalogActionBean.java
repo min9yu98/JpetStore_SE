@@ -85,7 +85,9 @@ public class CatalogActionBean extends AbstractActionBean {
   private String envColumnName;
   private String envValue;
   private int animalinfovalueId;
+  private List<Integer> animalinfovalueIdList;
   private int columnId;
+  private boolean status;
   private EnvironmentByUser environmentByUser;
   private EnvironmentByProduct environmentByProduct;
   private List<EnvironmentByUser> userEnvList;
@@ -94,6 +96,22 @@ public class CatalogActionBean extends AbstractActionBean {
   private List<List<ProductEnvValue>> productEnvValueLists;
   private List<List<EnvironmentByUser>> userEnvLists;
   private ProductEnvValue productEnvValue;
+
+  public List<Integer> getAnimalinfovalueIdList() {
+    return animalinfovalueIdList;
+  }
+
+  public void setAnimalinfovalueIdList(List<Integer> animalinfovalueIdList) {
+    this.animalinfovalueIdList = animalinfovalueIdList;
+  }
+
+  public boolean isStatus() {
+    return status;
+  }
+
+  public void setStatus(boolean status) {
+    this.status = status;
+  }
 
   public int getColumnId() {
     return columnId;
@@ -410,6 +428,7 @@ public class CatalogActionBean extends AbstractActionBean {
   public ForwardResolution viewItemByAdmin() {
     if (accountService.isAdmin(username)) {
       product = catalogService.getProduct(productId);
+      categoryId = product.getCategoryId();
       animalInfoList = catalogService.getAnimalInfo(categoryId, productId);
       productEnvList = catalogService.getProductEnvList(categoryId, productId);
       userEnvList = catalogService.getUserEnvList(categoryId, username);
@@ -445,18 +464,23 @@ public class CatalogActionBean extends AbstractActionBean {
 
   public Resolution insertAnimalInfoColumnByAdmin() {
     if (accountService.isAdmin(username)) {
-      boolean checkingColumnId = catalogService.isColumnIdExist(animalInfo.getColumname());
-      catalogService.insertAnimalInfoColumnByAdmin(animalInfo);
-      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname());
+      catalogService.insertAnimalInfoColumnByAdmin(animalInfo); // column 이름 없으면 삽입, 있으면 update 즉 그대로
+      columnId = catalogService.getColumnIdByAdmin(animalInfo.getColumname()); // 위 컬럼이름에 대한 id값 불러오기
+      status = catalogService.isExistAnimalInfo(columnId, categoryId);
       productList = catalogService.getProductListAboutCategoryByAdmin(categoryId);
-      if (!checkingColumnId) {
+      if (status) {
+        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
+        for (Product p : productList) {
+          catalogService.insertNullIntoValue();
+          animalinfovalueId = catalogService.getLastAccessColumnId();
+          catalogService.updateAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
+        }
+      } else {
         for (Product p : productList) {
           catalogService.insertNullIntoValue();
           animalinfovalueId = catalogService.getLastAccessColumnId();
           catalogService.insertAnimalInfoByAdmin(columnId, animalinfovalueId, categoryId, p.getProductId());
         }
-      } else {
-        catalogService.returnToTrueExistAnimalInfo(columnId, categoryId);
       }
       return new RedirectResolution(CatalogActionBean.class, "viewItemByAdmin");
     } else {
