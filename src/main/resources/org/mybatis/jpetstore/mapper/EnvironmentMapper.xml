@@ -74,7 +74,7 @@
         from ENVCOLUMN EC
                  inner join ENVIRONMENTCOLUMN E on EC.envcolumnid = E.envcolumnid
         where E.catid = #{categoryId}
-          and E.status = true;
+          and E.status = true order by EC.envcolumnname;
     </select>
 
     <select id="getEnvItem" resultType="EnvironmentByProduct">
