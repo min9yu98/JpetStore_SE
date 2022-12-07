@@ -50,6 +50,8 @@ public class AccountActionBean extends AbstractActionBean {
   private static final String INSERT_REQUEST_BY_USER = "/WEB-INF/jsp/account/InsertRequestFormByUser.jsp";
   private static final String VIEW_USER_REQUEST_LIST_BY_ADMIN = "/WEB-INF/jsp/account/ViewUserRequestListByAdmin.jsp";
   private static final String VIEW_USER_REQUEST_CONTENT_BY_ADMIN = "/WEB-INF/jsp/account/ViewUserRequestContentByAdmin.jsp";
+  public static final String ACCESS_RESTRICTION = "/WEB-INF/jsp/common/AccessRestriction.jsp";
+
 
   private static final List<String> LANGUAGE_LIST;
   private static final List<String> CATEGORY_LIST;
@@ -68,10 +70,18 @@ public class AccountActionBean extends AbstractActionBean {
   private boolean authenticated;
   private boolean admin;
   private String username;
+  private String writer;
   private String title;
   private String content;
   private String writingDate;
 
+  public String getWriter() {
+    return writer;
+  }
+
+  public void setWriter(String writer) {
+    this.writer = writer;
+  }
 
   public String getContent() {
     return content;
@@ -273,17 +283,25 @@ public class AccountActionBean extends AbstractActionBean {
   }
 
   public ForwardResolution viewUserRequestListByAdmin() {
-    userRequests = accountService.viewUserRequestListByAdmin();
-    return new ForwardResolution(VIEW_USER_REQUEST_LIST_BY_ADMIN);
+    if (accountService.isAdmin(account.getUsername())) {
+      userRequests = accountService.viewUserRequestListByAdmin();
+      return new ForwardResolution(VIEW_USER_REQUEST_LIST_BY_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
   }
 
   public ForwardResolution viewUserRequestContentByAdmin() {
-    username = account.getUsername();
-    title = account.getTitle();
-    writingDate = account.getWritingDate();
-    request = accountService.viewUserRequestContentByAdmin(username, title, writingDate);
-    content = request.getContent();
-    return new ForwardResolution(VIEW_USER_REQUEST_CONTENT_BY_ADMIN);
+    if (accountService.isAdmin(account.getUsername())) {
+      writer = account.getWriter();
+      title = account.getTitle();
+      writingDate = account.getWritingDate();
+      request = accountService.viewUserRequestContentByAdmin(writer, title, writingDate);
+      content = request.getContent();
+      return new ForwardResolution(VIEW_USER_REQUEST_CONTENT_BY_ADMIN);
+    } else {
+      return new ForwardResolution(ACCESS_RESTRICTION);
+    }
   }
   /**
    * Clear.

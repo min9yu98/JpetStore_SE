@@ -45,15 +45,16 @@
                 <c:forEach var="request" items="${actionBean.userRequests}">
                 <tr>
                     <td>
-                            ${request.username}
+                            ${request.writer}
                     </td>
                     <td>
                         <stripes:link
                                 beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
                                 event="viewUserRequestContentByAdmin">
                             <stripes:param name="account.writingDate" value="${request.writingDate}" />
+                            <stripes:param name="account.username" value="${sessionScope.accountBean.username}" />
                             <stripes:param name="account.title" value="${request.title}" />
-                            <stripes:param name="username" value="${request.username}" />
+                            <stripes:param name="account.writer" value="${request.writer}" />
                             <stripes:param name="account.parentCategory" value="${request.parentCategory}" />
                             <stripes:param name="account.content" value="${request.content}" />
                             <stripes:param name="account.subCategory" value="${request.subCategory}" />

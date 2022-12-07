@@ -48,5 +48,5 @@ public interface AccountMapper {
 
   List<Account> viewUserRequestListByAdmin();
 
-  Account viewUserRequestContentByAdmin(@Param("username") String username, @Param("title") String title, @Param("writingDate") String writingDate);
+  Account viewUserRequestContentByAdmin(@Param("writer") String writer, @Param("title") String title, @Param("writingDate") String writingDate);
 }

@@ -76,6 +76,8 @@ public class AccountService {
   public boolean isAdmin(String username) {
     return accountMapper.isAdmin(username);
   }
+
+
   public void insertRequestByUser(Account account) {
     accountMapper.insertRequestByUser(account);
   }
@@ -84,7 +86,7 @@ public class AccountService {
     return accountMapper.viewUserRequestListByAdmin();
   }
 
-  public Account viewUserRequestContentByAdmin(String username, String title, String writingDate) {
-    return accountMapper.viewUserRequestContentByAdmin(username, title, writingDate);
+  public Account viewUserRequestContentByAdmin(String writer, String title, String writingDate) {
+    return accountMapper.viewUserRequestContentByAdmin(writer, title, writingDate);
   }
 }
