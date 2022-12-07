@@ -57,6 +57,15 @@ public class Account implements Serializable {
   private String parentCategory;
   private String subCategory;
   private String writingDate;
+  private String writer;
+
+  public String getWriter() {
+    return writer;
+  }
+
+  public void setWriter(String writer) {
+    this.writer = writer;
+  }
 
   public String getWritingDate() {
     return writingDate;

@@ -164,7 +164,7 @@
 					<stripes:link class="Button"
 								  beanclass="org.mybatis.jpetstore.web.actions.AccountActionBean"
 								  event="insertRequestFormByUser">
-						<stripes:param name="username" value="${sessionScope.accountBean.username}" />
+						<stripes:param name="account.writer" value="${sessionScope.accountBean.username}" />
 						SUGGESTIONS
 					</stripes:link>
 				</c:if>

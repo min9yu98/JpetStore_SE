@@ -25,7 +25,7 @@
     <table>
         <tr>
             <td>User ID</td>
-            <td>${actionBean.username}</td>
+            <td>${actionBean.account.writer}</td>
         </tr>
         <tr>
             <td>PARENT CATEGORY</td>
@@ -50,7 +50,7 @@
         <stripes:textarea cols="30" rows="20" name="account.content"/>
     </div>
     <br>
-    <stripes:param name="username" value="${actionBean.username}" />
+    <stripes:param name="writer" value="${actionBean.account.writer}" />
     <stripes:submit name="insertRequestByUser" value="Submit" />
 </stripes:form>
 </div>

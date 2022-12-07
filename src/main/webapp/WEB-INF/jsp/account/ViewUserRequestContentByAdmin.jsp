@@ -37,7 +37,7 @@
                 </tr>
                 <tr>
                     <td>
-                            ${actionBean.account.username}
+                            ${actionBean.writer}
                     </td>
                     <td>
                             ${actionBean.account.parentCategory}
